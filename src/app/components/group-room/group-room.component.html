@@ -1,0 +1,33 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-12">
+      <app-alert></app-alert>
+      <div class=" card card-chart">
+        <table class="table">
+          <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th class="text-right">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entry of groupRooms">
+            <td class="text-center"></td>
+            <td>{{entry.name}}</td>
+            <td>{{entry.description}}</td>
+            <td class="td-actions text-right">
+              <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm" (click)="removeGroup(entry.id)">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+              <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm">
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

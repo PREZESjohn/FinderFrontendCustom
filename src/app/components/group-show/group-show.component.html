@@ -1,0 +1,71 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-12">
+      <app-alert></app-alert>
+
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <div class=" row">
+            <div class=" col-sm-6 text-left">
+              <h2 class=" card-title">{{currentGroup?.name}}</h2>
+              <h5 class=" card-title">Created by: {{currentGroup?.users[0].username}}</h5>
+            </div>
+            <div class=" card-body w-100">
+              <p class=" card-text"></p>
+              <div class=" author">
+                <div class=" block block-one"></div>
+                <div class=" block block-two"></div>
+              </div>
+              <div>
+                <p class="d-flex justify-content-center title">{{ currentGroup?.description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center row">
+            <div class=" pr-md-1 justify-content-center" style="width: 95%">
+              <label class="d-flex justify-content-center title"> Users in group </label>
+              <div class="row text-center justify-content-center">
+                <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1" *ngFor=" let user of currentGroup.users; let i = index">
+                  <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png">
+                  <p class="justify-content-center">{{user.username}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=" card card-chart">
+          <div class=" card-header">
+            <div class=" row">
+              <div class=" col-sm-12  text-left">
+                <h2 class=" card-title">Add comment</h2>
+                <input (keyup)="onKey($event)" class=" form-control" placeholder="Type ur answer" type="text" name="comment"/>
+                <button
+                  class=" btn btn-fill btn-info"
+                  type="button"
+                  (click)="addComment()"
+                >Send comment</button>
+                <div class="block block-one"></div>
+                <h2 class=" card-title pt-4 pb-1">Comments:</h2>
+                <div *ngFor="let comment of currentGroup?.comments; let i = index" class=" card card-user col-md-12 ">
+                  <div class=" card-body">
+                    <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
+                      <button class=" btn btn-sm  btn-danger" (click)="deleteComment(comment.id)" *ngIf="isAdmin || comment.user?.id == currentUser?.id" >
+                        Delete
+                      </button>
+                    </div>
+                    <div class=" block block-one"></div>
+                    <div class="block block-two"></div>
+                    <div><h4>User: {{comment.user.username}}</h4></div>
+                    <div>Wrote:<p>{{comment.text}}</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" card card-chart">
+      </div>
+    </div>
+  </div>
+</div>
