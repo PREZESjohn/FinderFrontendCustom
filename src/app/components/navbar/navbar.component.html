@@ -49,6 +49,14 @@
               Log out
             </a>
           </li>
+          <div *ngFor="let game of games">
+            <li class=" dropdown-divider"></li>
+            <li class=" nav-link">
+              <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem style="color: #0a0c0d">
+                {{game.name}}
+              </a>
+            </li>
+          </div>
         </ul>
       </li>
       <li class=" separator d-lg-none"></li>

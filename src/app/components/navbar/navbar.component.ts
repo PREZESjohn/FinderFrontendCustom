@@ -6,6 +6,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {User} from "../../domain/User";
+import {CategoryService} from '../../services/categoryService';
+import {GameDTO} from '../../domain/dto/GameDTO';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public currentUser: User;
   public isAdmin = false;
   closeResult: string;
+  public games: GameDTO[];
 
   public user;
 
@@ -34,6 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private authService: AuthService,
     private userService: UserService,
+    private categoryService: CategoryService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -68,6 +72,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
+    this.getGames();
   }
 
   logOut() {
@@ -237,5 +242,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  getGames(){
+    this.categoryService.getGames().subscribe(
+      data=>{
+        this.games = data;
+      }
+    )
   }
 }

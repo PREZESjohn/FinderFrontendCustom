@@ -33,7 +33,7 @@
                   </h5>
                 </button>
                 <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons" >
-                  <button class=" btn btn-sm btn-danger btn-simple" (click)="deleteGroup(groupRoom.id)" *ngIf="isAdmin || groupRoom.users[0]?.id == currentUser?.id">
+                  <button class=" btn btn-sm btn-danger btn-simple" (click)="deleteGroup(groupRoom.id)" *ngIf="isAdmin || groupRoom.groupLeader.id == currentUser?.id">
                     <h5 class=" card-title">
                       <i class=" tim-icons icon-simple-remove"> Delete</i>
                     </h5>

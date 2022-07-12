@@ -5,5 +5,6 @@ export class GroupRoom{
   public name: string;
   public description: string;
   public users: User[];
+  public groupLeader: User;
   public comments: Comment[];
 }
