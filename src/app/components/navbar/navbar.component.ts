@@ -8,6 +8,8 @@ import {UserService} from '../../services/user.service';
 import {User} from "../../domain/User";
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
+import {GroupRoomService} from '../../services/group-room.service';
+import {DashboardComponent} from '../../pages/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-navbar',
@@ -27,6 +29,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public isAdmin = false;
   closeResult: string;
   public games: GameDTO[];
+  public chosenGame = localStorage.getItem("currentGame");
 
   public user;
 
@@ -72,7 +75,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
-    this.getGames();
+      this.getGames()
   }
 
   logOut() {
@@ -245,10 +248,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getGames(){
-    this.categoryService.getGames().subscribe(
-      data=>{
-        this.games = data;
-      }
-    )
+      this.categoryService.getGames().subscribe(
+        data => {
+          this.games = data;
+          // this.chosenGame = data[0].name;
+         // localStorage.setItem("currentGame", data[0].name)
+        }
+      )
+
   }
+  setGame(game:string) {
+  this.categoryService.setGame(game);
+  this.chosenGame = game;
+  localStorage.setItem("currentGame",game);
+    const currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+
+  }
+
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 import {ControlHelperService} from '../../services/control-helper.service';
 import {Router} from '@angular/router';
@@ -9,6 +9,8 @@ import {GroupRoomService} from '../../services/group-room.service';
 import {UserService} from "../../services/user.service";
 import {User} from "../../domain/User";
 import {AuthService} from "../../services/auth.service";
+import {NavbarComponent} from '../../components/navbar/navbar.component';
+import {CategoryService} from '../../services/categoryService';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +21,7 @@ export class DashboardComponent implements OnInit {
   public data: any;
   public isAdmin = false;
   currentUser:User;
-
+  chosenGame:string = "";
   display = 'none';
 
   groupRooms: GroupRoom[] = [];
@@ -30,11 +32,17 @@ export class DashboardComponent implements OnInit {
               private alertService: AlertService,
               private router: Router,
               private userService:UserService,
-              private authService:AuthService) {
+              private authService:AuthService,
+              private categoryService:CategoryService) {
   }
 
   ngOnInit() {
-    this.loadData();
+    this.chosenGame = this.categoryService.getGame();
+    if(this.chosenGame == null || this.chosenGame === ""){
+      this.loadData();
+    }
+    else{
+    this.reloadGame()}
     if(this.checkIfLoggedIn()) {
       this.checkIfAdmin()
     }
@@ -84,5 +92,14 @@ export class DashboardComponent implements OnInit {
   //   this.groupRoomService.showGroupContent(groupId).subscribe();
   //   this.router.navigateByUrl("/group-show")
   // }
+  reloadGame() {
+    this.chosenGame = this.categoryService.getGame();
+
+    console.log(this.chosenGame)
+    this.groupRoomService.getGroupsByGame(this.chosenGame).subscribe(
+      (data:any) => this.groupRooms = data,
+      () => this.alertService.error('Error while getting groups')
+    );
+  }
 
 }

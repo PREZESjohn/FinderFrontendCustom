@@ -44,4 +44,8 @@ export class GroupRoomService {
     return this.httpClient.post<Comment>(this.baseUrl+'/groups/newComment',body,{headers});
   }
 
+  getGroupsByGame(game: string) {
+    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/all/'+game);
+  }
+
 }

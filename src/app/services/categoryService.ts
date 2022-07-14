@@ -8,11 +8,18 @@ import {GroupRoom} from '../domain/GroupRoom';
 export class CategoryService {
 
   url = 'http://localhost:8080/api/v1/category';
-
+  chosenGame:string
   constructor(private http: HttpClient) {
   }
 
   getGames(): Observable<GameDTO[]> {
     return this.http.get<GameDTO[]>(this.url);
+  }
+
+  setGame(game){
+    this.chosenGame = game;
+  }
+  getGame(){
+    return this.chosenGame;
   }
 }
