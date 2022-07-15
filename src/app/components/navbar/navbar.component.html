@@ -8,18 +8,6 @@
           <span class=" navbar-toggler-bar bar3"> </span>
         </button>
       </div>
-      <a class=" navbar-brand" href="javascript:void(0)"> {{ getTitle() }} </a>
-<!--      <div class="dropdown navbar-nav ml-auto justify-content-center" ngbDropdown>-->
-<!--        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false"-->
-<!--                ngbDropdownToggle>-->
-<!--          {{chosenGame}}-->
-<!--        </button>-->
-<!--        <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton"  class="dropdown-menu btn btn-secondary" >-->
-<!--          <li *ngFor="let game of games"><a class="btn btn-secondary dropdown-item" (click)="setGame(game.name)" >-->
-<!--            {{game?.name}}-->
-<!--          </a></li>-->
-<!--        </ul>-->
-<!--      </div>-->
     </div>
     <button
       aria-label="Toggle navigation"
@@ -37,7 +25,7 @@
   </div>
   <div class=" navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation" *ngIf="checkIfLoggedIn()">
 
-    <div class="mr-lg-3 pr-lg-3 pt-lg-2 dropdown navbar-nav" ngbDropdown>
+    <div class="pr-lg-5 dropdown navbar-nav" ngbDropdown>
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false"
               ngbDropdownToggle> <b class=" caret d-none d-lg-block d-xl-block"> </b>
         {{chosenGame}}
@@ -48,35 +36,6 @@
         </a></li>
       </ul>
     </div>
-
-    <p class="pt-2">{{currentUser?.username}}</p>
-    <p class="pt-2 text-warning" [hidden]="!isAdmin"> (Admin)</p>
-    <ul class=" navbar-nav ml-auto">
-
-      <li class=" nav-item" ngbDropdown>
-        <a
-          class=" nav-link"
-          data-toggle="dropdown"
-          href="javascript:void(0)"
-          ngbDropdownToggle
-        >
-          <div class=" photo">
-            <img alt="Profile Photo" src="assets/img/default-avatar.png" />
-          </div>
-          <b class=" caret d-none d-lg-block d-xl-block"> </b>
-          <p class=" d-lg-none">Log out</p>
-        </a>
-        <ul class=" dropdown-navbar btn-secondary" ngbDropdownMenu>
-          <li class=" dropdown-divider"></li>
-          <li class=" nav-link">
-            <a class=" nav-item btn-secondary" href="javascript:void(0)" (click)="logOut()" ngbDropdownItem style="color: #0a0c0d">
-              Log out
-            </a>
-          </li>
-        </ul>
-      </li>
-<!--      <li class=" separator d-lg-none"></li>-->
-    </ul>
   </div>
 </nav>
 
