@@ -28,6 +28,11 @@
                 <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1" *ngFor=" let user of currentGroup?.users; let i = index">
                   <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png">
                   <p class="justify-content-center">{{user.username}}</p>
+                  <div *ngFor="let role of user.inGameRoles">
+                    <p>{{role.name}}</p>
+                    <img src="{{role.name}}.jpg">
+                  </div>
+
                 </div>
               </div>
             </div>

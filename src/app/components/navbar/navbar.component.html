@@ -25,7 +25,7 @@
   </div>
   <div class=" navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation" *ngIf="checkIfLoggedIn()">
 
-    <div class="pr-lg-5 dropdown navbar-nav" ngbDropdown>
+    <div class="dropdown navbar-nav" ngbDropdown>
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false"
               ngbDropdownToggle> <b class=" caret d-none d-lg-block d-xl-block"> </b>
         {{chosenGame}}
@@ -36,7 +36,14 @@
         </a></li>
       </ul>
     </div>
+
+    <ul class=" navbar-nav ml-auto">
+      <li class=" nav-item" routerLinkActive="true" >
+          <div class=" photo">
+            <a [routerLink]="'/user-profile'"><img alt="Profile Photo" src="assets/img/default-avatar.png"/></a>
   </div>
+  </ul>
+    </div>
 </nav>
 
 <ng-template #content let-modal>
