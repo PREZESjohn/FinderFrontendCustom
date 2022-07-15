@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GroupRoom} from '../domain/GroupRoom';
-import {Comment} from '../domain/Comment';
+import {Message} from '../domain/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +29,8 @@ export class GroupRoomService {
     return this.httpClient.post<GroupRoom>(this.baseUrl + '/groups/add',body,{headers});
   }
 
-  deleteComment(commentId: number) {
-    const url = this.baseUrl + '/groups/comment/'+commentId;
+  deleteMessage(messageId: number) {
+    const url = this.baseUrl + '/groups/comment/'+messageId;
     return this.httpClient.delete(url);
   }
 
@@ -38,10 +38,10 @@ export class GroupRoomService {
     return this.httpClient.get<GroupRoom>(this.baseUrl+'/groups/' + groupId)
   }
 
-  addComment(newComment: Comment){
+  addMessage(newMessage: Message){
     const headers = {'content-type': 'application/json'}
-    const body = JSON.stringify(newComment);
-    return this.httpClient.post<Comment>(this.baseUrl+'/groups/newComment',body,{headers});
+    const body = JSON.stringify(newMessage);
+    return this.httpClient.post<Message>(this.baseUrl+'/groups/newComment',body,{headers});
   }
 
   getGroupsByGame(game: string) {

@@ -1,6 +1,6 @@
 import {User} from './User';
 
-export class Comment{
+export class Message {
   public id:number;
   public text:string;
   public user: User;

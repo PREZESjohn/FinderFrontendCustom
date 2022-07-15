@@ -251,8 +251,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.categoryService.getGames().subscribe(
         data => {
           this.games = data;
-          // this.chosenGame = data[0].name;
-         // localStorage.setItem("currentGame", data[0].name)
         }
       )
 

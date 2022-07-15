@@ -5,7 +5,7 @@ import {GroupRoomService} from "../../services/group-room.service";
 import {AlertService} from "../../services/alert.service";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
-import {Comment} from "../../domain/Comment";
+import {Message} from "../../domain/Message";
 
 @Component({
   selector: 'app-group-show',
@@ -15,7 +15,7 @@ import {Comment} from "../../domain/Comment";
 export class GroupShowComponent implements OnInit {
   id:number = history.state.data;
   currentGroup:GroupRoom;
-  inputComment:string;
+  inputMessage:string;
 
   isAdmin = false;
   currentUser:User;
@@ -40,14 +40,14 @@ export class GroupShowComponent implements OnInit {
   }
 
   onKey(event){
-    this.inputComment = event.target.value;
+    this.inputMessage = event.target.value;
   }
 
 
-  public addComment(){
-    if(this.inputComment!=="" && this.inputComment!=null) {
-      const newComment = this.createCommentObject();
-      this.groupRoomService.addComment(newComment)
+  public addMessage(){
+    if(this.inputMessage!=="" && this.inputMessage!=null) {
+      const newMessage = this.createMessageObject();
+      this.groupRoomService.addMessage(newMessage)
         .subscribe(
           () => {
             this.ngOnInit();
@@ -60,16 +60,16 @@ export class GroupShowComponent implements OnInit {
     }
   }
 
-  createCommentObject(){
-    console.log(this.inputComment)
-    const newComment = new Comment();
-    newComment.groupId=this.currentGroup.id;
-    newComment.text=this.inputComment;
-    return newComment;
+  createMessageObject(){
+    console.log(this.inputMessage)
+    const newMessage = new Message();
+    newMessage.groupId=this.currentGroup.id;
+    newMessage.text=this.inputMessage;
+    return newMessage;
   }
 
-  deleteComment(commentId:number){
-    this.groupRoomService.deleteComment(commentId).subscribe(
+  deleteMessage(messageId:number){
+    this.groupRoomService.deleteMessage(messageId).subscribe(
       () => {
         this.alertService.success('You succesfully removed this comment');
         this.showGroupContent(this.id);
