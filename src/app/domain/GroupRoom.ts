@@ -1,5 +1,6 @@
 import {User} from "./User";
 import {Message} from "./Message";
+import {Category} from './Category';
 export class GroupRoom{
   public id: number;
   public name: string;
@@ -7,4 +8,5 @@ export class GroupRoom{
   public users: User[];
   public groupLeader: User;
   public chat: Message[];
+  public category:Category;
 }

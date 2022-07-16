@@ -25,13 +25,17 @@
   </div>
   <div class=" navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation" *ngIf="checkIfLoggedIn()">
 
-    <div class="dropdown navbar-nav" ngbDropdown>
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false"
-              ngbDropdownToggle> <b class=" caret d-none d-lg-block d-xl-block"> </b>
-        {{chosenGame}}
+    <div class="dropdown navbar-nav justify-content-start" ngbDropdown>
+
+      <button class="btn dropdown-toggle ml-0 justify-content-start " type="button" id="dropdownMenuButton" style="height: 50px;width:270px" aria-expanded="false"
+              ngbDropdownToggle>
+        <img class="" src="assets/img/{{chosenGame}}.jpg" alt="" style="width: 30px;height: 30px">
+        <b class="">{{chosenGame}}</b>
+        <b class=" caret d-none d-lg-block d-xl-block"> </b>
       </button>
       <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton"  class="dropdown-menu btn btn-secondary" >
         <li *ngFor="let game of games">  <a class="btn btn-secondary dropdown-item" (click)="setGame(game.name)" >
+          <img src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
           {{game?.name}}
         </a></li>
       </ul>
