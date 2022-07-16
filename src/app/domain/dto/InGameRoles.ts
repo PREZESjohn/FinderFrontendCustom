@@ -1,4 +1,4 @@
-export class InGameRolesDTO{
+export class InGameRoles {
   id:number;
   name:string;
 }

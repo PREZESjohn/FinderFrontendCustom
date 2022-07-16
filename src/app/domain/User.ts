@@ -1,6 +1,6 @@
 import {GroupRoom} from './GroupRoom';
 import {Role} from "./Role";
-import {InGameRolesDTO} from './dto/InGameRolesDTO';
+import {InGameRoles} from './dto/InGameRoles';
 
 export class User {
   public id: number;
@@ -10,5 +10,5 @@ export class User {
   name: string;
   public groupRooms: GroupRoom[];
   public role: Role;
-  public inGameRoles: InGameRolesDTO[];
+  public inGameRoles: InGameRoles[];
 }
