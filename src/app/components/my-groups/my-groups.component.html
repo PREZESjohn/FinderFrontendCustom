@@ -1,41 +1,97 @@
-<div class=" content">
-  <div class=" row">
-    <div class=" col-12">
+<!--<div class=" content">-->
+<!--  <div class=" row">-->
+<!--    <div class=" col-12">-->
+<!--      <app-alert></app-alert>-->
+<!--      <div class=" card card-chart">-->
+<!--        <table class="table">-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th class="text-center">#</th>-->
+<!--            <th>Name</th>-->
+<!--            <th>Description</th>-->
+<!--            <th class="text-center">Actions</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let entry of user?.groupRooms; let i=index">-->
+<!--            <td class="text-center">{{i+1}}</td>-->
+<!--            <td>{{entry.name}}</td>-->
+<!--            <td>{{entry.description}}</td>-->
+<!--            <td class="td-actions text-center">-->
+<!--              <button class=" btn btn-sm btn-info  btn-simple" >-->
+<!--                <h5 class=" card-title">-->
+<!--                  <i routerLink="/group-show" [state]="{data:entry.id}" class=" tim-icons icon-support-17"> Show</i>-->
+<!--                </h5>-->
+<!--              </button>-->
+<!--              <button class=" btn btn-sm btn-danger btn-simple" (click)="leaveGroup(entry.id)">-->
+<!--                <h5 class=" card-title">-->
+<!--                  <i class=" tim-icons icon-simple-remove"> Leave Group</i>-->
+<!--                </h5>-->
+<!--              </button>-->
+<!--                <button class=" btn btn-sm btn-danger btn-simple" (click)="removeGroup(entry.id)" *ngIf="entry.users[0].id == user?.id || user?.role.name=='ROLE_ADMIN'">-->
+<!--                  <h5 class=" card-title">-->
+<!--                    <i class=" tim-icons icon-simple-remove"> Delete</i>-->
+<!--                  </h5>-->
+<!--                </button>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class=" content" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <div class="main-body">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">My Groups</li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
       <app-alert></app-alert>
-      <div class=" card card-chart">
-        <table class="table">
-          <thead>
-          <tr>
-            <th class="text-center">#</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th class="text-center">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let entry of user?.groupRooms; let i=index">
-            <td class="text-center">{{i+1}}</td>
-            <td>{{entry.name}}</td>
-            <td>{{entry.description}}</td>
-            <td class="td-actions text-center">
-              <button class=" btn btn-sm btn-info  btn-simple" >
-                <h5 class=" card-title">
-                  <i routerLink="/group-show" [state]="{data:entry.id}" class=" tim-icons icon-support-17"> Show</i>
-                </h5>
-              </button>
-              <button class=" btn btn-sm btn-danger btn-simple" (click)="leaveGroup(entry.id)">
-                <h5 class=" card-title">
-                  <i class=" tim-icons icon-simple-remove"> Leave Group</i>
-                </h5>
-              </button>
-                <button class=" btn btn-sm btn-danger btn-simple" (click)="removeGroup(entry.id)" *ngIf="entry.users[0].id == user?.id || user?.role.name=='ROLE_ADMIN'">
-                  <h5 class=" card-title">
-                    <i class=" tim-icons icon-simple-remove"> Delete</i>
-                  </h5>
-                </button>
-          </tr>
-          </tbody>
-        </table>
+      <div *ngFor="let game of games">
+        <nav class="main-breadcrumb">
+          <h4><img class="pr-1" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px"> {{game?.name}}</h4>
+        </nav>
+        <div *ngFor="let groupRoom of user?.groupRooms">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <p class="text-secondary mb-1"><h3>{{groupRoom.name}}</h3>
+
+                      <h4>{{groupRoom.category.name}}</h4>
+                      <p class="text-secondary mb-1">{{groupRoom.description}}</p>
+                      <button class="btn btn-primary">Show Group</button>
+                      <button class="btn btn-danger">Leave Group</button>
+                      <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == user?.id || user?.role.name=='ROLE_ADMIN'" >Delete</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="d-flex flex-column align-items-center text-center p-lg-2" *ngFor=" let user of groupRoom?.users; let i = index">
+                      <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png" style="height: 100px;width: 100px">
+                      <p class="justify-content-center">{{user.username}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+        </div>
       </div>
     </div>
   </div>

@@ -3,6 +3,8 @@ import {AlertService} from '../../services/alert.service';
 import {GroupRoomService} from '../../services/group-room.service';
 import {UserService} from '../../services/user.service';
 import {User} from '../../domain/User';
+import {GameDTO} from '../../domain/dto/GameDTO';
+import {CategoryService} from '../../services/categoryService';
 ;
 
 @Component({
@@ -13,7 +15,9 @@ import {User} from '../../domain/User';
 export class MyGroupsComponent implements OnInit {
 
   user: User;
-  constructor(private alertService: AlertService, private groupRoomService: GroupRoomService, private userService:UserService) {
+  public games: GameDTO[];
+  constructor(private alertService: AlertService, private groupRoomService: GroupRoomService, private userService:UserService,
+              private categoryService:CategoryService) {
   }
 
   ngOnInit(): void {
@@ -34,6 +38,10 @@ export class MyGroupsComponent implements OnInit {
       (data:User) => this.user = data,
       () => this.alertService.error('Error while getting groups')
     );
+    this.categoryService.getGames().subscribe(
+      data => {
+        this.games = data;
+      })
   }
 
   leaveGroup(groupId){
