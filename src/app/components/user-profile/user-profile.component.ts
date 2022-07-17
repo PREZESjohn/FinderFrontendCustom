@@ -14,6 +14,8 @@ export class UserProfileComponent implements OnInit {
 
   profileEditForm: FormGroup;
   userToEdit: User;
+  isEditOff=true;
+  buttonFunction = "Edit";
   constructor(private userService:UserService,
               private formBuilder: FormBuilder,
               private router:Router,
@@ -31,17 +33,20 @@ export class UserProfileComponent implements OnInit {
         }
       );
       this.initializeForm();
+      this.disableInputs();
     });
   }
 
   private initializeForm() {
     this.profileEditForm = this.formBuilder.group({
       editUserProfile: this.formBuilder.group({
-        username: new FormControl('',
-          [Validators.required, Validators.minLength(2)]),
         name: new FormControl('',
           [Validators.minLength(2)]),
         email: new FormControl('',[Validators.minLength(2)]),
+        city: new FormControl('',[Validators.minLength(2)]),
+        age: new FormControl('',[Validators.minLength(2),Validators.pattern("^[0-9]*$"),Validators.maxLength(3)]),
+        phone: new FormControl('',[Validators.minLength(9), Validators.maxLength(9)]),
+        info:new FormControl('',[Validators.minLength(5),Validators.maxLength(45)])
       })
     });
   }
@@ -52,7 +57,8 @@ export class UserProfileComponent implements OnInit {
     this.userService.editUser(profileData)
       .subscribe(
         () => {
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/user-profile');
+          this.alertService.success("Data updated");
         }, () => {
           this.alertService.error('Something went wrong');
         }
@@ -60,10 +66,51 @@ export class UserProfileComponent implements OnInit {
   }
 
   private createUserObject(): User {
-    this.userToEdit.username = this.profileEditForm.get('editUserProfile').get('username').value;
     this.userToEdit.name = this.profileEditForm.get('editUserProfile').get('name').value;
+    this.userToEdit.age = this.profileEditForm.get('editUserProfile').get('age').value;
     this.userToEdit.email = this.profileEditForm.get('editUserProfile').get('email').value;
+    this.userToEdit.phone = this.profileEditForm.get('editUserProfile').get('phone').value;
+    this.userToEdit.city = this.profileEditForm.get('editUserProfile').get('city').value;
+    this.userToEdit.info = this.profileEditForm.get('editUserProfile').get('info').value;
 
     return this.userToEdit;
+  }
+
+  public disableInputs(){
+    this.profileEditForm.get('editUserProfile').get('name').disable()
+    this.profileEditForm.get('editUserProfile').get('age').disable()
+    this.profileEditForm.get('editUserProfile').get('email').disable()
+    this.profileEditForm.get('editUserProfile').get('phone').disable()
+    this.profileEditForm.get('editUserProfile').get('city').disable()
+    this.profileEditForm.get('editUserProfile').get('info').disable()
+  }
+
+  public enableInputs(){
+    this.profileEditForm.get('editUserProfile').get('name').enable();
+    this.profileEditForm.get('editUserProfile').get('age').enable();
+    this.profileEditForm.get('editUserProfile').get('email').enable();
+    this.profileEditForm.get('editUserProfile').get('phone').enable();
+    this.profileEditForm.get('editUserProfile').get('city').enable();
+    this.profileEditForm.get('editUserProfile').get('info').enable();
+  }
+
+  public turnEditMode(){
+    this.alertService.clear();
+    if(this.buttonFunction === "Edit") {
+      this.enableInputs();
+      this.isEditOff = false;
+      this.buttonFunction = "Save changes";
+    }
+    else{
+      this.editProfile();
+      this.buttonFunction = "Edit"
+      this.isEditOff = true;
+      this.disableInputs();
+    }
+  }
+  public cancelEdit(){
+    this.disableInputs();
+    this.buttonFunction="Edit"
+    this.isEditOff = true;
   }
 }
