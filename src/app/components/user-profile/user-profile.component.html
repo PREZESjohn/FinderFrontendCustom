@@ -114,7 +114,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Name</h6>
+                <h6 class="mb-0 mt-2 pt-1">Name</h6>
               </div>
               <div class="col-sm-9 text-secondary">
                 <input type="text" class="form-control" value="{{userToEdit?.name}}" [(ngModel)]="userToEdit && userToEdit.name" formControlName="name" >
@@ -123,7 +123,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Age</h6>
+                <h6 class="mb-0 mt-2 pt-1">Age</h6>
               </div>
               <div class="col-sm-9 text-secondary">
                 <input type="text" class="form-control" value="{{userToEdit?.age}}" [(ngModel)]="userToEdit && userToEdit.age" formControlName="age" >
@@ -132,7 +132,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Email</h6>
+                <h6 class="mb-0 mt-2 pt-1">Email</h6>
               </div>
               <div class="col-sm-9 text-secondary">
                 <input type="text" class="form-control" value="{{userToEdit?.email}}" [(ngModel)]="userToEdit && userToEdit.email" [email]="true"  formControlName="email" >
@@ -141,7 +141,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Phone</h6>
+                <h6 class="mb-0 mt-2 pt-1">Phone</h6>
               </div>
               <div class="col-sm-9 text-secondary">
                 <input type="text" class="form-control" value="{{userToEdit?.phone}}" [(ngModel)]="userToEdit && userToEdit.phone" formControlName="phone" >
@@ -150,7 +150,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">City</h6>
+                <h6 class="mb-0 mt-2 pt-1">City</h6>
               </div>
               <div class="col-sm-9 text-secondary">
                 <input type="text" class="form-control" value="{{userToEdit?.city}}" [(ngModel)]="userToEdit && userToEdit.city" formControlName="city" >
@@ -159,7 +159,7 @@
             <hr>
             <div class="row" [hidden]="isEditOff">
               <div class="col-sm-3">
-                <h6 class="mb-0">Info</h6>
+                <h6 class="mb-0 mt-2 pt-1">Info</h6>
               </div>
               <div class="col-sm-9 text-secondary">
                 <textarea type="text" class="form-control" value="{{userToEdit?.info}}" [(ngModel)]="userToEdit && userToEdit.info" formControlName="info" ></textarea>
