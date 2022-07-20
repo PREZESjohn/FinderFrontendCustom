@@ -58,19 +58,18 @@
         <nav class="main-breadcrumb">
           <h4><img class="pr-1" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px"> {{game?.name}}</h4>
         </nav>
-        <div *ngFor="let groupRoom of user?.groupRooms">
-          <div class="row gutters-sm">
+        <div *ngFor="let groupRoom of currentUser?.groupRooms">
+          <div *ngIf="groupRoom.game.name == game.name" class="row gutters-sm">
             <div class="col-md-4 mb-3">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <p class="text-secondary mb-1"><h3>{{groupRoom.name}}</h3>
-
                       <h4>{{groupRoom.category.name}}</h4>
                       <p class="text-secondary mb-1">{{groupRoom.description}}</p>
-                      <button class="btn btn-primary">Show Group</button>
-                      <button class="btn btn-danger">Leave Group</button>
-                      <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == user?.id || user?.role.name=='ROLE_ADMIN'" >Delete</button>
+                      <button class="btn btn-primary"  routerLink="/group-show" [state]="{data:groupRoom.id}">Show Group</button>
+<!--                      <button class="btn btn-danger" (click)="leaveGroup(groupRoom.id)">Leave Group</button>-->
+                      <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role.name=='ROLE_ADMIN'" >Delete</button>
 
                   </div>
                 </div>
@@ -83,6 +82,8 @@
                     <div class="d-flex flex-column align-items-center text-center p-lg-2" *ngFor=" let user of groupRoom?.users; let i = index">
                       <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png" style="height: 100px;width: 100px">
                       <p class="justify-content-center">{{user.username}}</p>
+                      <button class=" btnNew btn-danger text-sm-center" style="width: 80px;height: 30px" *ngIf="user.id == currentUser.id " (click)="leaveGroup(groupRoom.id)">Leave</button>
+
                     </div>
                   </div>
                 </div>

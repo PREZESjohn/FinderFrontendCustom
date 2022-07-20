@@ -14,7 +14,7 @@ import {CategoryService} from '../../services/categoryService';
 })
 export class MyGroupsComponent implements OnInit {
 
-  user: User;
+  currentUser: User;
   public games: GameDTO[];
   constructor(private alertService: AlertService, private groupRoomService: GroupRoomService, private userService:UserService,
               private categoryService:CategoryService) {
@@ -35,7 +35,7 @@ export class MyGroupsComponent implements OnInit {
 
   loadData() {
     this.userService.getUserGroups().subscribe(
-      (data:User) => this.user = data,
+      (data:User) => this.currentUser = data,
       () => this.alertService.error('Error while getting groups')
     );
     this.categoryService.getGames().subscribe(
