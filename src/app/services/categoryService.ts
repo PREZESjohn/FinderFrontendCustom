@@ -3,12 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {GameDTO} from '../domain/dto/GameDTO';
 import {Observable} from 'rxjs';
 import {GroupRoom} from '../domain/GroupRoom';
+import {Category} from '../domain/Category';
 
 @Injectable({providedIn: 'root'})
 export class CategoryService {
 
   url = 'http://localhost:8080/api/v1/category';
   chosenGame:string
+
   constructor(private http: HttpClient) {
   }
 
@@ -21,5 +23,9 @@ export class CategoryService {
   }
   getGame(){
     return this.chosenGame;
+  }
+
+  getCategoriesByGame(gameName:string): Observable<Category[]>{
+    return this.http.get<Category[]>(this.url+'/all/'+gameName)
   }
 }

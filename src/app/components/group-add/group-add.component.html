@@ -1,50 +1,132 @@
+<!--<div class=" content">-->
+<!--  <div class="justify-content-center card-body row">-->
+<!--    <div class=" col-10">-->
+<!--      <app-alert></app-alert>-->
+<!--      <div class=" card card-chart">-->
+<!--        <div class=" card-header">-->
+<!--          <div class=" row">-->
+<!--            <div class=" col-sm-6">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <form [formGroup]="groupAddFormGroup" (ngSubmit)="addGroupRoom()">-->
+<!--          <div formGroupName="newGroup" class="d-flex justify-content-center card-body">-->
+<!--            <div class=" card card-user col-10 ">-->
+<!--              <div>-->
+<!--              </div>-->
+<!--              <div class=" card-body">-->
+<!--                <p class=" card-text"></p>-->
+<!--                <div class=" author">-->
+<!--                  <div class=" block block-one"></div>-->
+<!--                  <div class=" block block-two"></div>-->
+<!--                </div>-->
+<!--                <h2 class="d-flex justify-content-center title">New Group</h2>-->
+<!--                <div class="d-flex justify-content-center row">-->
+<!--                  <div class=" col-md-5 pr-md-1">-->
+<!--                    <div class="form-group">-->
+<!--                      <label> Name </label>-->
+<!--                      <input class=" form-control" placeholder="Name" type="text" formControlName="name"/>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="d-flex justify-content-center row">-->
+<!--                  <div class=" col-md-5 pr-md-1">-->
+<!--                    <div class="form-group">-->
+<!--                      <label> Description </label>-->
+<!--                      <input class=" form-control" placeholder="Description" type="text" formControlName="description"/>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="d-flex justify-content-center card-footer">-->
+<!--                  <button class=" btn btn-fill btn-info" type="submit">Create</button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
 <div class=" content">
-  <div class="justify-content-center card-body row">
-    <div class=" col-10">
+  <div class="container">
+    <div class="main-body">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb" >
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Explore</li>
+          <li class="breadcrumb-item active" aria-current="page">New Group</li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
       <app-alert></app-alert>
-      <div class=" card card-chart">
-        <div class=" card-header">
-          <div class=" row">
-            <div class=" col-sm-6">
+      <div class="row gutters-sm bg-card justify-content-center ">
+        <div class="col-md-8 mt-3 " [formGroup]="groupAddFormGroup">
+          <div class="card mb-3" formGroupName="newGroup">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0 mt-2 pt-1">Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" class="form-control" placeholder="Name" formControlName="name" >
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0 mt-2 pt-1">Game</h6>
+                </div>
+                <div class="col-sm-9 text-white">
+                  <input type="text" class="form-control" formControlName="game" >
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0 mt-2 pt-1">Category</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <select class="form-control" formControlName="category" (change)="changeCategory($event)">
+<!--                    <option  class="form-control" value="{{chosenCategory?.name}}">{{chosenCategory?.name}}</option>-->
+                    <option  class="form-control text-white" *ngFor="let category of categories">{{category?.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0 mt-2 pt-1">Users limit</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" class="form-control" [value]="chosenCategory?.basicMaxUsers" formControlName="maxUsers" >
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0 mt-2 pt-1">Description</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <textarea type="text" class="form-control" formControlName="description"></textarea>
+                </div>
+              </div>
+              <hr>
+              <div class="row justify-content-lg-center">
+                <div class="col-sm-12 ">
+                  <button class="btn btn-info"  routerLink="/dashboard">Cancel</button>
+                  <button class="btn btn-info"  (click)="addGroupRoom()">Create Group</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <form [formGroup]="groupAddFormGroup" (ngSubmit)="addGroupRoom()">
-          <div formGroupName="newGroup" class="d-flex justify-content-center card-body">
-            <div class=" card card-user col-10 ">
-              <div>
-              </div>
-              <div class=" card-body">
-                <p class=" card-text"></p>
-                <div class=" author">
-                  <div class=" block block-one"></div>
-                  <div class=" block block-two"></div>
-                </div>
-                <h2 class="d-flex justify-content-center title">New Group</h2>
-                <div class="d-flex justify-content-center row">
-                  <div class=" col-md-5 pr-md-1">
-                    <div class="form-group">
-                      <label> Name </label>
-                      <input class=" form-control" placeholder="Name" type="text" formControlName="name"/>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center row">
-                  <div class=" col-md-5 pr-md-1">
-                    <div class="form-group">
-                      <label> Description </label>
-                      <input class=" form-control" placeholder="Description" type="text" formControlName="description"/>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center card-footer">
-                  <button class=" btn btn-fill btn-info" type="submit">Create</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
       </div>
+
     </div>
   </div>
 </div>
+
