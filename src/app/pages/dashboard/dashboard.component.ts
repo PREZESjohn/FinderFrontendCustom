@@ -14,7 +14,8 @@ import {CategoryService} from '../../services/categoryService';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: 'dashboard.component.html'
+  templateUrl: 'dashboard.component.html',
+  styleUrls:['/dashboard.css']
 })
 export class DashboardComponent implements OnInit {
 
@@ -54,12 +55,13 @@ export class DashboardComponent implements OnInit {
     );
   }
   joinGroup(groupId:number){
-    this.userService.joinGroup(groupId).subscribe()
+    this.userService.joinGroup(groupId).subscribe(()=>{this.alertService.success("You joined group");this.loadData()},
+      ()=> this.alertService.error("Error while joining group"))
   }
 
   joinGroupMethod(groupId: number) {
     this.joinGroup(groupId);
-    window.location.reload();
+    // window.location.reload();
   }
 
   deleteGroup(groupId:number){

@@ -1,78 +1,153 @@
-<div class=" content">
-  <div class=" row">
-    <div class=" col-12">
+<!--<div class=" content">-->
+<!--  <div class=" row">-->
+<!--    <div class=" col-12">-->
+<!--      <app-alert></app-alert>-->
+<!--      <div class=" card card-chart">-->
+<!--        <div class=" card-header">-->
+<!--          <div class=" row">-->
+<!--            <div class=" col-sm-6 text-left">-->
+<!--              <h2 class=" card-title">Current active groups for {{chosenGame}}</h2>-->
+<!--              <h5 class=" card-title">Total: {{groupRooms.length}}</h5>-->
+<!--            </div>-->
+<!--            <div class=" col-sm-6">-->
+<!--              <div class="d-flex justify-content-end card-description">-->
+<!--                <div class="d-flex justify-content-end card-description">-->
+<!--                  <button routerLink="/group-add" class=" btn btn-fill btn-warn bg-card" type="submit"> Create own group </button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class=" row">-->
+<!--          <div *ngFor="let groupRoom of groupRooms; let i = index"  class=" card card-user col-4 col-sm-4 col-md-4 col-lg-4">-->
+<!--&lt;!&ndash;            <div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button class=" btn btn-sm btn-info  btn-simple" >&ndash;&gt;-->
+<!--&lt;!&ndash;                  <h5 class=" card-title">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <i routerLink="/group-show" [state]="{data:groupRoom.id}" class=" tim-icons icon-support-17"> Show</i>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </h5>&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons" >&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                  <button class=" btn btn-sm btn-danger btn-simple" (click)="deleteGroup(groupRoom.id)" *ngIf="isAdmin || groupRoom.groupLeader.id == currentUser?.id">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    <h5 class=" card-title">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                      <i class=" tim-icons icon-simple-remove"> Delete</i>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    </h5>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                  </button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            <div class=" card-body card-update" routerLink="/group-show" [state]="{data:groupRoom.id}">-->
+<!--              <p class=" card-text"></p>-->
+<!--              <div class=" author">-->
+<!--                <div class=" block block-one"></div>-->
+<!--                <div class=" block block-two"></div>-->
+<!--              </div>-->
+<!--              <h3 class="d-flex justify-content-center title">{{ groupRoom.name }}</h3>-->
+<!--              <div class="d-flex justify-content-center row">-->
+<!--                <div class=" pr-md-1 justify-content-center" style="width: 95%">-->
+<!--                    <label class="d-flex justify-content-center title"> Users in group </label>-->
+<!--                    <div class="row text-center justify-content-center">-->
+<!--                      <div style="height: 100px" class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2" *ngFor=" let user of groupRoom.users | slice:0:groupRoom.maxUsers; let i = index">-->
+<!--                            <img   class="img-responsive mt-2" alt="icon" src="assets/img/default-avatar.png">-->
+<!--                            <p class="justify-content-center">{{user.username}}</p>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2 " style="opacity: 40%" *ngFor=" let _ of [].constructor(groupRoom.maxUsers-groupRoom.users.length)">-->
+<!--                        <button class = 'bg-transparent pt-1 btnNew hover-add mt-2' (click)="joinGroupMethod(groupRoom.id)"><img class="img-responsive" alt="icon" src="assets/img/join.jpg">-->
+<!--                          <p class="justify-content-center">Join </p></button>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="d-flex justify-content-start card-description">-->
+<!--                <p class=" category">-->
+<!--                 Description-->
+<!--                </p>-->
+<!--              </div>-->
+<!--              <div class="d-flex justify-content-start card-description">-->
+<!--                {{ groupRoom.description }}-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class=" card card-chart">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class=" content" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <div class="main-body">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Explore</li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
       <app-alert></app-alert>
-      <div class=" card card-chart">
-        <div class=" card-header">
-          <div class=" row">
-            <div class=" col-sm-6 text-left">
-              <h2 class=" card-title">Current active groups for {{chosenGame}}</h2>
-              <h5 class=" card-title">Total: {{groupRooms.length}}</h5>
-            </div>
-            <div class=" col-sm-6">
-              <div class="d-flex justify-content-end card-description">
-                <div class="d-flex justify-content-end card-description">
-                  <button routerLink="/group-add" class=" btn btn-fill btn-warn" type="submit"> Create own group </button>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class=" col-lg-12 text-left">
+        <h2 class=" card-title">Current active groups for {{chosenGame}}
+      </h2>
+        <div class="d-flex justify-content-end card-description">
+          <button routerLink="/group-add" class=" btn btn-fill bg-card " type="submit"> Create own group </button>
         </div>
-        <div class=" row">
-          <div *ngFor="let groupRoom of groupRooms; let i = index"  class=" card card-user col-4 col-sm-4 col-md-4 col-lg-4">
-            <div>
-              <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
-                <button class=" btn btn-sm btn-success  btn-simple" (click)="joinGroupMethod(groupRoom.id)">
-                  <h5 class=" card-title">
-                    <i class=" tim-icons icon-send"> Join</i>
-                  </h5>
-                </button>
-                <button class=" btn btn-sm btn-info  btn-simple" >
-                  <h5 class=" card-title">
-                    <i routerLink="/group-show" [state]="{data:groupRoom.id}" class=" tim-icons icon-support-17"> Show</i>
-                  </h5>
-                </button>
-                <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons" >
-                  <button class=" btn btn-sm btn-danger btn-simple" (click)="deleteGroup(groupRoom.id)" *ngIf="isAdmin || groupRoom.groupLeader.id == currentUser?.id">
-                    <h5 class=" card-title">
-                      <i class=" tim-icons icon-simple-remove"> Delete</i>
-                    </h5>
-                  </button>
+        <h5 class=" card-title">Total: {{groupRooms.length}}</h5>
+      </div>
+        <div *ngFor="let groupRoom of groupRooms">
+          <div class="card bg-card ">
+          <div class="row gutters-sm ">
+            <div class="col-md-4 mt-4 card-update ml-lg-4 " routerLink="/group-show" [state]="{data:groupRoom.id}">
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <p class="text-secondary mb-1">
+                    <h3>{{groupRoom.name}}</h3>
+                    <h4>{{groupRoom.category.name}}</h4>
+                    <p class="text-secondary mb-1">{{groupRoom.description}}</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class=" card-body">
-              <p class=" card-text"></p>
-              <div class=" author">
-                <div class=" block block-one"></div>
-                <div class=" block block-two"></div>
-              </div>
-              <h3 class="d-flex justify-content-center title">{{ groupRoom.name }}</h3>
-              <div class="d-flex justify-content-center row">
-                <div class=" pr-md-1 justify-content-center" style="width: 95%">
-                    <label class="d-flex justify-content-center title"> Users in group </label>
-                    <div class="row text-center justify-content-center">
-                      <div class="col-md-2 card card-user col-2 col-sm-2 col-lg-2" *ngFor=" let user of groupRoom.users; let i = index">
-                            <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png">
-                            <p class="justify-content-center">{{user.username}}</p>
+            <div class="col-lg-7 mt-4 ml-md-3 pr-3">
+              <div class="card ">
+                <div class="card-body">
+                  <div class="row justify-content-center">
+                    <div class="d-flex flex-column align-items-center text-center p-lg-2">
+                      <div class="d-flex justify-content-center row">
+                        <div class=" pr-md-1 justify-content-center" style="width: 95%">
+                          <label class="d-flex justify-content-center title"> Users in group </label>
+                          <div class="row text-center justify-content-center">
+                            <div style="height: 100px" class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2"
+                                 *ngFor=" let user of groupRoom.users | slice:0:groupRoom.maxUsers; let i = index">
+                              <img class="img-responsive mt-2" alt="icon" src="assets/img/default-avatar.png">
+                              <p class="justify-content-center">{{user.username}}</p>
+                            </div>
+                            <div class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2 " style="opacity: 40%"
+                                 *ngFor=" let _ of [].constructor(groupRoom.maxUsers-groupRoom.users.length)">
+                              <button class='bg-transparent pt-1 btnNew hover-add mt-2'
+                                      (click)="joinGroupMethod(groupRoom.id)"><img class="img-responsive" alt="icon"
+                                                                                   src="assets/img/join.jpg">
+                                <p class="justify-content-center">Join </p></button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                  </div>
                 </div>
-              </div>
-              <div class="d-flex justify-content-start card-description">
-                <p class=" category">
-                 Description
-                </p>
-              </div>
-              <div class="d-flex justify-content-start card-description">
-                {{ groupRoom.description }}
               </div>
             </div>
           </div>
+          <div>
+          </div>
         </div>
-      </div>
-      <div class=" card card-chart">
       </div>
     </div>
   </div>
 </div>
+

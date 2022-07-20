@@ -6,6 +6,7 @@ export class GroupRoom{
   public id: number;
   public name: string;
   public description: string;
+  public maxUsers:number;
   public users: User[];
   public groupLeader: User;
   public chat: Message[];
