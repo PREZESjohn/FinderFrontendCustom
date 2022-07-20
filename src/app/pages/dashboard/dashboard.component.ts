@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   public data: any;
   public isAdmin = false;
   currentUser:User;
-  chosenGame:string = "";
+  chosenGame = "";
   display = 'none';
 
   groupRooms: GroupRoom[] = [];
@@ -55,7 +55,9 @@ export class DashboardComponent implements OnInit {
     );
   }
   joinGroup(groupId:number){
-    this.userService.joinGroup(groupId).subscribe(()=>{this.alertService.success("You joined group");this.loadData()},
+    this.userService.joinGroup(groupId).subscribe(()=>
+      {this.alertService.success("You joined group");
+        this.reloadGame()},
       ()=> this.alertService.error("Error while joining group"))
   }
 
@@ -68,7 +70,7 @@ export class DashboardComponent implements OnInit {
     this.groupRoomService.deleteGroup(groupId).subscribe(
       () => {
         this.alertService.success('You succesfully removed ur group');
-        this.loadData();
+        this.reloadGame();
       },
       () => this.alertService.error('Error while removing group'));
   }
