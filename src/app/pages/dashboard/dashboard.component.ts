@@ -11,6 +11,9 @@ import {User} from "../../domain/User";
 import {AuthService} from "../../services/auth.service";
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {CategoryService} from '../../services/categoryService';
+import {GameDTO} from '../../domain/dto/GameDTO';
+import {Category} from '../../domain/Category';
+import {Role} from '../../domain/Role';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,11 +24,12 @@ export class DashboardComponent implements OnInit {
 
   public data: any;
   public isAdmin = false;
-  currentUser:User;
-  chosenGame = "";
-  display = 'none';
-
-  groupRooms: GroupRoom[] = [];
+  public currentUser:User;
+  public chosenGame:GameDTO;
+  public display = 'none';
+  public chosenRole:Role;
+  public chosenCategory:Category;
+  public groupRooms: GroupRoom[] = [];
 
   constructor(private groupRoomService: GroupRoomService,
               private controlHelperService: ControlHelperService,
@@ -39,11 +43,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.chosenGame = this.categoryService.getGame();
-    if(this.chosenGame == null || this.chosenGame === ""){
-      this.loadData();
-    }
-    else{
-    this.reloadGame()}
+    console.log(this.chosenGame?.name)
+    console.log(this.chosenGame?.inGameRoles)
+    this.reloadGame()
     if(this.checkIfLoggedIn()) {
       this.checkIfAdmin()
     }
@@ -92,18 +94,58 @@ export class DashboardComponent implements OnInit {
     }
     else return false;
   }
-  // showGroupContent(groupId:number){
-  //   this.groupRoomService.showGroupContent(groupId).subscribe();
-  //   this.router.navigateByUrl("/group-show")
-  // }
   reloadGame() {
     this.chosenGame = this.categoryService.getGame();
-
-    console.log(this.chosenGame)
-    this.groupRoomService.getGroupsByGame(this.chosenGame).subscribe(
+    this.groupRoomService.getGroupsByGame(this.chosenGame?.name).subscribe(
       (data:any) => this.groupRooms = data,
       () => this.alertService.error('Error while getting groups')
     );
   }
 
+  public reloadByCategory(categoryId:number){
+    if(this.chosenRole == null && this.chosenCategory != null) {
+      this.groupRoomService.getGroupsByGameAndCategory(this.chosenGame.id, categoryId).subscribe(
+        (data: any) => this.groupRooms = data,
+        () => this.alertService.error('Error while getting groups')
+      );
+    }else if(this.chosenRole != null && this.chosenCategory != null){
+      this.groupRoomService.getGroupsByGameCategoryRole(this.chosenGame.id,categoryId, this.chosenRole.id).subscribe(
+        (data: any) => this.groupRooms = data,
+        () => this.alertService.error('Error while getting groups')
+      );
+    }else{
+      this.reloadGame();
+    }
+  }
+
+  public reloadByRole(roleId:number){
+    console.log(this.chosenCategory.name)
+      if(this.chosenCategory == null && this.chosenRole != null){
+        this.groupRoomService.getGroupsByGameAndRole(this.chosenGame.id, roleId).subscribe(
+          (data: any) => this.groupRooms = data,
+          () => this.alertService.error('Error while getting groups')
+        );
+      }else if(this.chosenRole != null && this.chosenCategory != null){
+        this.groupRoomService.getGroupsByGameCategoryRole(this.chosenGame.id,this.chosenCategory.id, this.chosenRole.id).subscribe(
+          (data: any) => this.groupRooms = data,
+          () => this.alertService.error('Error while getting groups')
+        );
+      }else{
+        this.reloadGame();
+      }
+  }
+
+  public changeCategory(e){
+    const temp = this.chosenGame.categories.map(a =>{ if(a.name === e.target.value){return a}else return
+    }).filter((value)=>{return value !== undefined});
+    this.chosenCategory = temp[0];
+    this.reloadByCategory(this.chosenCategory?.id)
+  }
+
+  public changeRole(e){
+    const temp = this.chosenGame.inGameRoles.map(a =>{ if(a.name === e.target.value){return a}else return
+    }).filter((value)=>{return value !== undefined});
+    this.chosenRole = temp[0];
+    this.reloadByRole(this.chosenRole?.id);
+  }
 }

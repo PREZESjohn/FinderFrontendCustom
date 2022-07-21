@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GroupRoom} from '../domain/GroupRoom';
 import {Message} from '../domain/Message';
+import {GameDTO} from '../domain/dto/GameDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,18 @@ export class GroupRoomService {
 
   getGroupsByGame(game: string) {
     return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/all/'+game);
+  }
+
+  getGroupsByGameAndCategory(gameId:number,categoryId:number){
+    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&C/'+gameId+'/'+categoryId)
+  }
+
+  getGroupsByGameAndRole(gameId:number,roleId:number){
+    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&R/'+gameId+'/'+roleId)
+  }
+
+  getGroupsByGameCategoryRole(gameId:number,categoryId:number,roleId:number){
+    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&C&R/'+gameId+'/'+categoryId+'/'+roleId)
   }
 
 }

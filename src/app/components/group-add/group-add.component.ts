@@ -17,12 +17,12 @@ export class GroupAddComponent implements OnInit {
 
   groupAddFormGroup: FormGroup;
   fieldTextType: boolean;
-  chosenGame = '';
+  chosenGame:GameDTO;
   chosenCategory:Category;
   categories: Category[];
-  games:any;  //TODO zrobic cos z tym zeby nie pobierac w kazdym komponencie tego bo wstyd
+  games:any;
+  // TODO zrobic cos z tym zeby nie pobierac w kazdym komponencie tego bo wstyd
 
-  //TODO zrobic cos z maxUsers bo jesli nie zmieni się kategorii to nie ustawi wartosci dla zmiennej
   constructor(private groupRoomService: GroupRoomService,
               private formBuilder: FormBuilder,
               private router: Router,
@@ -42,22 +42,22 @@ export class GroupAddComponent implements OnInit {
       newGroup: this.formBuilder.group({
         name: new FormControl('',
           [Validators.required, Validators.minLength(2)]),
-        game:new FormControl(this.chosenGame,),
+        game:new FormControl(this.chosenGame?.name,),
         category:new FormControl(this.chosenCategory),
         maxUsers:new FormControl(this.chosenCategory?.basicMaxUsers,Validators.maxLength(5)),
         description: new FormControl('',[Validators.required, Validators.minLength(2)])
       })
     });
     console.log(this.chosenCategory?.basicMaxUsers)
-    this.groupAddFormGroup.get('newGroup').get("game").disable();
+    this.groupAddFormGroup.get('newGroup').get('game').disable();
   }
 
-  public loadCategoriesByGame(gameName:string){
-    this.categoryService.getCategoriesByGame(gameName).subscribe((data:any)=>{
+  public loadCategoriesByGame(game:GameDTO){
+    this.categoryService.getCategoriesByGame(game.name).subscribe((data:any)=>{
       this.categories = data;
       this.chosenCategory = data[0];
       },()=>{
-        this.alertService.error("Error while getting categories");}
+        this.alertService.error('Error while getting categories');}
     );
     }
 
@@ -80,10 +80,6 @@ export class GroupAddComponent implements OnInit {
     groupRoom.description = this.groupAddFormGroup.get('newGroup').get('description').value;
     groupRoom.category = this.chosenCategory;
     groupRoom.maxUsers = this.groupAddFormGroup.get('newGroup').get('maxUsers').value;
-
-    // const temp = this.games.map(a =>{ if(a.name === this.chosenGame){return a}else return
-    // }).filter((value)=>{return value !== undefined});
-    // groupRoom.game = temp[0];
 
     return groupRoom;
   }

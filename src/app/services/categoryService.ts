@@ -9,8 +9,7 @@ import {Category} from '../domain/Category';
 export class CategoryService {
 
   url = 'http://localhost:8080/api/v1/category';
-  chosenGame:string
-
+  chosenGame:GameDTO;
   constructor(private http: HttpClient) {
   }
 
@@ -25,7 +24,7 @@ export class CategoryService {
     return this.chosenGame;
   }
 
-  getCategoriesByGame(gameName:string): Observable<Category[]>{
-    return this.http.get<Category[]>(this.url+'/all/'+gameName)
+  getCategoriesByGame(game:string): Observable<Category[]>{
+    return this.http.get<Category[]>(this.url+'/all/'+game)
   }
 }

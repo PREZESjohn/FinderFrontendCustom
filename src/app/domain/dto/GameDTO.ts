@@ -1,7 +1,9 @@
 import {InGameRoles} from './InGameRoles';
+import {Category} from '../Category';
 
 export class GameDTO{
   id:number;
   name:string;
-  ingameRolesDTOList: InGameRoles[]
+  inGameRoles: InGameRoles[]
+  categories:Category[];
 }

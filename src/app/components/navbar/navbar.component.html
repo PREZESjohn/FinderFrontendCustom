@@ -29,12 +29,12 @@
 
       <button class="btn dropdown-toggle ml-0 justify-content-start " type="button" id="dropdownMenuButton" style="height: 50px;width:270px" aria-expanded="false"
               ngbDropdownToggle>
-        <img class="" src="assets/img/{{chosenGame}}.jpg" alt="" style="width: 30px;height: 30px">
-        <b class="">{{chosenGame}}</b>
+        <img class="" src="assets/img/{{chosenGameName}}.jpg" alt="" style="width: 30px;height: 30px">
+        <b class="">{{chosenGameName}}</b>
         <b class=" caret d-none d-lg-block d-xl-block"> </b>
       </button>
       <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton"  class="dropdown-menu btn btn-secondary" >
-        <li *ngFor="let game of games">  <a class="btn btn-secondary dropdown-item" (click)="setGame(game.name)" >
+        <li *ngFor="let game of games">  <a class="btn btn-secondary dropdown-item" (click)="setGame(game)" >
           <img src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
           {{game?.name}}
         </a></li>
