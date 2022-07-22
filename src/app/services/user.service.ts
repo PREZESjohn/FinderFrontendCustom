@@ -37,7 +37,7 @@ export class UserService {
   }
 
   joinGroup(groupId:number){
-    return this.http.patch<User>(this.baseURL + '/joinGroup/' + groupId,{});
+    return this.http.patch<User>(this.baseURL + '/joinGroup/' + groupId,{},{ observe: 'response' });
   }
 
   leaveGroup(groupId: number) {

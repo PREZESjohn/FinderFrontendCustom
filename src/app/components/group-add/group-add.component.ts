@@ -62,7 +62,9 @@ export class GroupAddComponent implements OnInit {
     }
 
   public addGroupRoom() {
-    this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers,{onlySelf:true})
+    if(this.groupAddFormGroup.get('newGroup').get('maxUsers').value == null) {
+      this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers, {onlySelf: true})
+    }
     const newGroup = this.createGroupRoomObject();
     this.groupRoomService.addGroup(newGroup)
         .subscribe(
@@ -80,6 +82,7 @@ export class GroupAddComponent implements OnInit {
     groupRoom.description = this.groupAddFormGroup.get('newGroup').get('description').value;
     groupRoom.category = this.chosenCategory;
     groupRoom.maxUsers = this.groupAddFormGroup.get('newGroup').get('maxUsers').value;
+    groupRoom.game = this.chosenGame;
 
     return groupRoom;
   }

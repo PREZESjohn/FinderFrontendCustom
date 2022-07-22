@@ -57,11 +57,11 @@ export class DashboardComponent implements OnInit {
   }
 
   joinGroup(groupId: number) {
-    this.userService.joinGroup(groupId).subscribe(() => {
+    this.userService.joinGroup(groupId).subscribe((data:any) => {
         this.alertService.success('You joined group');
         this.reloadGame()
       },
-      () => this.alertService.error('Error while joining group'))
+      () => this.alertService.error('You are already in this group'))
   }
 
   joinGroupMethod(groupId: number) {
