@@ -70,7 +70,7 @@
                       <button class="btn btn-primary"  routerLink="/group-show" [state]="{data:groupRoom.id}">Show Group</button>
 <!--                      <button class="btn btn-danger" (click)="leaveGroup(groupRoom.id)">Leave Group</button>-->
                       <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'" >Delete</button>
-
+                    <button class="btn btn-info"  (click)="togglePrivate(groupRoom)">public({{groupRoom.open}}) </button>
                   </div>
                 </div>
               </div>
@@ -83,7 +83,6 @@
                       <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png" style="height: 100px;width: 100px">
                       <p class="justify-content-center">{{user.username}}</p>
                       <button class=" btnNew btn-danger text-sm-center" style="width: 80px;height: 30px" *ngIf="user.id == currentUser.id " (click)="leaveGroup(groupRoom.id)">Leave</button>
-
                     </div>
                   </div>
                 </div>

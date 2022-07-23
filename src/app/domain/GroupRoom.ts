@@ -7,6 +7,7 @@ export class GroupRoom{
   public name: string;
   public description: string;
   public maxUsers:number;
+  public open:boolean;
   public users: User[];
   public groupLeader: User;
   public chat: Message[];

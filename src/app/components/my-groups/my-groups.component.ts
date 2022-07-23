@@ -5,6 +5,7 @@ import {UserService} from '../../services/user.service';
 import {User} from '../../domain/User';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {CategoryService} from '../../services/categoryService';
+import {GroupRoom} from '../../domain/GroupRoom';
 ;
 
 @Component({
@@ -46,8 +47,17 @@ export class MyGroupsComponent implements OnInit {
 
   leaveGroup(groupId){
     this.userService.leaveGroup(groupId).subscribe(()=> {
-      this.alertService.success("You successfully left group");
+      this.alertService.success('You successfully left group');
       this.loadData();
     },() => this.alertService.error('Error while leaving group'));
     }
+
+    public togglePrivate(group:GroupRoom){
+    const groupId = group.id;
+    const result = !group.open;
+      group.open = result;
+    console.log(groupId+''+result)
+      this.groupRoomService.setIsPrivateValue(groupId,result).subscribe()
+    }
+
 }

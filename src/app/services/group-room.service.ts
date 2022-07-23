@@ -61,4 +61,8 @@ export class GroupRoomService {
     return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&C&R/'+gameId+'/'+categoryId+'/'+roleId)
   }
 
+  setIsPrivateValue(groupId:number,value:boolean){
+    return this.httpClient.patch(this.baseUrl+'/groups/changeVisibility/'+groupId+'/'+value,{})
+  }
+
 }
