@@ -89,4 +89,11 @@ export class GroupShowComponent implements OnInit {
       }
     );
   }
+  public joinGroup(groupId:number){
+    this.userService.joinGroup(groupId).subscribe((data:any) => {
+        this.alertService.success('You joined group');
+        this.showGroupContent(groupId)
+      },
+      () => this.alertService.error('You are already in this group'))
+  }
 }

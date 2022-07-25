@@ -1,78 +1,159 @@
-<div class=" content">
-  <div class=" row">
-    <div class=" col-12">
-      <app-alert></app-alert>
+<!--<div class=" content">-->
+<!--  <div class=" row">-->
+<!--    <div class=" col-12">-->
+<!--      <app-alert></app-alert>-->
 
-      <div class=" card card-chart">
-        <div class=" card-header">
-          <div class=" row">
-            <div class=" col-sm-6 text-left">
-              <h2 class=" card-title">{{currentGroup?.name}}</h2>
-              <h5 class=" card-title">Created by: {{currentGroup?.groupLeader.username}}</h5>
-              <h5 class="card-title">Category: {{currentGroup.category.name}} </h5>
-            </div>
-            <div class=" card-body w-100">
-              <p class=" card-text"></p>
-              <div class=" author">
-                <div class=" block block-one"></div>
-                <div class=" block block-two"></div>
-              </div>
-              <div>
-                <p class="d-flex justify-content-center title">{{ currentGroup?.description }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-center row">
-            <div class=" pr-md-1 justify-content-center" style="width: 95%">
-              <label class="d-flex justify-content-center title"> Users in group </label>
-              <div class="row text-center justify-content-center">
-                <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1" *ngFor=" let user of currentGroup?.users; let i = index">
-                  <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png">
-                  <p class="justify-content-center">{{user.username}}</p>
-                  <div class="row justify-content-center">
-                    <div class="p-md-1" *ngFor="let role of user.inGameRoles">
-                      <img src="assets/img/{{role.name}}.jpg" alt="" style="width: 30px;height: 30px">
-                      <p>{{role.name}}</p>
-                    </div>
-                  </div>
+<!--      <div class=" card card-chart">-->
+<!--        <div class=" card-header">-->
+<!--          <div class=" row">-->
+<!--            <div class=" col-sm-6 text-left">-->
+<!--              <h2 class=" card-title">{{currentGroup?.name}}</h2>-->
+<!--              <h5 class=" card-title">Created by: {{currentGroup?.groupLeader.username}}</h5>-->
+<!--              <h5 class="card-title">Category: {{currentGroup.category.name}} </h5>-->
+<!--            </div>-->
+<!--            <div class=" card-body w-100">-->
+<!--              <p class=" card-text"></p>-->
+<!--              <div class=" author">-->
+<!--                <div class=" block block-one"></div>-->
+<!--                <div class=" block block-two"></div>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <p class="d-flex justify-content-center title">{{ currentGroup?.description }}</p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="d-flex justify-content-center row">-->
+<!--            <div class=" pr-md-1 justify-content-center" style="width: 95%">-->
+<!--              <label class="d-flex justify-content-center title"> Users in group </label>-->
+<!--              <div class="row text-center justify-content-center">-->
+<!--                <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1" *ngFor=" let user of currentGroup?.users; let i = index">-->
+<!--                  <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png">-->
+<!--                  <p class="justify-content-center">{{user.username}}</p>-->
+<!--                  <div class="row justify-content-center">-->
+<!--                    <div class="p-md-1" *ngFor="let role of user.inGameRoles">-->
+<!--                      <img src="assets/img/{{role.name}}.jpg" alt="" style="width: 30px;height: 30px">-->
+<!--                      <p>{{role.name}}</p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class=" card card-chart">-->
+<!--          <div class=" card-header">-->
+<!--            <div class=" row">-->
+<!--              <div class=" col-sm-12  text-left">-->
+<!--                <h2 class=" card-title">Welcome in chat room</h2>-->
+<!--                <input (keyup)="onKey($event)" class=" form-control" placeholder="Type ur answer" type="text" name="comment"/>-->
+<!--                <button-->
+<!--                  class=" btn btn-fill btn-info"-->
+<!--                  type="button"-->
+<!--                  (click)="addMessage()"-->
+<!--                >Send message</button>-->
+<!--&lt;!&ndash;                <div class="block block-one"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <h2 class=" card-title pt-4 pb-1">Messages:</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div *ngFor="let message of currentGroup?.chat; let i = index" class=" card card-user col-md-12 ">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class=" card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <button class=" btn btn-sm  btn-danger" (click)="deleteMessage(message.id)" *ngIf="isAdmin || message.user?.id == currentUser?.id" >&ndash;&gt;-->
+<!--&lt;!&ndash;                        Delete&ndash;&gt;-->
+<!--&lt;!&ndash;                      </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class=" block block-one"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="block block-two"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div><h4>User: {{message.user.username}}</h4></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div>Wrote:<p>{{message.text}}</p></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class=" card card-chart">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class=" content" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <div class="main-body">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Explore</li>
+          <li class="breadcrumb-item active" aria-current="page">{{currentGroup.name}}</li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
+      <app-alert></app-alert>
+      <h2 class="text-left card-title">{{currentGroup?.name}}</h2>
+      <h5 class="card-title">Category: {{currentGroup.category.name}} </h5>
+      <div class="d-flex justify-content-center row">
+        <div class=" pr-md-1 justify-content-center" style="width: 95%">
+          <label class="d-flex justify-content-center title"> Users in group </label>
+          <div class="row text-center justify-content-center ">
+            <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1 ml-1 mr-1 bg-card"
+                 *ngFor=" let user of currentGroup.users | slice:0:currentGroup.maxUsers; let i = index">
+              <img class="img-responsive img-thumbnail mt-1" alt="icon" src="assets/img/default-avatar.png">
+              <p class="justify-content-center">{{user.username}}</p>
+              <div class="row justify-content-center">
+                <div class="p-md-1" *ngFor="let role of user.inGameRoles">
+                  <img src="assets/img/{{role.name}}.jpg" alt="" style="width: 30px;height: 30px">
+                  <p>{{role.name}}</p>
                 </div>
               </div>
+              <p class="text-warning" *ngIf="user.id == currentGroup.groupLeader.id">Leader</p>
             </div>
-          </div>
-        </div>
-        <div class=" card card-chart">
-          <div class=" card-header">
-            <div class=" row">
-              <div class=" col-sm-12  text-left">
-                <h2 class=" card-title">Welcome in chat room</h2>
-                <input (keyup)="onKey($event)" class=" form-control" placeholder="Type ur answer" type="text" name="comment"/>
-                <button
-                  class=" btn btn-fill btn-info"
-                  type="button"
-                  (click)="addMessage()"
-                >Send message</button>
-                <div class="block block-one"></div>
-                <h2 class=" card-title pt-4 pb-1">Messages:</h2>
-                <div *ngFor="let message of currentGroup?.chat; let i = index" class=" card card-user col-md-12 ">
-                  <div class=" card-body">
-                    <div class=" btn-group btn-group-toggle float-right" data-toggle="buttons">
-                      <button class=" btn btn-sm  btn-danger" (click)="deleteMessage(message.id)" *ngIf="isAdmin || message.user?.id == currentUser?.id" >
-                        Delete
-                      </button>
-                    </div>
-                    <div class=" block block-one"></div>
-                    <div class="block block-two"></div>
-                    <div><h4>User: {{message.user.username}}</h4></div>
-                    <div>Wrote:<p>{{message.text}}</p></div>
-                  </div>
-                </div>
-              </div>
+            <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1 ml-1 mr-1 bg-card"
+                 *ngFor=" let _ of [].constructor(currentGroup.maxUsers-currentGroup.users.length)">
+                 <button class='bg-transparent pt-1 btnNew hover-add mt-2'
+                      (click)="joinGroup(currentGroup.id)"><img class="img-responsive" alt="icon"
+                                                                   src="assets/img/join.jpg">
+                  <p class="justify-content-center">Join </p></button>
             </div>
           </div>
         </div>
       </div>
-      <div class=" card card-chart">
+      <div class="border-light col-lg-12 bg-white mb-3 " style="height: 1px"></div>
+        <h2 class="text-center">Chat</h2>
+      <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
+        <div class="media media-chat">
+          <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" src="assets/img/default-avatar.png" alt="...">
+          <div class="media-body">
+            <p>Hi</p>
+            <p>How are you ...???</p>
+            <p class="meta"><time datetime="2018">23:58</time></p>
+          </div>
+        </div>
+
+        <div class="media media-meta-day">Today</div>
+
+        <div class="media media-chat media-chat-reverse">
+          <div class="media-body">
+            <p>Hiii, I'm good.</p>
+            <p>How are you doing?</p>
+            <p>Long time no see!</p>
+            <p class="meta"><time datetime="2018">00:06</time></p>
+          </div>
+        </div>
+
+
+        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div></div></div>
+
+      <div class="publisher bt-1 border-light ">
+        <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" src="assets/img/default-avatar.png" alt="...">
+        <input class="publisher-input text-white" type="text" placeholder="Write something">
+<!--        <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>-->
+        <a class="publisher-btn text-info"  data-abc="true"><i class="fa fa-paper-plane"></i></a>
       </div>
+
     </div>
+
   </div>
 </div>
