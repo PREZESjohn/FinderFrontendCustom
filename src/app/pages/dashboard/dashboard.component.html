@@ -35,7 +35,7 @@
         <h5 class=" card-title">Total: {{groupRooms?.length}}</h5>
       </div>
         <div *ngFor="let groupRoom of groupRooms">
-          <div class="card bg-card ">
+          <div class="card bg-card " *ngIf="groupRoom.open==true">
           <div class="row gutters-sm ">
             <div class="col-md-4 mt-4 card-update ml-lg-4 " routerLink="/group-show" [state]="{data:groupRoom.id}">
               <div class="card mt-2">

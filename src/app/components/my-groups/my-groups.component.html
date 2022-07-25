@@ -70,7 +70,15 @@
                       <button class="btn btn-primary"  routerLink="/group-show" [state]="{data:groupRoom.id}">Show Group</button>
 <!--                      <button class="btn btn-danger" (click)="leaveGroup(groupRoom.id)">Leave Group</button>-->
                       <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'" >Delete</button>
-                    <button class="btn btn-info"  (click)="togglePrivate(groupRoom)">public({{groupRoom.open}}) </button>
+<!--                    <button class="btn btn-info"  (click)="togglePrivate(groupRoom)">public({{groupRoom.open}}) </button>-->
+                    <div class="row">
+                    <p class="mt-2">Public</p>
+                    <label class="switch ml-2 mr-2">
+                      <input type="checkbox" [checked]="!groupRoom.open" (change)="togglePrivate(groupRoom)">
+                      <span class="slider round"></span>
+                    </label>
+                    <p class="mt-2">Private</p>
+                    </div>
                   </div>
                 </div>
               </div>
