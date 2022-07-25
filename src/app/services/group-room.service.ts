@@ -67,4 +67,8 @@ export class GroupRoomService {
   generateCode(groupId:number){
     return this.httpClient.get(this.baseUrl+'/groups/generateCode/'+groupId)
   }
+
+  joinByCode(code:string){
+    return this.httpClient.patch(this.baseUrl+'/groups/joinByCode/'+code,{});
+  }
 }

@@ -27,8 +27,15 @@
               <option class="form-control  text-white "></option>
               <option class="form-control  text-white " *ngFor="let role of chosenGame?.inGameRoles">{{role.name}}</option>
             </select>
+            <div class="d-flex card-description text-right text-secondary">
+              <label class=" mr-2 text-white-50" for="joinCode">Join using code</label>
+              <input type="text" class="form-control" id="joinCode" [(ngModel)]="codeInputValue" >
+            </div>
+            <div class="d-flex card-description ml-1 mr-4 text-right">
+              <button class=" btn btn-fill bg-card mt-0 " (click)="joinByCode()" type="submit">Join</button>
+            </div>
           </div>
-          <div class="d-flex card-description float-right text-right">
+          <div class="d-flex card-description ml-3 text-right">
           <button routerLink="/group-add" class=" btn btn-fill bg-card mt-0 " type="submit"> Create own group </button>
           </div>
         </div>

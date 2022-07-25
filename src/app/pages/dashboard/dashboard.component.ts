@@ -14,6 +14,7 @@ import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {Category} from '../../domain/Category';
 import {Role} from '../../domain/Role';
+import {state} from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
   public chosenRole: Role;
   public chosenCategory: Category;
   public groupRooms: GroupRoom[] = [];
+  public codeInputValue = '';
 
   constructor(private groupRoomService: GroupRoomService,
               private controlHelperService: ControlHelperService,
@@ -146,5 +148,16 @@ export class DashboardComponent implements OnInit {
     });
     this.chosenRole = temp[0];
     this.reloadByFilters();
+  }
+
+  public joinByCode(){
+    const code:string = this.codeInputValue;
+    console.log(code);
+    this.groupRoomService.joinByCode(code).subscribe((data:any)=>{
+      history.state.data = data?.id
+      this.router.navigateByUrl('/group-show');
+      },()=> this.alertService.error('Wrong code')
+    )
+
   }
 }
