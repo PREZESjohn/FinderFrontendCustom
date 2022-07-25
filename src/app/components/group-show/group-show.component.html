@@ -87,31 +87,42 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">Explore</li>
-          <li class="breadcrumb-item active" aria-current="page">{{currentGroup.name}}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{currentGroup?.name}}</li>
         </ol>
       </nav>
       <!-- /Breadcrumb -->
       <app-alert></app-alert>
       <h2 class="text-left card-title">{{currentGroup?.name}}</h2>
-      <h5 class="card-title">Category: {{currentGroup.category.name}} </h5>
+      <h5 class="card-title">Category: {{currentGroup?.category?.name}} </h5>
+      <button class=" text-right btn btn-fill bg-card " [hidden]="currentGroup?.joinCode !== null || currentGroup?.groupLeader?.id !== currentUser?.id" (click)="generateCode(currentGroup)" >Generate code</button>
+      <h1 class="text-right"  [hidden]="currentGroup?.groupLeader?.id !== currentUser?.id">{{currentGroup?.joinCode}}</h1>
       <div class="d-flex justify-content-center row">
         <div class=" pr-md-1 justify-content-center" style="width: 95%">
           <label class="d-flex justify-content-center title"> Users in group </label>
           <div class="row text-center justify-content-center ">
             <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1 ml-1 mr-1 bg-card"
-                 *ngFor=" let user of currentGroup.users | slice:0:currentGroup.maxUsers; let i = index">
+                 *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
               <img class="img-responsive img-thumbnail mt-1" alt="icon" src="assets/img/default-avatar.png">
-              <p class="justify-content-center">{{user.username}}</p>
+              <p class="justify-content-center">{{user?.username}}</p>
               <div class="row justify-content-center">
-                <div class="p-md-1" *ngFor="let role of user.inGameRoles">
-                  <img src="assets/img/{{role.name}}.jpg" alt="" style="width: 30px;height: 30px">
-                  <p>{{role.name}}</p>
+                <div class="p-md-1" *ngFor="let role of user?.inGameRoles">
+                  <img src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px">
+                  <p>{{role?.name}}</p>
                 </div>
+
+<!--                <div class="nav" ngbDropdown>-->
+<!--                  <a type="button" ngbDropdownToggle>-->
+<!--                    <img style="height: 10px;width: 3px;" src="assets/img/options.png" alt="icon">-->
+<!--                  </a>-->
+<!--                  <div ngbDropdownMenu class="dropdown-menu-lg ">-->
+<!--                    <a class="dropdown-item " href="#" >Make leader</a>-->
+<!--                    <a class="dropdown-item " href="#" >Remove from group</a>-->
+<!--                  </div></div>-->
               </div>
               <p class="text-warning" *ngIf="user.id == currentGroup.groupLeader.id">Leader</p>
             </div>
             <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1 ml-1 mr-1 bg-card"
-                 *ngFor=" let _ of [].constructor(currentGroup.maxUsers-currentGroup.users.length)">
+                 *ngFor=" let _ of [].constructor(currentGroup?.maxUsers-currentGroup?.users.length)">
                  <button class='bg-transparent pt-1 btnNew hover-add mt-2'
                       (click)="joinGroup(currentGroup.id)"><img class="img-responsive" alt="icon"
                                                                    src="assets/img/join.jpg">

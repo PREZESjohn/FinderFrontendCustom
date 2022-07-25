@@ -64,5 +64,7 @@ export class GroupRoomService {
   setIsPrivateValue(groupId:number,value:boolean){
     return this.httpClient.patch(this.baseUrl+'/groups/changeVisibility/'+groupId+'/'+value,{})
   }
-
+  generateCode(groupId:number){
+    return this.httpClient.get(this.baseUrl+'/groups/generateCode/'+groupId)
+  }
 }

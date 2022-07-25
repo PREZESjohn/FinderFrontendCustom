@@ -207,3 +207,10 @@ bg-change-light{
   background-color: #133b73;
   border-color: #FFFFFF;
 }
+.outer {
+  position: relative;
+  ul.nav {
+    position: absolute;
+    z-index: 1010;
+  }
+}

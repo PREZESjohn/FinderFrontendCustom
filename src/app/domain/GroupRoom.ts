@@ -13,4 +13,5 @@ export class GroupRoom{
   public chat: Message[];
   public category:Category;
   public game:GameDTO;
+  public joinCode:string;
 }

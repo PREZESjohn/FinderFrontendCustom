@@ -6,6 +6,7 @@ import {AlertService} from "../../services/alert.service";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {Message} from "../../domain/Message";
+import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
 
 @Component({
   selector: 'app-group-show',
@@ -16,6 +17,7 @@ export class GroupShowComponent implements OnInit {
   id:number = history.state.data;
   currentGroup:GroupRoom;
   inputMessage:string;
+
 
   isAdmin = false;
   currentUser:User;
@@ -95,5 +97,11 @@ export class GroupShowComponent implements OnInit {
         this.showGroupContent(groupId)
       },
       () => this.alertService.error('You are already in this group'))
+  }
+
+  generateCode(groupRoom:GroupRoom){
+    this.groupRoomService.generateCode(groupRoom.id).subscribe((data:any) =>
+    { const joinCodedto:JoinCodeDTO = data;
+      groupRoom.joinCode = joinCodedto?.code},()=>this.alertService.error('Error while getting code'))
   }
 }
