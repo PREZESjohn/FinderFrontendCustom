@@ -71,4 +71,12 @@ export class GroupRoomService {
   joinByCode(code:string){
     return this.httpClient.patch(this.baseUrl+'/groups/joinByCode/'+code,{});
   }
+
+  makePartyLeader(groupId:number,userId:number){
+    return this.httpClient.patch(this.baseUrl+'/groups/makeLeader/'+groupId+'/'+userId,{})
+  }
+
+  removeFromGroup(groupId:number,userId:number){
+    return this.httpClient.patch(this.baseUrl+'/groups/removeUser/'+groupId+'/'+userId,{})
+  }
 }

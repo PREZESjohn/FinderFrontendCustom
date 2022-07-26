@@ -109,17 +109,19 @@
                   <img src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px">
                   <p>{{role?.name}}</p>
                 </div>
-
-<!--                <div class="nav" ngbDropdown>-->
-<!--                  <a type="button" ngbDropdownToggle>-->
-<!--                    <img style="height: 10px;width: 3px;" src="assets/img/options.png" alt="icon">-->
-<!--                  </a>-->
-<!--                  <div ngbDropdownMenu class="dropdown-menu-lg ">-->
-<!--                    <a class="dropdown-item " href="#" >Make leader</a>-->
-<!--                    <a class="dropdown-item " href="#" >Remove from group</a>-->
-<!--                  </div></div>-->
               </div>
-              <p class="text-warning" *ngIf="user.id == currentGroup.groupLeader.id">Leader</p>
+
+              <p class="text-warning" *ngIf="user?.id == currentGroup?.groupLeader?.id">Leader</p>
+
+              <div class="row justify-content-center" *ngIf="currentGroup?.groupLeader?.id !== user?.id" [hidden]="currentUser?.id !== currentGroup?.groupLeader?.id">
+               <a type="button" title="Make Leader" style="cursor: pointer" (click)="makePartyLeader(user)">
+                 <img class="mr-2" style="height: 25px;width: 25px;" src="assets/img/leader.png" alt="icon">
+               </a>
+                <a type="button" title="Remove from group" style="cursor: pointer" (click)="removeFromGroup(user)">
+                  <img style="height: 20px;width: 20px;" src="assets/img/remove.png" alt="icon">
+                </a>
+              </div>
+
             </div>
             <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1 ml-1 mr-1 bg-card"
                  *ngFor=" let _ of [].constructor(currentGroup?.maxUsers-currentGroup?.users.length)">

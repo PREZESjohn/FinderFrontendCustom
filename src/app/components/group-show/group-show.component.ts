@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {GroupRoom} from "../../domain/GroupRoom";
-import {User} from "../../domain/User";
-import {GroupRoomService} from "../../services/group-room.service";
-import {AlertService} from "../../services/alert.service";
-import {UserService} from "../../services/user.service";
-import {Router} from "@angular/router";
-import {Message} from "../../domain/Message";
+import {GroupRoom} from '../../domain/GroupRoom';
+import {User} from '../../domain/User';
+import {GroupRoomService} from '../../services/group-room.service';
+import {AlertService} from '../../services/alert.service';
+import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
+import {Message} from '../../domain/Message';
 import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
 
 @Component({
@@ -47,7 +47,7 @@ export class GroupShowComponent implements OnInit {
 
 
   public addMessage(){
-    if(this.inputMessage!=="" && this.inputMessage!=null) {
+    if(this.inputMessage!=='' && this.inputMessage!=null) {
       const newMessage = this.createMessageObject();
       this.groupRoomService.addMessage(newMessage)
         .subscribe(
@@ -58,7 +58,7 @@ export class GroupShowComponent implements OnInit {
           }
         );
     }else{
-      this.alertService.error("Cant send empty comment");
+      this.alertService.error('Cant send empty comment');
     }
   }
 
@@ -83,7 +83,7 @@ export class GroupShowComponent implements OnInit {
     this.userService.getUser().subscribe(
       data => {
         this.currentUser = data
-        if ( this.currentUser?.role.name === "ROLE_ADMIN") {
+        if ( this.currentUser?.role.name === 'ROLE_ADMIN') {
           this.isAdmin = true;
         }
       }, () => {
@@ -103,5 +103,21 @@ export class GroupShowComponent implements OnInit {
     this.groupRoomService.generateCode(groupRoom.id).subscribe((data:any) =>
     { const joinCodedto:JoinCodeDTO = data;
       groupRoom.joinCode = joinCodedto?.code},()=>this.alertService.error('Error while getting code'))
+  }
+
+  public makePartyLeader(user:User){
+    console.log(user.id);
+    const userId=user.id;
+    const groupId = this.currentGroup.id;
+    this.groupRoomService.makePartyLeader(groupId,userId).subscribe((data:any)=> this.currentGroup = data,
+      ()=>this.alertService.error('Error while getting group room data'))
+  }
+
+  public removeFromGroup(user:User){
+    console.log(user.id);
+    const userId=user.id;
+    const groupId = this.currentGroup.id;
+    this.groupRoomService.removeFromGroup(groupId,userId).subscribe((data:any)=> this.currentGroup = data,
+      ()=>this.alertService.error('Error while getting group room data'))
   }
 }
