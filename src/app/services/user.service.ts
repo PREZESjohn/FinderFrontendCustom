@@ -45,4 +45,9 @@ export class UserService {
 
     return this.http.delete(url);
   }
+
+  getProfile(userId:number){
+    return this.http.get(this.baseURL+'/profile/'+userId)
+  }
 }
+

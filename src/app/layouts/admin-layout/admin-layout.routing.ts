@@ -9,6 +9,7 @@ import {UserProfileComponent} from '../../components/user-profile/user-profile.c
 import {MyGroupsComponent} from '../../components/my-groups/my-groups.component';
 import {GroupAddComponent} from '../../components/group-add/group-add.component';
 import {GroupShowComponent} from '../../components/group-show/group-show.component';
+import {OtherUserProfileComponent} from '../../components/other-user-profile/other-user-profile.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -18,5 +19,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'group-room',component:GroupRoomComponent, canActivate: [AuthGuard]},
   { path: 'group-add',component:GroupAddComponent, canActivate: [AuthGuard]},
   { path: 'user-profile',component:UserProfileComponent, canActivate: [AuthGuard]},
+  { path: 'profile',component:OtherUserProfileComponent, canActivate: [AuthGuard]},
   { path: 'group-show', component:GroupShowComponent,canActivate:[AuthGuard]}
 ];

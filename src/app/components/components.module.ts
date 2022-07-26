@@ -16,6 +16,7 @@ import { GroupAddComponent } from './group-add/group-add.component';
 import { GroupEditComponent } from './group-edit/group-edit.component';
 import { MyGroupsComponent } from './my-groups/my-groups.component';
 import { GroupShowComponent } from './group-show/group-show.component';
+import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule],
@@ -23,7 +24,8 @@ import { GroupShowComponent } from './group-show/group-show.component';
     AlertComponent, GroupRoomComponent, UserProfileComponent, GroupAddComponent,
     GroupEditComponent,
     MyGroupsComponent,
-    GroupShowComponent],
+    GroupShowComponent,
+    OtherUserProfileComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent]
 })
 export class ComponentsModule {
