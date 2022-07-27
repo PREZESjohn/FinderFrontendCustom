@@ -4,6 +4,8 @@ import {User} from '../../domain/User';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
+import {CategoryService} from '../../services/categoryService';
+import {GameDTO} from '../../domain/dto/GameDTO';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,6 +16,7 @@ export class UserProfileComponent implements OnInit {
 
   profileEditForm: FormGroup;
   userToEdit: User;
+  games:GameDTO[];
   isEditOff=true;
   buttonFunction = 'Edit';
   profilePicture = null;
@@ -21,10 +24,13 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService:UserService,
               private formBuilder: FormBuilder,
               private router:Router,
+              private categoryService:CategoryService,
               private activeRoute: ActivatedRoute,
               private alertService: AlertService) { }
 
   ngOnInit(): void {
+    this.games = this.categoryService.getAllGames();
+    console.log(this.games);
     this.activeRoute.paramMap.subscribe(params => {
       console.log(params);
       this.userService.getUser().subscribe(
@@ -131,5 +137,18 @@ export class UserProfileComponent implements OnInit {
   public uploadFile(){
     this.userService.uploadProfilePicture(this.pictureFile).subscribe(()=>{this.profilePicture=null},()=>{this.alertService.error("Error")}
     )
+  }
+
+  tableContains(table,objectToFind):boolean{
+    let found = false;
+    // tslint:disable-next-line:prefer-for-of
+    for(let i=0; i<table.length;i++){
+      console.log(table[i].id+'  '+objectToFind.id)
+      if(table[i].id === objectToFind.id){
+        found = true;
+        break;
+      }
+    }
+    return found
   }
 }

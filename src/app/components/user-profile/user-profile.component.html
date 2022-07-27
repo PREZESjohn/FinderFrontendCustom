@@ -26,6 +26,17 @@
                 <h4>{{userToEdit?.username}}</h4>
                 <p class="text-secondary mb-1" [hidden]="!isEditOff">{{userToEdit?.info}}</p>
               </div>
+              <div>
+                <div class="row" *ngFor="let game of games">
+                <img class="pr-1" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
+                  <div class="p-md-1" *ngFor="let role of userToEdit?.inGameRoles" >
+                    <div *ngIf="tableContains(game.inGameRoles,role)">
+                    <img  src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px">
+<!--                    <p>{{role?.name}}</p>-->
+                  </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

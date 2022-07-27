@@ -10,6 +10,7 @@ export class CategoryService {
 
   url = 'http://localhost:8080/api/v1/category';
   chosenGame:GameDTO;
+  allGames:GameDTO[];
   constructor(private http: HttpClient) {
   }
 
@@ -22,6 +23,14 @@ export class CategoryService {
   }
   getGame(){
     return this.chosenGame;
+  }
+
+  setAllGames(games){
+    this.allGames = games
+  }
+
+  getAllGames(){
+    return this.allGames;
   }
 
   getCategoriesByGame(game:string): Observable<Category[]>{

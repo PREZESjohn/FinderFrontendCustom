@@ -251,6 +251,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.categoryService.getGames().subscribe(
         data => {
           this.games = data;
+          this.categoryService.setAllGames(data);
         }
       )
 // this.setGame(this.games[0]);
