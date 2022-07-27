@@ -15,7 +15,9 @@ export class UserProfileComponent implements OnInit {
   profileEditForm: FormGroup;
   userToEdit: User;
   isEditOff=true;
-  buttonFunction = "Edit";
+  buttonFunction = 'Edit';
+  profilePicture = null;
+  pictureFile=null;
   constructor(private userService:UserService,
               private formBuilder: FormBuilder,
               private router:Router,
@@ -44,7 +46,7 @@ export class UserProfileComponent implements OnInit {
           [Validators.minLength(2)]),
         email: new FormControl('',[Validators.minLength(2)]),
         city: new FormControl('',[Validators.minLength(2)]),
-        age: new FormControl('',[Validators.minLength(2),Validators.pattern("^[0-9]*$"),Validators.maxLength(3)]),
+        age: new FormControl('',[Validators.minLength(2),Validators.pattern('^[0-9]*$'),Validators.maxLength(3)]),
         phone: new FormControl('',[Validators.minLength(9), Validators.maxLength(9)]),
         info:new FormControl('',[Validators.minLength(5),Validators.maxLength(45)])
       })
@@ -58,7 +60,7 @@ export class UserProfileComponent implements OnInit {
       .subscribe(
         () => {
           this.router.navigateByUrl('/user-profile');
-          this.alertService.success("Data updated");
+          this.alertService.success('Data updated');
         }, () => {
           this.alertService.error('Something went wrong');
         }
@@ -96,21 +98,38 @@ export class UserProfileComponent implements OnInit {
 
   public turnEditMode(){
     this.alertService.clear();
-    if(this.buttonFunction === "Edit") {
+    if(this.buttonFunction === 'Edit') {
       this.enableInputs();
       this.isEditOff = false;
-      this.buttonFunction = "Save changes";
+      this.buttonFunction = 'Save changes';
     }
     else{
       this.editProfile();
-      this.buttonFunction = "Edit"
+      this.buttonFunction = 'Edit'
       this.isEditOff = true;
       this.disableInputs();
     }
   }
   public cancelEdit(){
     this.disableInputs();
-    this.buttonFunction="Edit"
+    this.buttonFunction='Edit'
     this.isEditOff = true;
+  }
+  public onFileSelected(e){
+    if(e.target.files && e.target.files[0]){
+      this.pictureFile=e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+
+      reader.onload = (ev)=>{
+        this.profilePicture = ev.target.result;
+      }
+    }
+    console.log(this.profilePicture)
+  }
+
+  public uploadFile(){
+    this.userService.uploadProfilePicture(this.pictureFile).subscribe(()=>{this.profilePicture=null},()=>{this.alertService.error("Error")}
+    )
   }
 }

@@ -49,5 +49,11 @@ export class UserService {
   getProfile(userId:number){
     return this.http.get(this.baseURL+'/profile/'+userId)
   }
+
+  uploadProfilePicture(file):Observable<any>{
+    const formData = new FormData();
+    formData.append('profilePicture',file,file.name);
+    return this.http.post(this.baseURL+'/profilePicture',formData)
+  }
 }
 
