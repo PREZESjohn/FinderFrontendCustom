@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   userToEdit: User;
   games:GameDTO[];
   isEditOff=true;
+  tempRoleList:InGameRoles[]=[];
   buttonFunction = 'Edit';
   profilePicture = null;
   pictureFile=null;
@@ -108,6 +109,7 @@ export class UserProfileComponent implements OnInit {
     if(this.buttonFunction === 'Edit') {
       this.enableInputs();
       this.isEditOff = false;
+      this.userToEdit?.inGameRoles.forEach(val => this.tempRoleList.push(Object.assign({},val)))
       this.buttonFunction = 'Save changes';
     }
     else{
@@ -121,6 +123,8 @@ export class UserProfileComponent implements OnInit {
     this.disableInputs();
     this.buttonFunction='Edit'
     this.isEditOff = true;
+    this.userToEdit.inGameRoles = this.tempRoleList;
+    this.tempRoleList=[];
   }
   public onFileSelected(e){
     if(e.target.files && e.target.files[0]){
@@ -162,7 +166,8 @@ export class UserProfileComponent implements OnInit {
     }else{
       this.userToEdit?.inGameRoles.push(role);
     }
-    console.log(this.userToEdit.inGameRoles)
+    console.log(this.tempRoleList)
+    console.log(this.userToEdit?.inGameRoles)
   }
 
 }
