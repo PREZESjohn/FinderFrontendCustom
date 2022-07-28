@@ -120,4 +120,17 @@ export class GroupShowComponent implements OnInit {
     this.groupRoomService.removeFromGroup(groupId,userId).subscribe((data:any)=> this.currentGroup = data,
       ()=>this.alertService.error('Error while getting group room data'))
   }
+
+  public tableContains(table,objectToFind):boolean{
+    let found = false;
+    // tslint:disable-next-line:prefer-for-of
+    for(let i=0; i<table.length;i++){
+      console.log(table[i].id+'  '+objectToFind.id)
+      if(table[i].id === objectToFind.id){
+        found = true;
+        break;
+      }
+    }
+    return found
+  }
 }
