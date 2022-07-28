@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
+import {InGameRoles} from '../../domain/dto/InGameRoles';
 
 @Component({
   selector: 'app-user-profile',
@@ -142,8 +143,8 @@ export class UserProfileComponent implements OnInit {
   tableContains(table,objectToFind):boolean{
     let found = false;
     // tslint:disable-next-line:prefer-for-of
-    for(let i=0; i<table.length;i++){
-      console.log(table[i].id+'  '+objectToFind.id)
+    for(let i=0; i<table?.length;i++){
+      // console.log(table[i].id+'  '+objectToFind.id)
       if(table[i].id === objectToFind.id){
         found = true;
         break;
@@ -151,4 +152,17 @@ export class UserProfileComponent implements OnInit {
     }
     return found
   }
+  public editRole(role:InGameRoles){
+    if(this.tableContains(this.userToEdit?.inGameRoles,role)){
+      const index = this.userToEdit?.inGameRoles.findIndex((o)=>{return o.id === role.id});
+      console.log(index)
+      if(index >- 1){
+        this.userToEdit?.inGameRoles.splice(index,1);
+      }
+    }else{
+      this.userToEdit?.inGameRoles.push(role);
+    }
+    console.log(this.userToEdit.inGameRoles)
+  }
+
 }
