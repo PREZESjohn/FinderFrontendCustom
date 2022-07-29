@@ -56,7 +56,6 @@ export class MyGroupsComponent implements OnInit {
     const groupId = group.id;
     const result = !group.open;
       group.open = result;
-    console.log(groupId+''+result)
       this.groupRoomService.setIsPrivateValue(groupId,result).subscribe()
     }
 

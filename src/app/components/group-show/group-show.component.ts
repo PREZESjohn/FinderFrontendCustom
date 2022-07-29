@@ -125,7 +125,6 @@ export class GroupShowComponent implements OnInit {
     let found = false;
     // tslint:disable-next-line:prefer-for-of
     for(let i=0; i<table.length;i++){
-      console.log(table[i].id+'  '+objectToFind.id)
       if(table[i].id === objectToFind.id){
         found = true;
         break;

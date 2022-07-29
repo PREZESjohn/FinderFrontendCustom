@@ -61,8 +61,8 @@ export class UserService {
   }
 
   setProfilePicture(data:any){
-    if (data == null) {
-      return 'assets/img/default-avatar.png';
+    if (data.size===0) {
+      return '../assets/img/default-avatar.png';
     } else {
       const newImage = URL.createObjectURL(data);
       return this.sanitizer.bypassSecurityTrustUrl(newImage)

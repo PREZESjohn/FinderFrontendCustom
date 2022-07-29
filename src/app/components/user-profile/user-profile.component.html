@@ -19,7 +19,6 @@
               <input style="display:none" type="file"  accept="image/jpeg, image/png" (change)="onFileSelected($event)" #fileInput >
               <a type="button" (click)="fileInput.click()" style="cursor: pointer">
               <img [hidden]="profilePicture==null" [src]="profilePicture" alt="avatar" class="rounded-circle image-change-hover  " height="150" width="150">
-              <img id="avatar" [hidden]="profilePicture!==null" src="assets/img/default-avatar.png" alt="avatar" class="rounded-circle image-change-hover" width="150">
               </a>
               <div class="mt-3">
                 <button [hidden]="!isPictureChanged" class="btn btn-outline-primary" (click)="uploadFile()">Confirm</button>

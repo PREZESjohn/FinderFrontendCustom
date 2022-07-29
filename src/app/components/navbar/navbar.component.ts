@@ -243,7 +243,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       data => {
         this.currentUser = data
         this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
-          this.profilePicture = this.userService.setProfilePicture(d);})
+          this.profilePicture = this.userService.setProfilePicture(d);
+        },()=>{
+          this.profilePicture = '../assets/img/default-avatar.png'
+        })
         if (this.currentUser?.role.name === "ROLE_ADMIN") {
           this.isAdmin = true;
         }
