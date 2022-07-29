@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../domain/User';
 import {Observable} from 'rxjs';
 import {PasswordChangeDto} from '../domain/dto/PasswordChangeDto';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   changePasswordUrl = 'http://localhost:8080/api/auth/password-change';
   editUserUrl = 'http://localhost:8080/api/v1/users/edit'
   baseURL = 'http://localhost:8080/api/v1/users'
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sanitizer:DomSanitizer) {
   }
 
   changePassword(passwordChange: PasswordChangeDto): Observable<any> {
@@ -57,6 +58,15 @@ export class UserService {
   }
   getProfilePicture(userId:number):Observable<any>{
     return this.http.get(this.baseURL+'/profilePicture/'+userId,{responseType: 'blob'});
+  }
+
+  setProfilePicture(data:any){
+    if (data == null) {
+      return 'assets/img/default-avatar.png';
+    } else {
+      const newImage = URL.createObjectURL(data);
+      return this.sanitizer.bypassSecurityTrustUrl(newImage)
+    }
   }
 }
 

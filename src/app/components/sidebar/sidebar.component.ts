@@ -57,7 +57,6 @@ export class SidebarComponent implements OnInit {
   profilePicture=null;
   constructor( private authService: AuthService, location: Location,
                private userService: UserService, private router: Router,
-               private sanitizer:DomSanitizer,
                private categoryService: CategoryService) { this.location = location;}
 
   ngOnInit() {
@@ -102,8 +101,9 @@ export class SidebarComponent implements OnInit {
       data => {
         this.currentUser = data
         this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
-          const newImage = URL.createObjectURL(d);
-          this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)})
+          this.profilePicture = this.userService.setProfilePicture(d);},()=>{
+          this.profilePicture = 'assets/img/default-avatar.png'
+        })
         if (this.currentUser?.role.name === "ROLE_ADMIN") {
           this.isAdmin = true;
         }

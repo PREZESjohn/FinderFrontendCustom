@@ -43,7 +43,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UserService,
     private categoryService: CategoryService,
-    private sanitizer:DomSanitizer
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -244,8 +243,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       data => {
         this.currentUser = data
         this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
-          const newImage = URL.createObjectURL(d);
-          this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)})
+          this.profilePicture = this.userService.setProfilePicture(d);})
         if (this.currentUser?.role.name === "ROLE_ADMIN") {
           this.isAdmin = true;
         }

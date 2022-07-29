@@ -24,12 +24,12 @@ export class UserProfileComponent implements OnInit {
   buttonFunction = 'Edit';
   profilePicture = null;
   pictureFile=null;
+  isPictureChanged=false;
   constructor(private userService:UserService,
               private formBuilder: FormBuilder,
               private router:Router,
               private categoryService:CategoryService,
               private activeRoute: ActivatedRoute,
-              private sanitizer:DomSanitizer,
               private alertService: AlertService) { }
 
   ngOnInit(): void {
@@ -41,8 +41,9 @@ export class UserProfileComponent implements OnInit {
         data => {
           this.userToEdit = data
           this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
-            const newImage = URL.createObjectURL(d);
-            this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)})
+            this.profilePicture = this.userService.setProfilePicture(d);},()=>{
+            this.profilePicture = 'assets/img/default-avatar.png'
+          })
         }, () => {
           this.alertService.error('Error');
         }
@@ -136,9 +137,9 @@ export class UserProfileComponent implements OnInit {
       this.pictureFile=e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
-
       reader.onload = (ev)=>{
         this.profilePicture = ev.target.result;
+        this.isPictureChanged=true;
       }
     }
     // console.log(this.profilePicture)
@@ -147,9 +148,10 @@ export class UserProfileComponent implements OnInit {
   public uploadFile(){
     this.userService.uploadProfilePicture(this.pictureFile).subscribe(()=>{
       this.userService.getProfilePicture(this.userToEdit?.id).subscribe((data:any)=>{
-        const newImage = URL.createObjectURL(data);
-        this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)
+        this.profilePicture = this.userService.setProfilePicture(data);
+        window.location.reload();
         this.alertService.success("Changes saved");
+        this.isPictureChanged=false;
       },()=>{
         this.alertService.error("Error")
       })
