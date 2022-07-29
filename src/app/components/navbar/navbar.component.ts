@@ -10,6 +10,7 @@ import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {GroupRoomService} from '../../services/group-room.service';
 import {DashboardComponent} from '../../pages/dashboard/dashboard.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar',
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public chosenGame:GameDTO;
   public chosenGameName:string = localStorage.getItem('currentGame')
   public user;
+  public profilePicture=null;
 
   constructor(
     location: Location,
@@ -40,7 +42,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private authService: AuthService,
     private userService: UserService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private sanitizer:DomSanitizer
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -240,6 +243,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userService.getUser().subscribe(
       data => {
         this.currentUser = data
+        this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
+          const newImage = URL.createObjectURL(d);
+          this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)})
         if (this.currentUser?.role.name === "ROLE_ADMIN") {
           this.isAdmin = true;
         }

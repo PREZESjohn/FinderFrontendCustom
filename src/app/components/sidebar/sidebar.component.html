@@ -100,7 +100,7 @@
     <li>
       <div class="profile-details" *ngIf="checkIfLoggedIn()">
         <div class="profile-content">
-          <img src="assets/img/default-avatar.png" alt="profileImg">
+          <img [src]="profilePicture" alt="profileImg">
         </div>
         <div class="name-job" >
           <div class="profile_name">{{currentUser?.username}}</div>

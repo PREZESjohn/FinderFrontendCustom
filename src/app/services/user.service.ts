@@ -53,7 +53,10 @@ export class UserService {
   uploadProfilePicture(file):Observable<any>{
     const formData = new FormData();
     formData.append('profilePicture',file,file.name);
-    return this.http.post(this.baseURL+'/profilePicture',formData)
+    return this.http.patch(this.baseURL+'/profilePicture',formData)
+  }
+  getProfilePicture(userId:number):Observable<any>{
+    return this.http.get(this.baseURL+'/profilePicture/'+userId,{responseType: 'blob'});
   }
 }
 

@@ -5,6 +5,7 @@ import {UserService} from '../../services/user.service';
 import {CategoryService} from '../../services/categoryService';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
 
 declare interface RouteInfo {
   path: string;
@@ -53,8 +54,10 @@ export class SidebarComponent implements OnInit {
   private listTitles: any[];
   public location
   public sidebarColor = 'blue';
+  profilePicture=null;
   constructor( private authService: AuthService, location: Location,
                private userService: UserService, private router: Router,
+               private sanitizer:DomSanitizer,
                private categoryService: CategoryService) { this.location = location;}
 
   ngOnInit() {
@@ -98,6 +101,9 @@ export class SidebarComponent implements OnInit {
     this.userService.getUser().subscribe(
       data => {
         this.currentUser = data
+        this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
+          const newImage = URL.createObjectURL(d);
+          this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)})
         if (this.currentUser?.role.name === "ROLE_ADMIN") {
           this.isAdmin = true;
         }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../domain/User';
 import {UserService} from '../../services/user.service';
@@ -7,6 +7,7 @@ import {AlertService} from '../../services/alert.service';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,6 +29,7 @@ export class UserProfileComponent implements OnInit {
               private router:Router,
               private categoryService:CategoryService,
               private activeRoute: ActivatedRoute,
+              private sanitizer:DomSanitizer,
               private alertService: AlertService) { }
 
   ngOnInit(): void {
@@ -38,6 +40,9 @@ export class UserProfileComponent implements OnInit {
       this.userService.getUser().subscribe(
         data => {
           this.userToEdit = data
+          this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
+            const newImage = URL.createObjectURL(d);
+            this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)})
         }, () => {
           this.alertService.error('Error');
         }
@@ -136,12 +141,21 @@ export class UserProfileComponent implements OnInit {
         this.profilePicture = ev.target.result;
       }
     }
-    console.log(this.profilePicture)
+    // console.log(this.profilePicture)
   }
 
   public uploadFile(){
-    this.userService.uploadProfilePicture(this.pictureFile).subscribe(()=>{this.profilePicture=null},()=>{this.alertService.error("Error")}
-    )
+    this.userService.uploadProfilePicture(this.pictureFile).subscribe(()=>{
+      this.userService.getProfilePicture(this.userToEdit?.id).subscribe((data:any)=>{
+        const newImage = URL.createObjectURL(data);
+        this.profilePicture = this.sanitizer.bypassSecurityTrustUrl(newImage)
+        this.alertService.success("Changes saved");
+      },()=>{
+        this.alertService.error("Error")
+      })
+    },()=>{
+      this.alertService.error("Error")})
+
   }
 
   tableContains(table,objectToFind):boolean{
