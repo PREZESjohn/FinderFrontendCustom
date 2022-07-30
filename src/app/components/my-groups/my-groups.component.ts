@@ -6,6 +6,7 @@ import {User} from '../../domain/User';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {CategoryService} from '../../services/categoryService';
 import {GroupRoom} from '../../domain/GroupRoom';
+import {ProfilePicturesService} from '../../services/profilePicturesService';
 ;
 
 @Component({
@@ -16,13 +17,15 @@ import {GroupRoom} from '../../domain/GroupRoom';
 export class MyGroupsComponent implements OnInit {
 
   currentUser: User;
+  usersProfilePictures=null;
   public games: GameDTO[];
   constructor(private alertService: AlertService, private groupRoomService: GroupRoomService, private userService:UserService,
-              private categoryService:CategoryService) {
+              private categoryService:CategoryService,private profilePicturesService:ProfilePicturesService) {
   }
 
   ngOnInit(): void {
     this.loadData();
+    this.usersProfilePictures = this.profilePicturesService.getUsersProfilePictures()
   }
 
   removeGroup(groupId: number) {

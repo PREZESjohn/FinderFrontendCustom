@@ -1,5 +1,5 @@
 
-<div class=" content " style="background-image:{{chosenGame?.name}}-back.jpg" xmlns="http://www.w3.org/1999/html">
+<div class=" content " xmlns="http://www.w3.org/1999/html">
   <div class="container">
     <div class="main-body">
 
@@ -60,14 +60,13 @@
               <div class="card ">
                 <div class="card-body">
                   <div class="row justify-content-center">
-                    <div class="d-flex flex-column align-items-center text-center p-lg-2">
-                      <div class="d-flex justify-content-center row">
-                        <div class=" pr-md-1 justify-content-center" style="width: 95%">
+                    <div class=" flex-column align-items-center text-center p-lg-2">
+                        <div class=" pr-md-1 justify-content-center">
                           <label class="d-flex justify-content-center title"> Users in group </label>
                           <div class="row text-center justify-content-center">
                             <div style="height: 100px" class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2"
                                  *ngFor=" let user of groupRoom.users | slice:0:groupRoom.maxUsers; let i = index">
-                              <img class="img-responsive mt-2" alt="icon" src="assets/img/default-avatar.png">
+                              <img class=" card-img mt-2" alt="icon" [src]="profilePictures.get(user.id)" >
                               <p class="justify-content-center">{{user.username}}</p>
                             </div>
                             <div class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2 " style="opacity: 40%"
@@ -79,7 +78,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>

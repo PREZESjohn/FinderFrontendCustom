@@ -88,7 +88,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="d-flex flex-column align-items-center text-center p-lg-2" *ngFor=" let user of groupRoom?.users; let i = index">
-                      <img class="img-responsive" alt="icon" src="assets/img/default-avatar.png" style="height: 100px;width: 100px">
+                      <img class="img-responsive" alt="icon" [src]="usersProfilePictures.get(user.id)" style="height: 100px;width: 100px">
                       <p class="justify-content-center">{{user.username}}</p>
                       <button class=" btnNew btn-danger text-sm-center" style="width: 80px;height: 30px" *ngIf="user.id == currentUser.id " (click)="leaveGroup(groupRoom.id)">Leave</button>
                     </div>

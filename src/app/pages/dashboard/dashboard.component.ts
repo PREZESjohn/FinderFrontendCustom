@@ -15,6 +15,7 @@ import {GameDTO} from '../../domain/dto/GameDTO';
 import {Category} from '../../domain/Category';
 import {Role} from '../../domain/Role';
 import {state} from '@angular/animations';
+import {ProfilePicturesService} from '../../services/profilePicturesService';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,6 +33,7 @@ export class DashboardComponent implements OnInit {
   public chosenCategory: Category;
   public groupRooms: GroupRoom[] = [];
   public codeInputValue = '';
+  public profilePictures = null;
 
   constructor(private groupRoomService: GroupRoomService,
               private controlHelperService: ControlHelperService,
@@ -40,7 +42,9 @@ export class DashboardComponent implements OnInit {
               private router: Router,
               private userService: UserService,
               private authService: AuthService,
-              private categoryService: CategoryService) {
+              private profilePicturesService:ProfilePicturesService,
+              private categoryService: CategoryService,
+              private profilePictureService:ProfilePicturesService) {
   }
 
   ngOnInit() {
@@ -101,7 +105,10 @@ export class DashboardComponent implements OnInit {
   reloadGame() {
     this.chosenGame = this.categoryService.getGame();
     this.groupRoomService.getGroupsByGame(this.chosenGame?.name).subscribe(
-      (data: any) => this.groupRooms = data,
+      (data: any) =>{ this.groupRooms = data;
+    this.profilePictureService.setUsersProfilePictures(data);
+    this.profilePictures = this.profilePictureService.getUsersProfilePictures();
+  },
       () => this.alertService.error('Error while getting groups')
     );
   }

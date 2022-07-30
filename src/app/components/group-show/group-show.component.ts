@@ -7,6 +7,7 @@ import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {Message} from '../../domain/Message';
 import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
+import {ProfilePicturesService} from '../../services/profilePicturesService';
 
 @Component({
   selector: 'app-group-show',
@@ -17,6 +18,7 @@ export class GroupShowComponent implements OnInit {
   id:number = history.state.data;
   currentGroup:GroupRoom;
   inputMessage:string;
+  profilePictures = null;
 
 
   isAdmin = false;
@@ -24,11 +26,13 @@ export class GroupShowComponent implements OnInit {
   constructor(private groupRoomService:GroupRoomService,
               private alertService:AlertService,
               private userService:UserService,
+              private profilePicturesService:ProfilePicturesService,
               private router:Router) {this.router.routeReuseStrategy.shouldReuseRoute = () => false; }
 
   ngOnInit(): void {
     this.showGroupContent(this.id)
     this.checkIfAdmin();
+    this.profilePictures = this.profilePicturesService.getUsersProfilePictures();
   }
 
   showGroupContent(groupId: number) {
@@ -37,7 +41,9 @@ export class GroupShowComponent implements OnInit {
     }else{
       localStorage.setItem('groupId',groupId.toString());
     }
-    this.groupRoomService.showGroupContent(groupId).subscribe((data:any)=> this.currentGroup = data,
+    this.groupRoomService.showGroupContent(groupId).subscribe((data:any)=>
+    { this.currentGroup = data;
+    },
       ()=>this.alertService.error('Error while getting group room data'))
   }
 
@@ -132,4 +138,14 @@ export class GroupShowComponent implements OnInit {
     }
     return found
   }
+  // public getProfilePictures(groupRoom:GroupRoom) {
+  //   // tslint:disable-next-line:prefer-for-of
+  //   for (let k=0; k < groupRoom?.users.length; k++) {
+  //     this.userService.getProfilePicture(groupRoom?.users[k].id).subscribe((d: any) => {
+  //       this.profilePictures[k] = this.userService.setProfilePicture(d);
+  //     }, () => {
+  //       this.profilePictures[k] = 'assets/img/default-avatar.png'
+  //     })
+  //   }
+  // }
 }

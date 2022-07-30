@@ -100,10 +100,10 @@
         <div class=" pr-md-1 justify-content-center" style="width: 95%">
           <label class="d-flex justify-content-center title"> Users in group </label>
           <div class="row text-center justify-content-center ">
-            <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1 ml-1 mr-1 bg-card"
+            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
                  *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
               <a class="button" style="cursor:pointer" [state]="{userProfileId:user.id}" routerLink="/profile">
-                <img class="img-responsive img-thumbnail mt-1" alt="icon" src="assets/img/default-avatar.png">
+                <img class="img-responsive img-thumbnail mt-1" alt="icon"  [src]="profilePictures.get(user.id)" style="height: 150px;width:150px">
                 <p class="justify-content-center">{{user?.username}}</p>
               </a>
               <div class="row justify-content-center">
@@ -127,7 +127,7 @@
               </div>
 
             </div>
-            <div class="col-md-1 card card-user col-1 col-sm-1 col-lg-1 ml-1 mr-1 bg-card"
+            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
                  *ngFor=" let _ of [].constructor(currentGroup?.maxUsers-currentGroup?.users.length)">
                  <button class='bg-transparent pt-1 btnNew hover-add mt-2'
                       (click)="joinGroup(currentGroup.id)"><img class="img-responsive" alt="icon"
