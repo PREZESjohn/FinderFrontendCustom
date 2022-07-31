@@ -22,11 +22,14 @@ export class CategoryService {
     this.chosenGame = game;
   }
   getGame(){
+    console.log(this.chosenGame)
     return this.chosenGame;
   }
 
   setAllGames(games){
     this.allGames = games
+    this.chosenGame = games[0]
+    console.log("test")
   }
 
   getAllGames(){

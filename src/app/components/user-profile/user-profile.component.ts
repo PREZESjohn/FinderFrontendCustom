@@ -142,7 +142,6 @@ export class UserProfileComponent implements OnInit {
         this.isPictureChanged=true;
       }
     }
-    // console.log(this.profilePicture)
   }
 
   public uploadFile(){

@@ -48,8 +48,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chosenGame = this.categoryService.getGame();
-    this.reloadGame()
+    if(this.categoryService.getAllGames() == null) {
+      this.getGames()
+    }else{
+      this.reloadGame();
+    }
     if (this.checkIfLoggedIn()) {
       this.checkIfAdmin()
     }
@@ -165,6 +168,15 @@ export class DashboardComponent implements OnInit {
       this.router.navigateByUrl('/group-show');
       },()=> this.alertService.error('Wrong code')
     )
+  }
 
+  getGames(){
+    this.categoryService.getGames().subscribe(
+      data => {
+        this.chosenGame = data[0];
+        this.reloadGame();
+      }
+    )
+// this.setGame(this.games[0]);
   }
 }

@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   closeResult: string;
   public games: GameDTO[];
   public chosenGame:GameDTO;
-  public chosenGameName:string = localStorage.getItem('currentGame')
+  // public chosenGameName:string = localStorage.getItem('currentGame')
   public user;
   public profilePicture=null;
 
@@ -64,7 +64,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.checkIfLoggedIn()) {
       this.checkIfAdmin();
     }
-    this.getGames()
+    if(this.categoryService.getAllGames() == null) {
+      this.getGames()
+    }else {
+      this.chosenGame = this.categoryService.getGame();
+      this.games = this.categoryService.getAllGames();
+    }
     window.addEventListener('resize', this.updateColor);
     // this.userService.getUserData().subscribe(data => this.userEmail = data.email);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
@@ -259,14 +264,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
         data => {
           this.games = data;
           this.categoryService.setAllGames(data);
+          this.chosenGame = this.categoryService.getGame();
+          if(this.chosenGame == null){
+          this.chosenGame = data[0]}
         }
       )
-// this.setGame(this.games[0]);
   }
   setGame(game:GameDTO) {
   this.categoryService.setGame(game);
   this.chosenGame = game;
-  localStorage.setItem("currentGame",game.name);
     const currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';

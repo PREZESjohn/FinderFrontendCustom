@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup;
   fieldTextType: boolean;
 
+
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
               private router: Router,
@@ -23,14 +24,18 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginFormGroup = this.formBuilder.group({
-      user: this.formBuilder.group({
-        login: new FormControl('',
-          [Validators.required, Validators.minLength(3)]),
-        password: new FormControl('',
-          [Validators.required, Validators.minLength(3)])
-      })
-    });
+    if(this.authService.getToken()!==null){
+      this.router.navigateByUrl('/dashboard')
+    }else {
+      this.loginFormGroup = this.formBuilder.group({
+        user: this.formBuilder.group({
+          login: new FormControl('',
+            [Validators.required, Validators.minLength(3)]),
+          password: new FormControl('',
+            [Validators.required, Validators.minLength(3)])
+        })
+      });
+    }
   }
 
   login() {
@@ -39,7 +44,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           response => {
             this.authService.setToken(response.token);
-            this.router.navigateByUrl('/room-groups');
+            window.location.reload();
           },
           error => {
             this.alertService.error("Wrong credetials");
