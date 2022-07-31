@@ -7,7 +7,6 @@ import {AlertService} from '../../services/alert.service';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-profile',

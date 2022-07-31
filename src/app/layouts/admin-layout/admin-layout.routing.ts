@@ -4,19 +4,19 @@ import {DashboardComponent} from '../../pages/dashboard/dashboard.component';
 import {LoginComponent} from '../../components/login/login.component';
 import {AuthGuard} from '../../services/AuthGuard';
 import {RegisterComponent} from '../../components/register/register.component';
-import {GroupRoomComponent} from '../../components/group-room/group-room.component';
 import {UserProfileComponent} from '../../components/user-profile/user-profile.component';
 import {MyGroupsComponent} from '../../components/my-groups/my-groups.component';
 import {GroupAddComponent} from '../../components/group-add/group-add.component';
 import {GroupShowComponent} from '../../components/group-show/group-show.component';
 import {OtherUserProfileComponent} from '../../components/other-user-profile/other-user-profile.component';
+import {HomePageComponent} from '../../components/home-page/home-page.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'my-groups', component: MyGroupsComponent,canActivate:[AuthGuard] },
-  { path: 'group-room',component:GroupRoomComponent, canActivate: [AuthGuard]},
+  { path: 'home-page', component: HomePageComponent, canActivate:[AuthGuard] },
   { path: 'group-add',component:GroupAddComponent, canActivate: [AuthGuard]},
   { path: 'user-profile',component:UserProfileComponent, canActivate: [AuthGuard]},
   { path: 'profile',component:OtherUserProfileComponent, canActivate: [AuthGuard]},
