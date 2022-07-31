@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.authService.getToken()!==null){
-      this.router.navigateByUrl('/dashboard')
+      this.router.navigateByUrl('/home-page')
     }else {
       this.loginFormGroup = this.formBuilder.group({
         user: this.formBuilder.group({

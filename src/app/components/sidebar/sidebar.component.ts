@@ -17,7 +17,7 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
 
   {
-    path: '/dashboard',
+    path: '/home-page',
     title: 'Home',
     rtlTitle: 'Home',
     icon: 'icon-chart-pie-36',
@@ -83,7 +83,7 @@ export class SidebarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return 'Dashboard';
+    return 'Explore';
   }
   logOut() {
     this.authService.logout();
