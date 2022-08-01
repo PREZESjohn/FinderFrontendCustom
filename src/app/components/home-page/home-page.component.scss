@@ -1,12 +1,27 @@
 img {
   opacity: 0.5;
   filter: alpha(opacity=40);
-  width:800px;
-  height: 250px;
+  width: 100%;
+  display: block;
 }
 
 img:hover {
   opacity: 1.0;
   filter: alpha(opacity=100);
+}
+
+.thumbnail{
+  position:relative;
+  display: inline-block;
+}
+
+.imgText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color:white;
+  font-weight: bold;
 }
 
