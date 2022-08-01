@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+declare const connect:any;
+declare const disconnect:any
+declare const send:any
 
 @Component({
   selector: 'app-chat',
@@ -12,4 +15,15 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  connectOn(){
+    connect();
+  }
+
+  disconnectOn(){
+    disconnect();
+  }
+  sendMsg(){
+  send();
+  }
 }
+
