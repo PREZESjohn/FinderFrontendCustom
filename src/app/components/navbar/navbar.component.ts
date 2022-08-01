@@ -281,7 +281,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   public checkPath(){
-    console.log(this.router.url === '/home-page')
     return this.router.url === '/home-page';
   }
 

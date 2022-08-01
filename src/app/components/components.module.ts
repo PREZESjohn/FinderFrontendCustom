@@ -16,6 +16,7 @@ import { MyGroupsComponent } from './my-groups/my-groups.component';
 import { GroupShowComponent } from './group-show/group-show.component';
 import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 import {HomePageComponent} from './home-page/home-page.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule],
@@ -23,7 +24,8 @@ import {HomePageComponent} from './home-page/home-page.component';
     AlertComponent,  UserProfileComponent, GroupAddComponent,
     MyGroupsComponent,
     GroupShowComponent,HomePageComponent,
-    OtherUserProfileComponent],
+    OtherUserProfileComponent,
+    ChatComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent]
 })
 export class ComponentsModule {

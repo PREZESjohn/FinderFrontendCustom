@@ -33,5 +33,7 @@ export class AdminLayoutComponent implements OnInit {
       body.classList.remove('white-content');
     }
   }
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 }

@@ -29,22 +29,9 @@ export class GroupRoomService {
     const body = JSON.stringify(newGroup);
     return this.httpClient.post<GroupRoom>(this.baseUrl + '/groups/add',body,{headers});
   }
-
-  deleteMessage(messageId: number) {
-    const url = this.baseUrl + '/groups/comment/'+messageId;
-    return this.httpClient.delete(url);
-  }
-
   showGroupContent(groupId:number):Observable<GroupRoom>{
     return this.httpClient.get<GroupRoom>(this.baseUrl+'/groups/' + groupId)
   }
-
-  addMessage(newMessage: Message){
-    const headers = {'content-type': 'application/json'}
-    const body = JSON.stringify(newMessage);
-    return this.httpClient.post<Message>(this.baseUrl+'/groups/newComment',body,{headers});
-  }
-
   getGroupsByGame(game: string) {
     return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/all/'+game);
   }
