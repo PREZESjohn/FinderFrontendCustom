@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
-import {User} from "../../domain/User";
+import {User} from '../../domain/User';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {GroupRoomService} from '../../services/group-room.service';
@@ -252,7 +252,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         },()=>{
           this.profilePicture = '../assets/img/default-avatar.png'
         })
-        if (this.currentUser?.role.name === "ROLE_ADMIN") {
+        if (this.currentUser?.role.name === 'ROLE_ADMIN') {
           this.isAdmin = true;
         }
       }
@@ -278,6 +278,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
 
+  }
+
+  public checkPath(){
+    console.log(this.router.url === '/home-page')
+    return this.router.url === '/home-page';
   }
 
 }

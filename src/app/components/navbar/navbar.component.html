@@ -23,7 +23,7 @@
       <span class=" navbar-toggler-bar navbar-kebab"> </span>
     </button>
   </div>
-  <div class=" navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation" *ngIf="checkIfLoggedIn()">
+  <div class=" navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation" *ngIf="checkIfLoggedIn()" [style.visibility]="checkPath() ? 'hidden' : 'visible'" >
 
     <div class="dropdown navbar-nav justify-content-start" ngbDropdown>
 
