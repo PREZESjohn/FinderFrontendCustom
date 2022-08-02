@@ -1,36 +1,28 @@
-<div id="main-content" class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="connect">WebSocket connection:</label>
-          <button id="connect" class="btn btn-default" (click)="connectOn()">Connect</button>
-          <button id="disconnect" class="btn btn-default" (click)="disconnectOn()" >Disconnect
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="name">Insert message</label>
-          <input type="text" id="name" class="form-control" placeholder="Your message here...">
-        </div>
-        <button id="send" class="btn btn-default" (click)="sendMsg('hehe')">Send</button>
-      </form>
+<!--<button id="disconnect" class="btn btn-default" (click)="disconnectOn()" >Disconnect</button>-->
+<div class="border-light col-lg-12 bg-white mb-3 " style="height: 1px"></div>
+<h2 class="text-center">Chat</h2>
+<div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
+  <div *ngFor="let mg of messages">
+  <div class="media media-chat pt-0 pb-0" *ngIf="mg?.user?.id !== currentUser?.id">
+    <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" [src]="usersPictures.get(mg?.user?.id)" alt="...">
+    <p class="text-white">{{mg?.user?.username}}</p>
+    <div class="media-body">
+      <p>{{mg?.text}}</p>
+      <p class="meta text-white-50"><time>{{mg?.time}}</time></p>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <table id="conversation" class="table table-striped">
-        <thead>
-        <tr>
-          <th>Messages</th>
-        </tr>
-        </thead>
-        <tbody id="greetings">
-        </tbody>
-      </table>
+  <div class="media media-chat media-chat-reverse pt-0" *ngIf="mg?.user?.id === currentUser?.id">
+    <div class="media-body">
+      <p class="text-white">{{mg?.text}}</p>
+      <p class="meta text-white-50"><time>{{mg?.time}}</time></p>
     </div>
   </div>
+  </div>
+
+  <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div></div></div>
+
+<div class="publisher bt-1 border-light ">
+  <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" src="assets/img/default-avatar.png" alt="...">
+  <input #inpt class="publisher-input text-white" type="text" value="{{message.text}}" placeholder="Write something" (keyup)="readMsg(inpt.value)" >
+  <a class="publisher-btn text-info"  data-abc="true" (click)="sendMsg()"><i class="fa fa-paper-plane"></i></a>
 </div>

@@ -19,7 +19,7 @@ export class GroupShowComponent implements OnInit {
   currentGroup:GroupRoom;
   inputMessage:string;
   profilePictures = null;
-
+  isUserInGroup = false;
 
   isAdmin = false;
   currentUser:User;
@@ -43,6 +43,7 @@ export class GroupShowComponent implements OnInit {
     }
     this.groupRoomService.showGroupContent(groupId).subscribe((data:any)=>
     { this.currentGroup = data;
+      this.isUserInGroup = this.tableContains(data.users,this.currentUser);
     },
       ()=>this.alertService.error('Error while getting group room data'))
   }
@@ -54,6 +55,7 @@ export class GroupShowComponent implements OnInit {
         if ( this.currentUser?.role.name === 'ROLE_ADMIN') {
           this.isAdmin = true;
         }
+        this.isUserInGroup = this.tableContains(this.currentGroup.users,data);
       }, () => {
         this.alertService.error('Error');
       }
@@ -93,21 +95,12 @@ export class GroupShowComponent implements OnInit {
     let found = false;
     // tslint:disable-next-line:prefer-for-of
     for(let i=0; i<table.length;i++){
-      if(table[i].id === objectToFind.id){
+      if(table[i]?.id === objectToFind?.id){
         found = true;
         break;
       }
     }
     return found
   }
-  // public getProfilePictures(groupRoom:GroupRoom) {
-  //   // tslint:disable-next-line:prefer-for-of
-  //   for (let k=0; k < groupRoom?.users.length; k++) {
-  //     this.userService.getProfilePicture(groupRoom?.users[k].id).subscribe((d: any) => {
-  //       this.profilePictures[k] = this.userService.setProfilePicture(d);
-  //     }, () => {
-  //       this.profilePictures[k] = 'assets/img/default-avatar.png'
-  //     })
-  //   }
-  // }
+
 }
