@@ -5,7 +5,7 @@
         <div class="form-group">
           <label for="connect">WebSocket connection:</label>
           <button id="connect" class="btn btn-default" (click)="connectOn()">Connect</button>
-          <button id="disconnect" class="btn btn-default" (click)="disconnectOn()" disabled="disabled">Disconnect
+          <button id="disconnect" class="btn btn-default" (click)="disconnectOn()" >Disconnect
           </button>
         </div>
       </form>
@@ -16,7 +16,7 @@
           <label for="name">Insert message</label>
           <input type="text" id="name" class="form-control" placeholder="Your message here...">
         </div>
-        <button id="send" class="btn btn-default" (click)="sendMsg()">Send</button>
+        <button id="send" class="btn btn-default" (click)="sendMsg('hehe')">Send</button>
       </form>
     </div>
   </div>
