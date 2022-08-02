@@ -4,5 +4,6 @@ export class Message {
   public id:number;
   public text:string;
   public user:User;
+  public groupId:number;
   public time:Date;
 }

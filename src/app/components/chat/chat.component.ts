@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
       this.stompClient = Stomp.over(socket);
       this.stompClient.connect({}, (frame) => {
         console.log('Connected: ' + frame);
-        this.stompClient.subscribe('/topic/messages', (chatMessage) => {
+        this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
           this.messages.push(data);
         });
@@ -62,7 +62,8 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
 
   sendMsg(){
     this.message.user = this.currentUser;
-    this.stompClient.send('/app/temp', {}, JSON.stringify(this.message));
+    this.message.groupId = this.groupRoom.id;
+    this.stompClient.send('/app/chat/'+this.groupRoom.id, {groupId:this.groupRoom.id}, JSON.stringify(this.message));
     this.message.text = '';
   }
 
