@@ -43,7 +43,7 @@ export class GroupShowComponent implements OnInit {
     }
     this.groupRoomService.showGroupContent(groupId).subscribe((data:any)=>
     { this.currentGroup = data;
-      this.isUserInGroup = this.tableContains(data.users,this.currentUser);
+      this.isUserInGroup = this.tableContains(data?.users,this.currentUser);
     },
       ()=>this.alertService.error('Error while getting group room data'))
   }
@@ -55,7 +55,7 @@ export class GroupShowComponent implements OnInit {
         if ( this.currentUser?.role.name === 'ROLE_ADMIN') {
           this.isAdmin = true;
         }
-        this.isUserInGroup = this.tableContains(this.currentGroup.users,data);
+        this.isUserInGroup = this.tableContains(this.currentGroup?.users,data);
       }, () => {
         this.alertService.error('Error');
       }
