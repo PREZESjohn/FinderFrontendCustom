@@ -4,6 +4,7 @@ import * as SockJS from 'sockjs-client';
 import {Message} from '../../domain/Message';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {User} from '../../domain/User';
+import {AuthService} from '../../services/auth.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
 
   message:Message=new Message();
   messages = [];
-  constructor() { }
+
+  constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
     this.connectOn();
@@ -34,12 +36,15 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   }
 
   connectOn(){
+    const headers={
+      'Authorization': 'Bearer ' + this.authService.getToken()
+    }
     if(this.isInGroup) {
-      const socket = new SockJS('http://localhost:8080/ws');
+      const socket = new SockJS('http://localhost:8080/ws',headers);
       this.stompClient = Stomp.over(socket);
-      this.stompClient.connect({}, (frame) => {
+      this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);
-        this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
+        this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id,{}, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
           this.messages.push(data);
         });
@@ -61,9 +66,13 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   }
 
   sendMsg(){
+    const headers={
+      Authorization: 'Bearer ' + this.authService.getToken()
+    }
     this.message.user = this.currentUser;
     this.message.groupId = this.groupRoom.id;
-    this.stompClient.send('/app/chat/'+this.groupRoom.id, {groupId:this.groupRoom.id}, JSON.stringify(this.message));
+    // tslint:disable-next-line:max-line-length
+    this.stompClient.send('/app/chat/'+this.groupRoom.id,{}, JSON.stringify(this.message));
     this.message.text = '';
   }
 
