@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
-import {Stomp} from '../../../assets/js/stomp.js';
+import { RxStomp } from '@stomp/rx-stomp';
+import {Stomp} from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import {Message} from '../../domain/Message';
 import {GroupRoom} from '../../domain/GroupRoom';
@@ -44,10 +45,10 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
       this.stompClient = Stomp.over(socket);
       this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);
-        this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id,{}, (chatMessage) => {
+        this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
           this.messages.push(data);
-        });
+        },headers);
       });
     }
   }
