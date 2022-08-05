@@ -41,14 +41,16 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
       'Authorization': 'Bearer ' + this.authService.getToken()
     }
     if(this.isInGroup) {
-      const socket = new SockJS('http://localhost:8080/ws',headers);
-      this.stompClient = Stomp.over(socket);
+      // const socket = new SockJS('http://localhost:8080/ws',headers);
+      this.stompClient = Stomp.over(()=>{
+        return new SockJS('http://localhost:8080/ws',headers)
+      });
       this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);
         this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
           this.messages.push(data);
-        },headers);
+        });
       });
     }
   }
@@ -57,6 +59,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
     if (this.stompClient !== null && this.stompClient !== undefined) {
       this.stompClient?.disconnect();
       console.log('Disconnected');
+      this.stompClient=null;
     }else{
       console.log('Not in group')
     }

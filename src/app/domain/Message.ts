@@ -5,5 +5,5 @@ export class Message {
   public text:string;
   public user:User;
   public groupId:number;
-  public time:Date;
+  public time:string;
 }
