@@ -38,10 +38,10 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
 
   connectOn(){
     const headers={
-      'Authorization': 'Bearer ' + this.authService.getToken()
+      'Authorization': 'Bearer ' + this.authService.getToken(),
+      'groupId': this.groupRoom?.id
     }
     if(this.isInGroup) {
-      // const socket = new SockJS('http://localhost:8080/ws',headers);
       this.stompClient = Stomp.over(()=>{
         return new SockJS('http://localhost:8080/ws',headers)
       });
