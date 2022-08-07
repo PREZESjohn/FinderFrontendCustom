@@ -1,9 +1,9 @@
 <div class="border-light col-lg-12 bg-white mb-3 " style="height: 1px"></div>
 <h2 class="text-center">Chat</h2>
 <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
-  <div *ngFor="let mg of messages">
+  <div #chat *ngFor="let mg of messages">
   <div class="media media-chat pt-0 pb-0" *ngIf="mg?.user?.id !== currentUser?.id">
-    <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" [src]="usersPictures.get(mg?.user?.id)" alt="...">
+    <img *ngIf="mg.user!=null" class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" [src]="usersPictures.get(mg?.user?.id)" alt="...">
     <p class="text-white">{{mg?.user?.username}}</p>
     <div class="media-body">
       <p>{{mg?.text}}</p>

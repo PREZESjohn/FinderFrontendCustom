@@ -6,4 +6,5 @@ export class Message {
   public user:User;
   public groupId:number;
   public time:string;
+  public connectedUsers:number[];
 }

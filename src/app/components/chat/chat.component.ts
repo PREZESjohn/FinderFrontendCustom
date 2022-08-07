@@ -6,6 +6,7 @@ import {Message} from '../../domain/Message';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {User} from '../../domain/User';
 import {AuthService} from '../../services/auth.service';
+import {$} from 'protractor';
 
 
 @Component({
@@ -48,10 +49,13 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
       });
       this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);
-        this.onConnection.emit(true);
         this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
-          this.messages.push(data);
+            this.messages.push(data);
+          if(data?.connectedUsers!==null && data?.connectedUsers!==undefined){
+          data?.connectedUsers.forEach((user)=>{
+            this.onConnection.emit([user,true])
+          })}
         });
       });
     }
@@ -61,7 +65,6 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
     if (this.stompClient !== null && this.stompClient !== undefined) {
       this.stompClient?.disconnect();
       console.log('Disconnected');
-      this.onConnection.emit(false);
       this.stompClient=null;
     }else{
       console.log('Not in group')
@@ -73,9 +76,6 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   }
 
   sendMsg(){
-    const headers={
-      Authorization: 'Bearer ' + this.authService.getToken()
-    }
     this.message.user = this.currentUser;
     this.message.groupId = this.groupRoom.id;
     // tslint:disable-next-line:max-line-length
@@ -86,5 +86,6 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   ngOnDestroy(){
     this.disconnectOn();
   }
+
 }
 
