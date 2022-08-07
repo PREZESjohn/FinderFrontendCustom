@@ -106,7 +106,6 @@ export class GroupShowComponent implements OnInit {
 
   public setConnection(values:any){
     this.isConnected.set(values[0],values[1]);
-    console.log(this.isConnected)
   }
 
 }

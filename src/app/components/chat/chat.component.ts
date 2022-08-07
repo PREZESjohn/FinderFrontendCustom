@@ -52,6 +52,9 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
         this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
             this.messages.push(data);
+          this.groupRoom.users.forEach((u)=>{
+            this.onConnection.emit([u.id,false])
+          })
           if(data?.connectedUsers!==null && data?.connectedUsers!==undefined){
           data?.connectedUsers.forEach((user)=>{
             this.onConnection.emit([user,true])
