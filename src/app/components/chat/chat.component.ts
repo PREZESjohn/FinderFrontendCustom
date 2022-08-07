@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
 import {Stomp} from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   @Input() currentUser:User = null;
   @Input() isInGroup = false;
   @Input() usersPictures = null;
+  @Output() onConnection = new EventEmitter<any>()
 
   message:Message=new Message();
   messages = [];
@@ -47,6 +48,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
       });
       this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);
+        this.onConnection.emit(true);
         this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
           this.messages.push(data);
@@ -59,6 +61,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
     if (this.stompClient !== null && this.stompClient !== undefined) {
       this.stompClient?.disconnect();
       console.log('Disconnected');
+      this.onConnection.emit(false);
       this.stompClient=null;
     }else{
       console.log('Not in group')

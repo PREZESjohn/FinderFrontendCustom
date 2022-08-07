@@ -20,6 +20,7 @@ export class GroupShowComponent implements OnInit {
   inputMessage:string;
   profilePictures = null;
   isUserInGroup = false;
+  isConnected = new Map();
 
   isAdmin = false;
   currentUser:User;
@@ -101,6 +102,10 @@ export class GroupShowComponent implements OnInit {
       }
     }
     return found
+  }
+
+  public setConnection(value:boolean){
+    this.isConnected.set(this.currentUser.id,value);
   }
 
 }
