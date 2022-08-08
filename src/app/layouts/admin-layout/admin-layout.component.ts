@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Message} from '../../domain/Message';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -8,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdminLayoutComponent implements OnInit {
   public sidebarColor = 'blue';
 
-  constructor() {}
+  constructor(private alertService:AlertService) {}
   changeSidebarColor(color){
     const sidebar = document.getElementsByClassName('sidebar')[0];
     const mainPanel = document.getElementsByClassName('main-panel')[0];
@@ -34,6 +36,14 @@ export class AdminLayoutComponent implements OnInit {
     }
   }
   ngOnInit() {
-
+    // this.connect();
   }
+  // connect(){
+  //   const source = new EventSource('http://localhost:8080/api/v1/notify/test');
+  //   source.addEventListener('message', message =>{
+  //     const msg:Message = JSON.parse(message.data);
+  //     this.alertService.error(msg.text);
+  //     console.log(msg.text);
+  //   })
+  // }
 }

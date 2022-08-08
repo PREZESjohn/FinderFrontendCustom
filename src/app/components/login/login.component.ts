@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {Error} from '../../domain/Error';
 import {COMMON_ERROR_MESSAGE} from '../../domain/CommonMessages';
+import {Message} from '../../domain/Message';
+declare let EventSource:any;
 
 @Component({
   selector: 'app-login',
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
         })
       });
     }
+    // this.connect();
   }
 
   login() {
@@ -56,4 +59,14 @@ export class LoginComponent implements OnInit {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
+
+  // connect(){
+  //   const source = new EventSource('http://localhost:8080/api/v1/notify/test');
+  //   source.addEventListener('message', message =>{
+  //     const msg:Message = JSON.parse(message.data);
+  //     this.alertService.error(msg.text);
+  //     // this.ngOnInit();
+  //     console.log(msg.text);
+  //   })
+  // }
 }

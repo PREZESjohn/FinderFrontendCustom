@@ -22,13 +22,16 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   @Input() usersPictures = null;
   @Output() onConnection = new EventEmitter<any>()
 
+  isConnected = false;
   message:Message=new Message();
   messages = [];
 
   constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
-    this.connectOn();
+    // if(this.isInGroup) {
+    //   this.connectOn();
+    // }
   }
   ngOnChanges(){
     if(this.isInGroup){
@@ -43,21 +46,22 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
       'Authorization': 'Bearer ' + this.authService.getToken(),
       'groupId': this.groupRoom?.id
     }
-    if(this.isInGroup) {
+    if(this.isInGroup && this.isConnected===false) {
       this.stompClient = Stomp.over(()=>{
         return new SockJS('http://localhost:8080/ws',headers)
       });
       this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);
+        this.isConnected = true;
         this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
           const data = JSON.parse(chatMessage.body)
             this.messages.push(data);
-          this.groupRoom.users.forEach((u)=>{
-            this.onConnection.emit([u.id,false])
-          })
           if(data?.connectedUsers!==null && data?.connectedUsers!==undefined){
-          data?.connectedUsers.forEach((user)=>{
-            this.onConnection.emit([user,true])
+            this.groupRoom.users.forEach((u)=>{
+              this.onConnection.emit([u.id,false])
+            })
+            data?.connectedUsers.forEach((user)=>{
+              this.onConnection.emit([user,true])
           })}
         });
       });
@@ -68,6 +72,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
     if (this.stompClient !== null && this.stompClient !== undefined) {
       this.stompClient?.disconnect();
       console.log('Disconnected');
+      this.isConnected=false;
       this.stompClient=null;
     }else{
       console.log('Not in group')

@@ -7,4 +7,5 @@ export class Message {
   public groupId:number;
   public time:string;
   public connectedUsers:number[];
+  public negative:boolean;
 }

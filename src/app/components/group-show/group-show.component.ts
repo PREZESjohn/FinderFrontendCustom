@@ -9,6 +9,8 @@ import {Message} from '../../domain/Message';
 import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
 
+declare let EventSource:any;
+
 @Component({
   selector: 'app-group-show',
   templateUrl: './group-show.component.html',
@@ -17,7 +19,6 @@ import {ProfilePicturesService} from '../../services/profilePicturesService';
 export class GroupShowComponent implements OnInit {
   id:number = history.state.data;
   currentGroup:GroupRoom;
-  inputMessage:string;
   profilePictures = null;
   isUserInGroup = false;
   isConnected = new Map();
@@ -28,7 +29,23 @@ export class GroupShowComponent implements OnInit {
               private alertService:AlertService,
               private userService:UserService,
               private profilePicturesService:ProfilePicturesService,
-              private router:Router) {this.router.routeReuseStrategy.shouldReuseRoute = () => false; }
+              private router:Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    const source = new EventSource('http://localhost:8080/api/v1/notify/test');
+    source.addEventListener('message', message =>{
+      const msg:Message = JSON.parse(message.data);
+      console.log(msg)
+      console.log(msg?.negative)
+      if(msg.negative){
+      this.alertService.error(msg.text);}
+      else{
+        this.alertService.success(msg.text)
+      }
+      window.setTimeout(()=> {
+        this.alertService.clear()},8000);
+      this.ngOnInit();
+    })}
 
   ngOnInit(): void {
     this.showGroupContent(this.id)
@@ -64,7 +81,7 @@ export class GroupShowComponent implements OnInit {
   }
   public joinGroup(groupId:number){
     this.userService.joinGroup(groupId).subscribe((data:any) => {
-        this.alertService.success('You joined group');
+        // this.alertService.success('You joined group');
         this.showGroupContent(groupId)
       },
       () => this.alertService.error('You are already in this group'))
@@ -107,5 +124,6 @@ export class GroupShowComponent implements OnInit {
   public setConnection(values:any){
     this.isConnected.set(values[0],values[1]);
   }
+
 
 }

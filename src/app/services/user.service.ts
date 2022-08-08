@@ -4,6 +4,7 @@ import {User} from '../domain/User';
 import {Observable} from 'rxjs';
 import {PasswordChangeDto} from '../domain/dto/PasswordChangeDto';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Message} from '../domain/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,6 @@ export class UserService {
       return this.sanitizer.bypassSecurityTrustUrl(newImage)
     }
   }
+
 }
 
