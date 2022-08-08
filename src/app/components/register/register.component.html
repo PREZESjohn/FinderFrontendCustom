@@ -51,6 +51,11 @@
                          </span>
                         </div>
                       </div>
+                      <div class="input-group ">
+                        <input class=" form-control" placeholder="Repeat password" required [type]="fieldTextType ? 'text' : 'password'" formControlName="repeatPassword"/>
+
+                      </div>
+                      <label><input type="checkbox" formControlName="checkTerm"> Do you accept terms ?</label>
                     </div>
                   </div>
                 </div>

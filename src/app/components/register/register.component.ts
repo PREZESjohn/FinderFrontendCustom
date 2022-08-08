@@ -1,8 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
+import {CustomValidators} from "../../providers/CustomValidators";
 
 @Component({
   selector: 'app-register',
@@ -30,7 +36,10 @@ export class RegisterComponent implements OnInit {
           [Validators.required, Validators.minLength(3)]),
         password: new FormControl('',
           [Validators.required, Validators.minLength(3)]),
-      })
+        repeatPassword: new FormControl('',Validators.required),
+        checkTerm: new FormControl(false, Validators.requiredTrue)
+      },
+        {validators: CustomValidators.mustMatch('password', 'repeatPassword')})
     });
   }
 
@@ -55,6 +64,10 @@ export class RegisterComponent implements OnInit {
     else {
       if (this.loginFormGroup.get('user').get('password').errors!==null || this.loginFormGroup.get('user').get('username').errors!==null) {
         this.alertService.error("Login and password must contains at least 3 characters")
+      }else if(this.loginFormGroup.get('user').get('repeatPassword').errors!==null){
+        this.alertService.error("Passwords are not the same")
+      }else if(this.loginFormGroup.get('user').get('checkTerm').errors!==null) {
+        this.alertService.error("You didn't accept terms")
       }else{
         this.alertService.error("Wrong email");
       }
