@@ -8,4 +8,5 @@ export class Message {
   public time:string;
   public connectedUsers:number[];
   public negative:boolean;
+  public type:string;
 }

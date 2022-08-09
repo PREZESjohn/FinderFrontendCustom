@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {User} from '../../domain/User';
 import {GroupRoomService} from '../../services/group-room.service';
@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {Message} from '../../domain/Message';
 import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
+import {AuthService} from '../../services/auth.service';
 
 declare let EventSource:any;
 
@@ -16,7 +17,7 @@ declare let EventSource:any;
   templateUrl: './group-show.component.html',
   styleUrls: ['./group-show.component.scss']
 })
-export class GroupShowComponent implements OnInit {
+export class GroupShowComponent implements OnInit,OnDestroy {
   id:number = history.state.data;
   currentGroup:GroupRoom;
   profilePictures = null;
@@ -24,19 +25,43 @@ export class GroupShowComponent implements OnInit {
   isConnected = new Map();
 
   isAdmin = false;
+  public source;
   currentUser:User;
   constructor(private groupRoomService:GroupRoomService,
               private alertService:AlertService,
               private userService:UserService,
               private profilePicturesService:ProfilePicturesService,
+              private authService:AuthService,
               private router:Router) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.source = new EventSource('http://localhost:8080/api/v1/notify/test?token='+this.authService.getToken());
+    this.source.addEventListener('message', message =>{
+      const msg:Message = JSON.parse(message.data);
+      if(msg.negative){
+        this.alertService.error(msg.text);}
+      else{
+        this.alertService.success(msg.text)
+      }
+      if(msg.type==='REMOVED'){
+        router.navigateByUrl('/home-page')
+      }
+      window.setTimeout(()=> {
+        this.alertService.clear()},8000);
+      this.checkIfAdmin();
+      this.showGroupContent(this.id);
+    })
+
+
     }
 
   ngOnInit(): void {
     this.showGroupContent(this.id)
     this.checkIfAdmin();
     this.profilePictures = this.profilePicturesService.getUsersProfilePictures();
+  }
+
+  ngOnDestroy() {
+    this.source.close();
   }
 
   showGroupContent(groupId: number) {
@@ -56,7 +81,6 @@ export class GroupShowComponent implements OnInit {
     this.userService.getUser().subscribe(
       data => {
         this.currentUser = data
-        this.connect(data.id);
         if ( this.currentUser?.role.name === 'ROLE_ADMIN') {
           this.isAdmin = true;
         }
@@ -81,7 +105,6 @@ export class GroupShowComponent implements OnInit {
   }
 
   public makePartyLeader(user:User){
-    console.log(user.id);
     const userId=user.id;
     const groupId = this.currentGroup.id;
     this.groupRoomService.makePartyLeader(groupId,userId).subscribe((data:any)=> this.currentGroup = data,
@@ -89,7 +112,6 @@ export class GroupShowComponent implements OnInit {
   }
 
   public removeFromGroup(user:User){
-    console.log(user.id);
     const userId=user.id;
     const groupId = this.currentGroup.id;
     this.groupRoomService.removeFromGroup(groupId,userId).subscribe((data:any)=> this.currentGroup = data,
@@ -111,22 +133,4 @@ export class GroupShowComponent implements OnInit {
   public setConnection(values:any){
     this.isConnected.set(values[0],values[1]);
   }
-
-  connect(userId:number){
-    const source = new EventSource('http://localhost:8080/api/v1/notify/test/'+userId);
-    source.addEventListener('message', message =>{
-      const msg:Message = JSON.parse(message.data);
-      console.log(msg)
-      console.log(msg?.negative)
-      if(msg.negative){
-        this.alertService.error(msg.text);}
-      else{
-        this.alertService.success(msg.text)
-      }
-      window.setTimeout(()=> {
-        this.alertService.clear()},8000);
-      this.ngOnInit();
-    })
-  }
-
 }
