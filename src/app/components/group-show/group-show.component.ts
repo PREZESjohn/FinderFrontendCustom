@@ -42,7 +42,7 @@ export class GroupShowComponent implements OnInit,OnDestroy {
       else{
         this.alertService.success(msg.text)
       }
-      if(msg.type==='REMOVED'){
+      if(msg.type==='REMOVED' && msg.groupId === this.currentGroup.id){
         router.navigateByUrl('/home-page')
       }
       window.setTimeout(()=> {
