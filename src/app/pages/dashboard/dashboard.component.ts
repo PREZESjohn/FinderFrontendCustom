@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 
 import {ControlHelperService} from '../../services/control-helper.service';
 import {Router} from '@angular/router';
@@ -16,13 +16,14 @@ import {Category} from '../../domain/Category';
 import {Role} from '../../domain/Role';
 import {state} from '@angular/animations';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'dashboard.component.html',
   styleUrls: ['/dashboard.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit,OnDestroy {
 
   public data: any;
   public isAdmin = false;
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
   public groupRooms: GroupRoom[] = [];
   public codeInputValue = '';
   public profilePictures = null;
+  private subscriptionName: Subscription;
 
   constructor(private groupRoomService: GroupRoomService,
               private controlHelperService: ControlHelperService,
@@ -45,24 +47,20 @@ export class DashboardComponent implements OnInit {
               private profilePicturesService:ProfilePicturesService,
               private categoryService: CategoryService,
               private profilePictureService:ProfilePicturesService) {
+    this.subscriptionName = this.categoryService.lookForUpdate().subscribe((game:any)=>{
+      this.chosenGame = game;
+      this.reloadGame();
+    })
   }
 
   ngOnInit() {
-    if(this.categoryService.getAllGames() == null) {
-      this.getGames()
-    }else{
       this.reloadGame();
-    }
     if (this.checkIfLoggedIn()) {
       this.checkIfAdmin()
     }
   }
-
-  loadData() {
-    this.groupRoomService.getGroups().subscribe(
-      (data: any) => this.groupRooms = data,
-      () => this.alertService.error('Error while getting groups')
-    );
+  ngOnDestroy() {
+    this.subscriptionName.unsubscribe();
   }
 
   joinGroup(groupId: number) {
@@ -76,16 +74,6 @@ export class DashboardComponent implements OnInit {
   joinGroupMethod(groupId: number) {
     this.joinGroup(groupId);
   }
-
-  deleteGroup(groupId: number) {
-    this.groupRoomService.deleteGroup(groupId).subscribe(
-      () => {
-        this.alertService.success('You succesfully removed ur group');
-        this.reloadGame();
-      },
-      () => this.alertService.error('Error while removing group'));
-  }
-
   checkIfAdmin() {
     this.userService.getUser().subscribe(
       data => {
@@ -162,21 +150,10 @@ export class DashboardComponent implements OnInit {
 
   public joinByCode(){
     const code:string = this.codeInputValue;
-    console.log(code);
     this.groupRoomService.joinByCode(code).subscribe((data:any)=>{
       history.state.data = data?.id
       this.router.navigateByUrl('/group-show');
       },()=> this.alertService.error('Wrong code')
     )
-  }
-
-  getGames(){
-    this.categoryService.getGames().subscribe(
-      data => {
-        this.chosenGame = data[0];
-        this.reloadGame();
-      }
-    )
-// this.setGame(this.games[0]);
   }
 }

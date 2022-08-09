@@ -48,7 +48,6 @@ export class GroupAddComponent implements OnInit {
         description: new FormControl('',[Validators.required, Validators.minLength(2)])
       })
     });
-    console.log(this.chosenCategory?.basicMaxUsers)
     this.groupAddFormGroup.get('newGroup').get('game').disable();
   }
 
@@ -91,9 +90,7 @@ export class GroupAddComponent implements OnInit {
     const temp = this.categories.map(a =>{ if(a.name === e.target.value){return a}else return
     }).filter((value)=>{return value !== undefined});
     this.chosenCategory = temp[0];
-    console.log(this.chosenCategory)
    this.groupAddFormGroup.get('newGroup').get('category').setValue(e.target.value,{onlySelf:true});
-   console.log(this.chosenCategory?.basicMaxUsers)
    this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers,{onlySelf:true})
   }
 }

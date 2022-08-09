@@ -26,7 +26,6 @@ export class OtherUserProfileComponent implements OnInit {
         this.user = data
         this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
           this.profilePicture = this.userService.setProfilePicture(d);
-          console.log(d)
         })
       }, () => {
         this.alertService.error('User not found');

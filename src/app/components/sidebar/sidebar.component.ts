@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../domain/User';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
@@ -6,6 +6,7 @@ import {CategoryService} from '../../services/categoryService';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Subscription} from 'rxjs';
 
 declare interface RouteInfo {
   path: string;
@@ -45,19 +46,25 @@ declare var dropdown:any
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit,OnDestroy {
 
   menuItems: any[];
-  public isCollapsed = true;
   public currentUser: User;
   public isAdmin = false;
   private listTitles: any[];
   public location
-  public sidebarColor = 'blue';
   profilePicture=null;
+  private subscriptionName: Subscription;
+
+
   constructor( private authService: AuthService, location: Location,
-               private userService: UserService, private router: Router,
-               private categoryService: CategoryService) { this.location = location;}
+               private userService: UserService, private router: Router) {
+    this.location = location;
+    this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data:any)=>{
+      this.profilePicture = data;
+    }
+  )
+  }
 
   ngOnInit() {
     this.checkIfAdmin()
@@ -65,6 +72,10 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
   }
+  ngOnDestroy() {
+    this.subscriptionName.unsubscribe();
+  }
+
   isMobileMenu() {
     if (window.innerWidth > 991) {
       return false;

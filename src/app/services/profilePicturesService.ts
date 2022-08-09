@@ -16,10 +16,14 @@ export class ProfilePicturesService {
   setUsersProfilePictures(groupRooms:GroupRoom[]){
     groupRooms.forEach((groupRoom)=>
     groupRoom.users.forEach((user)=>{this.userService.getProfilePicture(user.id).subscribe((data:any)=>{
-      this.usersProfilePictures.set(user.id,this.userService.setProfilePicture(data));
+      this.usersProfilePictures.set(user.id,this.userService.prepareProfilePicture(data));
     })}))
   }
-
+  setUsersProfilePictureForGroup(groupRoom:GroupRoom){
+    groupRoom.users.forEach((user)=>{this.userService.getProfilePicture(user.id).subscribe((data:any)=>{
+      this.usersProfilePictures.set(user.id,this.userService.prepareProfilePicture(data));
+    })})
+  }
   getUsersProfilePictures(){
     return this.usersProfilePictures;
   }

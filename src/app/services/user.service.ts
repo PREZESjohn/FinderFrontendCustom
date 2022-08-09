@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../domain/User';
-import {Observable} from 'rxjs';
 import {PasswordChangeDto} from '../domain/dto/PasswordChangeDto';
 import {DomSanitizer} from '@angular/platform-browser';
-import {Message} from '../domain/Message';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +13,16 @@ export class UserService {
   changePasswordUrl = 'http://localhost:8080/api/auth/password-change';
   editUserUrl = 'http://localhost:8080/api/v1/users/edit'
   baseURL = 'http://localhost:8080/api/v1/users'
+
+  private pictureSubject = new Subject<any>();
+
+
   constructor(private http: HttpClient, private sanitizer:DomSanitizer) {
   }
 
   changePassword(passwordChange: PasswordChangeDto): Observable<any> {
     const headers = {'content-type': 'application/json'}
     const body = JSON.stringify(passwordChange);
-    console.log(body)
     return this.http.post(this.changePasswordUrl, body, {headers})
   }
 
@@ -60,14 +62,29 @@ export class UserService {
   getProfilePicture(userId:number):Observable<any>{
     return this.http.get(this.baseURL+'/profilePicture/'+userId,{responseType: 'blob'});
   }
-
-  setProfilePicture(data:any){
+  prepareProfilePicture(data:any){
     if (data.size===0) {
       return '../assets/img/default-avatar.png';
     } else {
       const newImage = URL.createObjectURL(data);
-      return this.sanitizer.bypassSecurityTrustUrl(newImage)
+      return this.sanitizer.bypassSecurityTrustUrl(newImage);
     }
+  }
+
+  setProfilePicture(data:any){
+    console.log(data)
+    if (data.size===0) {
+      this.pictureSubject.next('../assets/img/default-avatar.png');
+      return '../assets/img/default-avatar.png';
+    } else {
+      const newImage = URL.createObjectURL(data);
+      this.pictureSubject.next(this.sanitizer.bypassSecurityTrustUrl(newImage));
+      return this.sanitizer.bypassSecurityTrustUrl(newImage);
+    }
+  }
+
+  observeProfilePictureChange():Observable<any>{
+    return this.pictureSubject.asObservable();
   }
 
 }

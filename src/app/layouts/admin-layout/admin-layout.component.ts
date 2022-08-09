@@ -36,14 +36,5 @@ export class AdminLayoutComponent implements OnInit {
     }
   }
   ngOnInit() {
-    // this.connect();
   }
-  // connect(){
-  //   const source = new EventSource('http://localhost:8080/api/v1/notify/test');
-  //   source.addEventListener('message', message =>{
-  //     const msg:Message = JSON.parse(message.data);
-  //     this.alertService.error(msg.text);
-  //     console.log(msg.text);
-  //   })
-  // }
 }

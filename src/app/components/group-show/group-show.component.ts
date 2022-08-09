@@ -42,13 +42,13 @@ export class GroupShowComponent implements OnInit,OnDestroy {
       else{
         this.alertService.success(msg.text)
       }
+      this.checkIfAdmin();
+      this.showGroupContent(this.id);
       if(msg.type==='REMOVED' && msg.groupId === this.currentGroup.id){
         router.navigateByUrl('/home-page')
       }
       window.setTimeout(()=> {
         this.alertService.clear()},8000);
-      this.checkIfAdmin();
-      this.showGroupContent(this.id);
     })
 
 
@@ -57,7 +57,6 @@ export class GroupShowComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.showGroupContent(this.id)
     this.checkIfAdmin();
-    this.profilePictures = this.profilePicturesService.getUsersProfilePictures();
   }
 
   ngOnDestroy() {
@@ -73,6 +72,12 @@ export class GroupShowComponent implements OnInit,OnDestroy {
     this.groupRoomService.showGroupContent(groupId).subscribe((data:any)=>
     { this.currentGroup = data;
       this.isUserInGroup = this.tableContains(data?.users,this.currentUser);
+      this.profilePictures = this.profilePicturesService.getUsersProfilePictures();
+
+      if(this.profilePictures.size===0){
+        this.profilePicturesService.setUsersProfilePictureForGroup(data);
+        this.profilePictures = this.profilePicturesService.getUsersProfilePictures();
+      }
     },
       ()=>this.alertService.error('Error while getting group room data'))
   }

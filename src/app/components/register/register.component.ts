@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.loginFormGroup.get('user')?.value);
     if(this.loginFormGroup.valid){
     this.authService.register(
       this.loginFormGroup.get('user').get('username').value,

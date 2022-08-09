@@ -59,14 +59,4 @@ export class LoginComponent implements OnInit {
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-
-  // connect(){
-  //   const source = new EventSource('http://localhost:8080/api/v1/notify/test');
-  //   source.addEventListener('message', message =>{
-  //     const msg:Message = JSON.parse(message.data);
-  //     this.alertService.error(msg.text);
-  //     // this.ngOnInit();
-  //     console.log(msg.text);
-  //   })
-  // }
 }

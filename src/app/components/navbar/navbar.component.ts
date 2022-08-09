@@ -11,6 +11,7 @@ import {GameDTO} from '../../domain/dto/GameDTO';
 import {GroupRoomService} from '../../services/group-room.service';
 import {DashboardComponent} from '../../pages/dashboard/dashboard.component';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   // public chosenGameName:string = localStorage.getItem('currentGame')
   public user;
   public profilePicture=null;
+  private subscriptionName: Subscription;
 
   constructor(
     location: Location,
@@ -46,6 +48,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ) {
     this.location = location;
     this.sidebarVisible = false;
+    this.checkIfAdmin();
+   this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data:any)=>{
+      this.profilePicture = data;
+    })
   }
 
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
@@ -61,6 +67,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
+    console.log("Navbar reload")
     if (this.checkIfLoggedIn()) {
       this.checkIfAdmin();
     }
@@ -83,11 +90,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
-  }
-
-  logOut() {
-    this.authService.logout();
-    this.router.navigateByUrl('/login');
   }
 
   collapse() {
@@ -235,6 +237,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     window.removeEventListener('resize', this.updateColor);
+    this.subscriptionName.unsubscribe();
   }
 
   checkIfLoggedIn() {
@@ -267,17 +270,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.chosenGame = this.categoryService.getGame();
           if(this.chosenGame === undefined){
           this.chosenGame = data[0]}
+          this.categoryService.setGame(this.chosenGame);
         }
       )
   }
   setGame(game:GameDTO) {
   this.categoryService.setGame(game);
   this.chosenGame = game;
-    const currentUrl = this.router.url;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([currentUrl]);
-
   }
 
   public checkPath(){

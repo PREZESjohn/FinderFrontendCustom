@@ -33,14 +33,13 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.games = this.categoryService.getAllGames();
-    console.log(this.games);
     this.activeRoute.paramMap.subscribe(params => {
-      console.log(params);
       this.userService.getUser().subscribe(
         data => {
           this.userToEdit = data
           this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
-            this.profilePicture = this.userService.setProfilePicture(d);},()=>{
+            this.profilePicture = this.userService.setProfilePicture(d);
+            },()=>{
             this.profilePicture = 'assets/img/default-avatar.png'
           })
         }, () => {
@@ -68,7 +67,6 @@ export class UserProfileComponent implements OnInit {
 
   editProfile() {
     const profileData = this.createUserObject();
-    console.log(profileData);
     this.userService.editUser(profileData)
       .subscribe(
         () => {
@@ -146,8 +144,7 @@ export class UserProfileComponent implements OnInit {
   public uploadFile(){
     this.userService.uploadProfilePicture(this.pictureFile).subscribe(()=>{
       this.userService.getProfilePicture(this.userToEdit?.id).subscribe((data:any)=>{
-        this.profilePicture = this.userService.setProfilePicture(data);
-        window.location.reload();
+        this.profilePicture = this.userService.setProfilePicture(data)
         this.alertService.success("Changes saved");
         this.isPictureChanged=false;
       },()=>{
@@ -162,7 +159,6 @@ export class UserProfileComponent implements OnInit {
     let found = false;
     // tslint:disable-next-line:prefer-for-of
     for(let i=0; i<table?.length;i++){
-      // console.log(table[i].id+'  '+objectToFind.id)
       if(table[i].id === objectToFind.id){
         found = true;
         break;
@@ -173,15 +169,12 @@ export class UserProfileComponent implements OnInit {
   public editRole(role:InGameRoles){
     if(this.tableContains(this.userToEdit?.inGameRoles,role)){
       const index = this.userToEdit?.inGameRoles.findIndex((o)=>{return o.id === role.id});
-      console.log(index)
       if(index >- 1){
         this.userToEdit?.inGameRoles.splice(index,1);
       }
     }else{
       this.userToEdit?.inGameRoles.push(role);
     }
-    console.log(this.tempRoleList)
-    console.log(this.userToEdit?.inGameRoles)
   }
 
 }

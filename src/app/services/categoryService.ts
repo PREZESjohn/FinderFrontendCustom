@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {GameDTO} from '../domain/dto/GameDTO';
-import {Observable} from 'rxjs';
 import {GroupRoom} from '../domain/GroupRoom';
 import {Category} from '../domain/Category';
-
+import { Observable, Subject } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class CategoryService {
 
   url = 'http://localhost:8080/api/v1/category';
   chosenGame:GameDTO;
+  private gameSubject = new Subject<any>();
   allGames:GameDTO[];
   constructor(private http: HttpClient) {
   }
@@ -20,16 +20,15 @@ export class CategoryService {
 
   setGame(game){
     this.chosenGame = game;
+    this.gameSubject.next(game);
   }
   getGame(){
-    console.log(this.chosenGame)
     return this.chosenGame;
   }
 
   setAllGames(games){
     this.allGames = games
     this.chosenGame = games[0]
-    console.log("test")
   }
 
   getAllGames(){
@@ -38,5 +37,8 @@ export class CategoryService {
 
   getCategoriesByGame(game:string): Observable<Category[]>{
     return this.http.get<Category[]>(this.url+'/all/'+game)
+  }
+  lookForUpdate():Observable<any>{
+    return this.gameSubject.asObservable();
   }
 }

@@ -59,18 +59,18 @@
             <div class="col-lg-7 mt-4 ml-md-3 pr-3">
               <div class="card ">
                 <div class="card-body">
-                  <div class="row justify-content-center">
-                    <div class=" flex-column align-items-center text-center p-lg-2">
+                  <div class="row justify-content-center" >
+                    <div class=" flex-column align-items-center text-center p-lg-2" style="width: 100%">
                         <div class=" pr-md-1 justify-content-center">
                           <label class="d-flex justify-content-center title"> Users in group </label>
                           <div class="row text-center justify-content-center">
-                            <div style="height: 100px" class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2"
+                            <div class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2"
                                  *ngFor=" let user of groupRoom.users | slice:0:groupRoom.maxUsers; let i = index">
-                              <img class=" card-img mt-2" alt="icon" [src]="profilePictures.get(user.id)" >
+                              <img class=" card-img mt-2" alt="icon" [src]="profilePictures.get(user.id)" style="height: 75px;width: 150px">
                               <p class="justify-content-center">{{user.username}}</p>
                             </div>
                             <div class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2 " style="opacity: 40%"
-                                 *ngFor=" let _ of [].constructor(groupRoom.maxUsers-groupRoom.users.length)">
+                                 *ngFor=" let _ of [].constructor(groupRoom.maxUsers-groupRoom.users.length)" >
                               <button class='bg-transparent pt-1 btnNew hover-add mt-2'
                                       (click)="joinGroupMethod(groupRoom.id)"><img class="img-responsive" alt="icon"
                                                                                    src="assets/img/join.jpg">
