@@ -25,7 +25,6 @@ export class MyGroupsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    this.usersProfilePictures = this.profilePicturesService.getUsersProfilePictures()
   }
 
   removeGroup(groupId: number) {
@@ -39,7 +38,10 @@ export class MyGroupsComponent implements OnInit {
 
   loadData() {
     this.userService.getUserGroups().subscribe(
-      (data:User) => this.currentUser = data,
+      (data:User) => {
+        this.currentUser = data;
+        this.getPictures();
+      },
       () => this.alertService.error('Error while getting groups')
     );
     this.categoryService.getGames().subscribe(
@@ -62,4 +64,11 @@ export class MyGroupsComponent implements OnInit {
       this.groupRoomService.setIsPrivateValue(groupId,result).subscribe()
     }
 
+    public getPictures(){
+      this.usersProfilePictures = this.profilePicturesService.getUsersProfilePictures()
+      if(this.usersProfilePictures.size===0){
+        this.profilePicturesService.setUsersProfilePictures(this.currentUser.groupRooms);
+        this.usersProfilePictures = this.profilePicturesService.getUsersProfilePictures();
+      }
+    }
 }
