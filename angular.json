@@ -33,7 +33,7 @@
               "src/assets/scss/black-dashboard.scss",
               "src/assets/css/nucleo-icons.css"
             ],
-            "scripts": ["src/assets/js/some.js","src/assets/js/app.js","src/assets/js/stomp.js","src/assets/js/sockjs-0.3.4.js"]
+            "scripts": ["src/assets/js/some.js"]
           },
           "configurations": {
             "production": {

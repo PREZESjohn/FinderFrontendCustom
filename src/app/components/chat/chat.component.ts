@@ -1,12 +1,10 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
-import { RxStomp } from '@stomp/rx-stomp';
 import {Stomp} from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import {Message} from '../../domain/Message';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {User} from '../../domain/User';
 import {AuthService} from '../../services/auth.service';
-import {$} from 'protractor';
 
 
 @Component({

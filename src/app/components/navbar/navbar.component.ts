@@ -8,9 +8,6 @@ import {UserService} from '../../services/user.service';
 import {User} from '../../domain/User';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
-import {GroupRoomService} from '../../services/group-room.service';
-import {DashboardComponent} from '../../pages/dashboard/dashboard.component';
-import {DomSanitizer} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
 
 @Component({

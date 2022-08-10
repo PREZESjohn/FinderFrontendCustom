@@ -2,10 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../domain/User';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
-import {CategoryService} from '../../services/categoryService';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {DomSanitizer} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
 
 declare interface RouteInfo {
