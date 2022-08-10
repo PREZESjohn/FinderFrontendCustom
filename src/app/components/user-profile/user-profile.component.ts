@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {User} from '../../domain/User';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -56,26 +56,42 @@ export class UserProfileComponent implements OnInit {
       editUserProfile: this.formBuilder.group({
         name: new FormControl('',
           [Validators.minLength(2)]),
-        email: new FormControl('',[Validators.minLength(2)]),
+        email: new FormControl('',[Validators.minLength(2),Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]),
         city: new FormControl('',[Validators.minLength(2)]),
         age: new FormControl('',[Validators.minLength(2),Validators.pattern('^[0-9]*$'),Validators.maxLength(3)]),
-        phone: new FormControl('',[Validators.minLength(9), Validators.maxLength(9)]),
-        info:new FormControl('',[Validators.minLength(5),Validators.maxLength(45)])
+        phone: new FormControl('',[Validators.minLength(9), Validators.pattern('^[0-9]*$'),Validators.maxLength(9)]),
+        info:new FormControl('',[Validators.minLength(5),Validators.maxLength(150)])
       })
     });
   }
 
   editProfile() {
-    const profileData = this.createUserObject();
-    this.userService.editUser(profileData)
-      .subscribe(
-        () => {
-          this.router.navigateByUrl('/user-profile');
-          this.alertService.success('Data updated');
-        }, () => {
-          this.alertService.error('Something went wrong');
-        }
-      );
+    if(this.profileEditForm.valid){
+      const profileData = this.createUserObject();
+      this.userService.editUser(profileData)
+        .subscribe(
+          () => {
+            this.router.navigateByUrl('/user-profile');
+            this.alertService.success('Data updated');
+          }, () => {
+            this.alertService.error('Something went wrong');
+          }
+        );
+    }else{
+      if (this.profileEditForm.get('editUserProfile').get('name').errors!==null) {
+        this.alertService.error('Minimum 2 letters for name')
+      }else if(this.profileEditForm.get('editUserProfile').get('email').errors!==null){
+        this.alertService.error('Bad email')
+      }else if(this.profileEditForm.get('editUserProfile').get('city').errors!==null) {
+        this.alertService.error('Minimum 2 letters for city')
+      }else if(this.profileEditForm.get('editUserProfile').get('age').errors!==null) {
+        this.alertService.error('Age can be from 0-999')
+      }else if(this.profileEditForm.get('editUserProfile').get('phone').errors!==null) {
+        this.alertService.error('Phone number must be 9 digits ')
+      }else if(this.profileEditForm.get('editUserProfile').get('info').errors!==null) {
+        this.alertService.error('Info can be in range of 5 to 150')
+      }
+    }
   }
 
   private createUserObject(): User {
