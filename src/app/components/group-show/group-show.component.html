@@ -26,10 +26,10 @@
                 <img class="img-responsive img-thumbnail mt-1"   [style.border-color]="isConnected.get(user.id) ? 'green' : 'grey'" alt="icon"  [src]="profilePictures.get(user.id)" style="height: 150px;width:150px;border-width:thick">
                 <p class="justify-content-center">{{user?.username}}</p>
               </a>
-              <div class="row justify-content-center">
-                <div *ngFor="let role of user?.inGameRoles">
-                  <div class="justify-content-center" *ngIf="tableContains(currentGroup.game.inGameRoles,role) ">
-                  <img src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px">
+              <div class=" justify-content-center">
+                <div class="d-inline-block justify-content-center" *ngFor="let role of user?.inGameRoles" >
+                  <div class="ml-1 mr-1" *ngIf="tableContains(currentGroup.game.inGameRoles,role) ">
+                  <img class="" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px">
                   <p>{{role?.name}}</p>
                 </div>
                 </div>
@@ -37,12 +37,12 @@
 
               <p class="text-warning" *ngIf="user?.id == currentGroup?.groupLeader?.id">Leader</p>
 
-              <div class="row justify-content-center" *ngIf="currentGroup?.groupLeader?.id !== user?.id" [hidden]="currentUser?.id !== currentGroup?.groupLeader?.id">
+              <div class=" justify-content-center" *ngIf="currentGroup?.groupLeader?.id !== user?.id" [hidden]="currentUser?.id !== currentGroup?.groupLeader?.id">
                <a type="button" title="Make Leader" style="cursor: pointer" (click)="makePartyLeader(user)">
-                 <img class="mr-2" style="height: 25px;width: 25px;" src="assets/img/leader.png" alt="icon">
+                 <img class="mr-2 d-inline" style="height: 25px;width: 25px;" src="assets/img/leader.png" alt="icon">
                </a>
                 <a type="button" title="Remove from group" style="cursor: pointer" (click)="removeFromGroup(user)">
-                  <img style="height: 20px;width: 20px;" src="assets/img/remove.png" alt="icon">
+                  <img class="d-inline" style="height: 20px;width: 20px;" src="assets/img/remove.png" alt="icon">
                 </a>
               </div>
 

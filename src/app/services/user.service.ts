@@ -54,7 +54,7 @@ export class UserService {
     return this.http.get(this.baseURL+'/profile/'+userId)
   }
 
-  uploadProfilePicture(file):Observable<any>{
+  uploadProfilePicture(file:any):Observable<any>{
     const formData = new FormData();
     formData.append('profilePicture',file,file.name);
     return this.http.patch(this.baseURL+'/profilePicture',formData)

@@ -11,8 +11,8 @@ export class CustomValidators {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];
-
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      // !matchingControl.errors.mustMatch  na dole powinno byc
+      if (matchingControl.errors) {
         return;
       }
 

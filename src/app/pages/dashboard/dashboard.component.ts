@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   public chosenCategory: Category;
   public groupRooms: GroupRoom[] = [];
   public codeInputValue = '';
-  public profilePictures = null;
+  public profilePictures;
   private subscriptionName: Subscription;
 
   constructor(private groupRoomService: GroupRoomService,
@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
       this.reloadGame();
     }
   }
-  public changeCategory(e) {
+  public changeCategory(e:any) {
     const temp = this.chosenGame.categories.map(a => {
       if (a.name === e.target.value) {
         return a
@@ -132,11 +132,12 @@ export class DashboardComponent implements OnInit,OnDestroy {
     }).filter((value) => {
       return value !== undefined
     });
+    // @ts-ignore
     this.chosenCategory = temp[0];
     this.reloadByFilters()
   }
 
-  public changeRole(e) {
+  public changeRole(e:any) {
     const temp = this.chosenGame.inGameRoles.map(a => {
       if (a.name === e.target.value) {
         return a
@@ -144,6 +145,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     }).filter((value) => {
       return value !== undefined
     });
+    // @ts-ignore
     this.chosenRole = temp[0];
     this.reloadByFilters();
   }

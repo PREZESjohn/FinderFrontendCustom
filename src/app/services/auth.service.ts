@@ -27,7 +27,7 @@ export class AuthService {
     sessionStorage.removeItem('key');
   }
 
-  getToken(): string {
+  getToken(): any {
     return sessionStorage.getItem('token');
   }
 
@@ -39,7 +39,7 @@ export class AuthService {
     sessionStorage.setItem('key', 'true');
   }
 
-  getPasswordKeyStorage(): string {
+  getPasswordKeyStorage(): any {
     return sessionStorage.getItem('key');
   }
 

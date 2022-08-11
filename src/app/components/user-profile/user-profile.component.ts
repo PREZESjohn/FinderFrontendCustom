@@ -32,7 +32,14 @@ export class UserProfileComponent implements OnInit {
               private alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.games = this.categoryService.getAllGames();
+    if(this.categoryService.getAllGames().length==0){
+      this,this.categoryService.getGames().subscribe((data:any)=>{
+        this.games = data;
+        }
+      )
+    }else {
+      this.games = this.categoryService.getAllGames();
+    }
     this.activeRoute.paramMap.subscribe(params => {
       this.userService.getUser().subscribe(
         data => {
@@ -124,6 +131,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   public turnEditMode(){
+    console.log(this.userToEdit)
+
     this.alertService.clear();
     if(this.buttonFunction === 'Edit') {
       this.enableInputs();

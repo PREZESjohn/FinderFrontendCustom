@@ -25,25 +25,24 @@
                 <h4>{{userToEdit?.username}}</h4>
                 <p class="text-secondary mb-1" [hidden]="!isEditOff">{{userToEdit?.info}}</p>
               </div>
-              <div class="justify-content-center" [hidden]="!isEditOff">
-                <div class="row justify-content-center pt-3" *ngFor="let game of games">
+              <div class=" justify-content-center" [hidden]="!isEditOff">
+                <div class="d-block  justify-content-center pt-3 " *ngFor="let game of games">
                 <img class="mr-3" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
-                  <div  *ngFor="let role of userToEdit?.inGameRoles, let i = index" >
-                    <div class="justify-content-center" *ngIf="tableContains(game?.inGameRoles,role)">
-                    <img  src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px">
-<!--                    <p>{{role?.name}}</p>-->
+                  <div class="d-inline" *ngFor="let role of userToEdit?.inGameRoles, let i = index">
+                    <div class="d-inline" *ngIf="tableContains(game?.inGameRoles,role)">
+                    <img class="d-inline" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px">
                   </div>
                   </div>
                 </div>
               </div>
               <div class="justify-content-center" [hidden]="isEditOff">
-                <div class="row justify-content-center pt-3" *ngFor="let game of games, let j = index">
-                  <img class="mr-3" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
-                  <div  *ngFor="let role of game?.inGameRoles,let i = index" >
-                    <div class="justify-content-center" *ngIf="tableContains(game?.inGameRoles,role)">
+                <div class=" d-block  pt-3" *ngFor="let game of games, let j = index">
+                  <img  src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
+                  <div class="d-inline" *ngFor="let role of game?.inGameRoles,let i = index">
+                    <p class=" d-inline" *ngIf="tableContains(game?.inGameRoles,role)" style="width:20%">
                       <input type="checkbox" id="checkbox{{j}}-{{i}}" [checked]="tableContains(userToEdit?.inGameRoles,role)" (change)="editRole(role)"/>
                       <label for="checkbox{{j}}-{{i}}"><img title="{{role?.name}}" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px"/></label>
-                    </div>
+                    </p>
                   </div>
                 </div>
               </div>

@@ -8,9 +8,9 @@ import { Observable, Subject } from 'rxjs';
 export class CategoryService {
 
   url = 'http://localhost:8080/api/v1/category';
-  chosenGame:GameDTO;
+  chosenGame:GameDTO = new GameDTO();
   private gameSubject = new Subject<any>();
-  allGames:GameDTO[];
+  allGames:GameDTO[] = [];
   constructor(private http: HttpClient) {
   }
 

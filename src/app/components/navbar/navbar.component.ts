@@ -68,7 +68,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.checkIfLoggedIn()) {
       this.checkIfAdmin();
     }
-    if(this.categoryService.getAllGames() == null) {
+    if(this.categoryService.getAllGames().length==0) {
       this.getGames()
     }else {
       this.chosenGame = this.categoryService.getGame();

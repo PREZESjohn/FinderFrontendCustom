@@ -16,28 +16,32 @@
         <h2 class=" card-title mb-1">Current active groups for {{chosenGame?.name}}
       </h2>
         <div class="d-flex card-description mb-2">
-          <div class="d-flex card-description ">
-            <label class="mt-2 mr-2" for="categorySelect">Category </label>
-            <select id="categorySelect" class="form-control mr-3" (change)="changeCategory($event)" style="width: 150px">
+          <div class="row card-description ">
+            <div class="col">
+            <label class="  mt-2 mr-2" for="categorySelect">Category </label>
+            <select id="categorySelect" class="form-control mr-3" (change)="changeCategory($event)" style="width: 200px">
               <option class="form-control text-white " ></option>
               <option class="form-control text-white" *ngFor="let category of chosenGame?.categories" >{{category.name}}</option>
             </select>
+            </div>
+            <div class="col">
             <label class="mt-2 mr-2" for="InGameRoleSelect">Role</label>
-            <select id="InGameRoleSelect" class="form-control mr-3"  (change)="changeRole($event)" style="width: 140px">
+            <select id="InGameRoleSelect" class="form-control mr-3"  (change)="changeRole($event)" style="width: 200px">
               <option class="form-control  text-white "></option>
               <option class="form-control  text-white " *ngFor="let role of chosenGame?.inGameRoles">{{role.name}}</option>
             </select>
-            <div class="d-flex card-description text-right text-secondary">
-              <label class=" mr-2 text-white-50" for="joinCode">Join using code</label>
-              <input type="text" class="form-control" id="joinCode" [(ngModel)]="codeInputValue" >
+              </div>
+            <div class="col pr-1" >
+              <label class=" mr-2 mt-2 text-white-50" for="joinCode">Join using code</label>
+              <input type="text" class="form-control d-inline" id="joinCode" [(ngModel)]="codeInputValue" >
+<!--            </div>-->
+<!--            <div class="col mt-4 pt-1 pl-0">-->
+              <button class=" mt-2 btn btn-fill bg-card float-right " (click)="joinByCode()" type="submit">Join</button>
             </div>
-            <div class="d-flex card-description ml-1 mr-4 text-right">
-              <button class=" btn btn-fill bg-card mt-0 " (click)="joinByCode()" type="submit">Join</button>
-            </div>
+          <div class="col mt-4 pt-1 pr-0 pl-md-5 ml-5">
+          <button routerLink="/group-add" class="mt-2 btn btn-fill bg-card  " type="submit"> Create own group </button>
           </div>
-          <div class="d-flex card-description ml-3 text-right">
-          <button routerLink="/group-add" class=" btn btn-fill bg-card mt-0 " type="submit"> Create own group </button>
-          </div>
+        </div>
         </div>
         <h5 class=" card-title">Total: {{groupRooms?.length}}</h5>
       </div>
