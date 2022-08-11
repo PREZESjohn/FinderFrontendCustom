@@ -135,6 +135,7 @@ export class UserProfileComponent implements OnInit {
       this.editProfile();
       this.buttonFunction = 'Edit'
       this.isEditOff = true;
+      this.tempRoleList=[];
       this.disableInputs();
     }
   }

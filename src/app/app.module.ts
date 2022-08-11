@@ -12,9 +12,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
 import {TokenInterceptorService} from './services/token-interceptor.service';
+import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule({
   imports: [
+    BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
