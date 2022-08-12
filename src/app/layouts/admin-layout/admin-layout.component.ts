@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Message} from '../../domain/Message';
 import {AlertService} from '../../services/alert.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -10,7 +11,7 @@ import {AlertService} from '../../services/alert.service';
 export class AdminLayoutComponent implements OnInit {
   public sidebarColor = 'blue';
 
-  constructor(private alertService:AlertService) {}
+  constructor(private alertService:AlertService,private authService:AuthService) {}
   changeSidebarColor(color){
     const sidebar = document.getElementsByClassName('sidebar')[0];
     const mainPanel = document.getElementsByClassName('main-panel')[0];
@@ -36,5 +37,9 @@ export class AdminLayoutComponent implements OnInit {
     }
   }
   ngOnInit() {
+  }
+
+  checkToken(){
+    return this.authService.getToken()
   }
 }

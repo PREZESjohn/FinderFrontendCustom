@@ -202,11 +202,12 @@ bg-change-light{
   border-radius: 0.4285rem;
 
 }
-.btnNew:hover{
+.btnNew:hover:enabled{
   color:#1a202c;
   background-color: #133b73;
   border-color: #FFFFFF;
 }
+
 .outer {
   position: relative;
   ul.nav {

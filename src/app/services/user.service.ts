@@ -45,7 +45,6 @@ export class UserService {
     return this.http.get<User>(this.baseURL+'/my-groups/'+gameId)
   }
 
-
   joinGroup(groupId:number){
     return this.http.patch<User>(this.baseURL + '/joinGroup/' + groupId,{},{ observe: 'response' });
   }

@@ -49,7 +49,7 @@
             </div>
             <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
                  *ngFor=" let _ of [].constructor(currentGroup?.maxUsers-currentGroup?.users.length)">
-                 <button class='bg-transparent pt-1 btnNew hover-add mt-2'
+                 <button class='bg-transparent pt-1 btnNew hover-add mt-2' [disabled]="tableContains(currentGroup.users,currentUser)"
                       (click)="joinGroup(currentGroup.id)"><img class="img-responsive" alt="icon"
                                                                    src="assets/img/join.jpg">
                   <p class="justify-content-center">Join </p></button>
