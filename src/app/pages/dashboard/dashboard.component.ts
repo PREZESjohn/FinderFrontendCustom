@@ -155,12 +155,16 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   public joinByCode(){
     const code:string = this.codeInputValue;
-    this.groupRoomService.joinByCode(code).subscribe((data:any)=>{
-      history.state.data = data?.id
-      this.router.navigateByUrl('/group-show');
-      },(e)=>{
-        this.alertService.error(CodeErrors.get(e.error.code))
-      }
-    )
+    if(code!=="") {
+      this.groupRoomService.joinByCode(code).subscribe((data: any) => {
+          history.state.data = data?.id
+          this.router.navigateByUrl('/group-show');
+        }, (e) => {
+          this.alertService.error(CodeErrors.get(e.error.code))
+        }
+      )
+    }else{
+      this.alertService.error("Wrong code");
+    }
   }
 }
