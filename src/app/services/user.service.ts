@@ -14,6 +14,8 @@ export class UserService {
   editUserUrl = 'http://localhost:8080/api/v1/users/edit'
   baseURL = 'http://localhost:8080/api/v1/users'
 
+  myGroupsGame;
+
   private pictureSubject = new Subject<any>();
 
 
@@ -39,6 +41,10 @@ export class UserService {
   getUserGroups() {
     return this.http.get<User>(this.baseURL+'/my-groups')
   }
+  getUserGroupsByGame(gameId:number){
+    return this.http.get<User>(this.baseURL+'/my-groups/'+gameId)
+  }
+
 
   joinGroup(groupId:number){
     return this.http.patch<User>(this.baseURL + '/joinGroup/' + groupId,{},{ observe: 'response' });

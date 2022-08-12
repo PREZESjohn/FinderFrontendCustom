@@ -1,4 +1,4 @@
-<nav class=" navbar navbar-expand-lg navbar-absolute navbar-transparent">
+<nav class=" navbar navbar-expand-md navbar-absolute navbar-transparent">
   <div class=" container-fluid">
     <div class=" navbar-wrapper">
       <div class=" navbar-toggle d-inline">
@@ -25,38 +25,23 @@
   </div>
   <div class=" navbar-collapse" [ngbCollapse]="isCollapsed" id="navigation" *ngIf="checkIfLoggedIn()" [style.visibility]="checkPath() ? 'hidden' : 'visible'" >
 
-    <div class="dropdown navbar-nav justify-content-start" ngbDropdown>
 
-      <button class="btn dropdown-toggle ml-0 justify-content-start " type="button" id="dropdownMenuButton" style="height: 50px;width:270px" aria-expanded="false"
-              ngbDropdownToggle>
-        <img class="" src="assets/img/{{chosenGame?.name}}.jpg" alt="" style="width: 30px;height: 30px">
-        <b class="">{{chosenGame?.name}}</b>
-        <b class=" caret d-none d-lg-block d-xl-block"> </b>
+    <div class="navbar-nav justify-content-start">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <img src="assets/img/{{chosenGame?.name}}.jpg" alt="" style="width: 30px;height: 30px">
+        <b class="pl-1 text-white pr-1">{{chosenGame?.name}}</b>
+         <i class="arrow down"></i>
       </button>
-      <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton"  class="dropdown-menu btn btn-secondary" >
-        <li *ngFor="let game of games">  <a class="btn btn-secondary dropdown-item" (click)="setGame(game)" >
-          <img src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
+      <mat-menu #menu="matMenu" class="bg-card text-white">
+        <button class="text-white" mat-menu-item  *ngFor="let game of games" (click)="setGame(game)"><img src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
           {{game?.name}}
-        </a></li>
-      </ul>
+        </button>
+      </mat-menu>
     </div>
 
-
-<!--    <div class="dropdown navbar-nav justify-content-start">-->
-<!--      <button mat-button [matMenuTriggerFor]="menu">-->
-<!--        <img class="" src="assets/img/{{chosenGame?.name}}.jpg" alt="" style="width: 30px;height: 30px">-->
-<!--        <b class="">{{chosenGame?.name}}</b>-->
-<!--      </button>-->
-<!--      <mat-menu #menu="matMenu">-->
-<!--        <button mat-menu-item  *ngFor="let game of games"><img src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px" (click)="setGame(game)">-->
-<!--                    {{game?.name}}-->
-<!--        </button>-->
-<!--      </mat-menu>-->
-<!--    </div>-->
-
-    <ul class=" navbar-nav ml-auto">
-      <li class=" nav-item" routerLinkActive="true" >
-          <div class=" photo">
+    <ul class=" navbar-nav ml-4 ">
+      <li class=" nav-item justify-content-center" routerLinkActive="true" >
+          <div class=" photo justify-content-center">
             <a [routerLink]="'/user-profile'"><img alt="Profile Photo" [src]="profilePicture"/></a>
   </div>
   </ul>

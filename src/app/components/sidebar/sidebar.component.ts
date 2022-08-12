@@ -5,6 +5,7 @@ import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {Subscription} from 'rxjs';
+import {CategoryService} from '../../services/categoryService';
 
 declare interface RouteInfo {
   path: string;
@@ -51,12 +52,13 @@ export class SidebarComponent implements OnInit,OnDestroy {
   public isAdmin = false;
   private listTitles: any[];
   public location
+  public games;
   profilePicture=null;
   private subscriptionName: Subscription;
 
 
   constructor( private authService: AuthService, location: Location,
-               private userService: UserService, private router: Router) {
+               private userService: UserService, private router: Router, private categoryService:CategoryService) {
     this.location = location;
     this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data:any)=>{
       this.profilePicture = data;
@@ -69,6 +71,9 @@ export class SidebarComponent implements OnInit,OnDestroy {
     new dropdown();
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.loadGames();
+
+
   }
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
@@ -118,5 +123,26 @@ export class SidebarComponent implements OnInit,OnDestroy {
         }
       }
     );
+  }
+
+  setGame(){
+
+  }
+
+  loadGames(){
+    if(this.categoryService.getAllGames().length==0) {
+      this.getGames()
+    }else {
+      this.games = this.categoryService.getAllGames();
+    }
+  }
+
+  getGames(){
+    this.categoryService.getGames().subscribe(
+      data => {
+        this.games = data;
+        this.categoryService.setAllGames(data);
+      }
+    )
   }
 }

@@ -33,10 +33,7 @@
         <i class='bx bxs-chevron-down arrow' ></i>
       </div>
       <ul class="sub-menu">
-        <li><a class="link_name" href="#" >Groups</a></li>
-        <li><a href="#">League of Legends</a></li>
-        <li><a href="#">CS:GO</a></li>
-        <li><a href="#">IRL</a></li>
+        <li *ngFor="let game of games"><a routerLink="/my-groups">{{game.name}}</a></li>
       </ul>
     </li>
     <li routerLinkActive="active" >
