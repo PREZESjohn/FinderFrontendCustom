@@ -9,6 +9,7 @@ import {Message} from '../../domain/Message';
 import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
 import {AuthService} from '../../services/auth.service';
+import {CodeErrors} from '../../providers/CodeErrors';
 
 declare let EventSource:any;
 
@@ -79,7 +80,10 @@ export class GroupShowComponent implements OnInit,OnDestroy {
         this.profilePictures = this.profilePicturesService.getUsersProfilePictures();
       }
     },
-      ()=>this.alertService.error('Error while getting group room data'))
+      (e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
+      }
+    )
   }
 
   checkIfAdmin() {
@@ -90,8 +94,8 @@ export class GroupShowComponent implements OnInit,OnDestroy {
           this.isAdmin = true;
         }
         this.isUserInGroup = this.tableContains(this.currentGroup?.users,data);
-      }, () => {
-        this.alertService.error('Error');
+      }, (e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
       }
     );
   }
@@ -100,27 +104,35 @@ export class GroupShowComponent implements OnInit,OnDestroy {
         // this.alertService.success('You joined group');
         this.showGroupContent(groupId)
       },
-      () => this.alertService.error('You are already in this group'))
+      (e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
+      })
   }
 
   generateCode(groupRoom:GroupRoom){
     this.groupRoomService.generateCode(groupRoom.id).subscribe((data:any) =>
     { const joinCodedto:JoinCodeDTO = data;
-      groupRoom.joinCode = joinCodedto?.code},()=>this.alertService.error('Error while getting code'))
+      groupRoom.joinCode = joinCodedto?.code},(e)=>{
+      this.alertService.error(CodeErrors.get(e.error.code))
+    })
   }
 
   public makePartyLeader(user:User){
     const userId=user.id;
     const groupId = this.currentGroup.id;
     this.groupRoomService.makePartyLeader(groupId,userId).subscribe((data:any)=> this.currentGroup = data,
-      ()=>this.alertService.error('Error while getting group room data'))
+      (e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
+      })
   }
 
   public removeFromGroup(user:User){
     const userId=user.id;
     const groupId = this.currentGroup.id;
     this.groupRoomService.removeFromGroup(groupId,userId).subscribe((data:any)=> this.currentGroup = data,
-      ()=>this.alertService.error('Error while getting group room data'))
+      (e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
+      })
   }
 
   public tableContains(table,objectToFind):boolean{

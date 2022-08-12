@@ -1,22 +1,21 @@
-import {Component, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {ControlHelperService} from '../../services/control-helper.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {GroupRoomService} from '../../services/group-room.service';
 import {UserService} from '../../services/user.service';
 import {User} from '../../domain/User';
 import {AuthService} from '../../services/auth.service';
-import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {Category} from '../../domain/Category';
 import {Role} from '../../domain/Role';
-import {state} from '@angular/animations';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
 import {Subscription} from 'rxjs';
+import {CodeErrors} from '../../providers/CodeErrors';
 
 @Component({
   selector: 'app-dashboard',
@@ -68,7 +67,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
         this.alertService.success('You joined group');
         this.reloadGame()
       },
-      () => this.alertService.error('You are already in this group'))
+      (e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
+      })
   }
 
   joinGroupMethod(groupId: number) {
@@ -100,7 +101,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.profilePictureService.setUsersProfilePictures(data);
     this.profilePictures = this.profilePictureService.getUsersProfilePictures();
   },
-      () => this.alertService.error('Error while getting groups')
+      (e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
+      }
     );
   }
 
@@ -155,7 +158,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.groupRoomService.joinByCode(code).subscribe((data:any)=>{
       history.state.data = data?.id
       this.router.navigateByUrl('/group-show');
-      },()=> this.alertService.error('Wrong code')
+      },(e)=>{
+        this.alertService.error(CodeErrors.get(e.error.code))
+      }
     )
   }
 }
