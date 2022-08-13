@@ -52,6 +52,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
   public isAdmin = false;
   private listTitles: any[];
   public location
+  public isOpen = false;
   public games;
   profilePicture=null;
   private subscriptionName: Subscription;
@@ -73,18 +74,24 @@ export class SidebarComponent implements OnInit,OnDestroy {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     this.loadGames();
 
-
   }
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
   }
 
-  isMobileMenu() {
-    if (window.innerWidth > 991) {
-      return false;
+
+  sidebarHide(){
+    if(this.isOpen){
+      this.isOpen = false;
     }
-    return true;
   }
+
+  sidebarShow(){
+    if(!this.isOpen){
+      this.isOpen = true;
+    }
+  }
+
   getTitle() {
     let titlee = this.location.prepareExternalUrl(this.location.path());
     if (titlee.charAt(0) === '#') {
@@ -145,4 +152,5 @@ export class SidebarComponent implements OnInit,OnDestroy {
       }
     )
   }
+
 }

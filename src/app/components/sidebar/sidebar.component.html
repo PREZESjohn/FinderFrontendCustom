@@ -1,89 +1,87 @@
+<nav [ngClass]="isOpen ? 'sidebar open text-white bg-opacity' : 'sidebar close text-white bg-opacity' " (mouseenter)="sidebarShow()" (mouseleave)="sidebarHide()" >
+  <header>
+    <div class="image-text">
+                <span class="image">
+                    <img [src]="profilePicture" alt="profileImg" style="width: 50px;height: 50px">
+                </span>
 
-<div class="sidebar">
-  <div class="logo-details">
-    <i class='bx bxl-c-plus-plus'></i>
-    <span class="logo_name">{{getTitle()}}</span>
+      <div class="text logo-text pl-2">
+        <span class="name">{{currentUser?.username}}</span>
+        <span class="profession text-warning" [hidden]="!isAdmin">(Admin)</span>
+      </div>
+    </div>
+  </header>
+  <div class="menu-bar ">
+    <div class="menu text-white">
+
+      <ul class="menu-links ">
+        <li class="nav-link ">
+          <a [routerLink]="['/home-page']"  class="">
+            <i class='bx bx-home-alt icon' ></i>
+            <span class="text nav-text" >{{menuItems[0].title}}</span>
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a routerLink="/dashboard">
+            <i class='bx bx-compass icon' ></i>
+            <span class="text nav-text">Explore</span>
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a [routerLink]="[menuItems[1].path]">
+            <i class='bx bx-collection icon'></i>
+            <span class="text nav-text">{{menuItems[1].title}}</span>
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a [routerLink]="[menuItems[2].path]">
+            <i class='bx bxs-user-account icon' ></i>
+            <span class="text nav-text">{{menuItems[2].title}}</span>
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a href="#">
+            <i class='bx bx-plug icon' ></i>
+            <span class="text nav-text">Plugins</span>
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <a href="#">
+            <i class='bx bx-cog icon' ></i>
+            <span class="text nav-text">Settings</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    <div class="bottom-content ">
+      <li style="cursor: pointer">
+        <a (click)="logOut()">
+          <i class='bx bx-log-out icon' ></i>
+          <span class="text ">Logout</span>
+        </a>
+      </li>
+      <li class="mode">
+        <div class="sun-moon">
+          <i class='bx bx-moon icon moon'></i>
+          <i class='bx bx-sun icon sun'></i>
+        </div>
+        <span class=" text">Dark mode</span>
+
+        <div class="toggle-switch">
+          <span class="switch"></span>
+        </div>
+      </li>
+    </div>
   </div>
-  <ul class="nav-links">
-    <li routerLinkActive="active">
-      <a [routerLink]="['/home-page']">
-        <i class='bx bx-grid-alt' ></i>
-        <span class="link_name">{{menuItems[0].title}}</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li routerLinkActive="active">
-          <a class="link_name" [routerLink]="[menuItems[1].path]" >{{menuItems[1].title}}</a></li>
-      </ul>
-    </li>
-    <li>
-      <a routerLink="/dashboard">
-        <i class='bx bx-compass' ></i>
-        <span class="link_name">Explore</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" >Explore</a></li>
-      </ul>
-    </li>
-    <li  routerLinkActive="active">
-      <div class="iocn-link">
-        <a  [routerLink]="[menuItems[1].path]">
-          <i class='bx bx-collection' ></i>
-          <span class="link_name">{{menuItems[1].title}}</span>
-        </a>
-        <i class='bx bxs-chevron-down arrow' ></i>
-      </div>
-      <ul class="sub-menu">
-        <li *ngFor="let game of games"><a routerLink="/my-groups">{{game.name}}</a></li>
-      </ul>
-    </li>
-    <li routerLinkActive="active" >
-      <a [routerLink]="[menuItems[2].path]">
-        <i class='bx bxs-user-account' ></i>
-        <span class="link_name">{{menuItems[2].title}}</span>
-      </a>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <a href="#">
-          <i class='bx bx-plug' ></i>
-          <span class="link_name">Plugins</span>
-        </a>
-        <i class='bx bxs-chevron-down arrow' ></i>
-      </div>
-      <ul class="sub-menu">
-        <li><a class="link_name" href="#">Plugins</a></li>
-        <li><a href="#">Steam</a></li>
-        <li><a href="#">Riot Account</a></li>
-        <li><a href="#">Discord</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="iocn-link">
-        <a href="#">
-          <i class='bx bx-cog' ></i>
-          <span class="link_name">Settings</span>
-        </a>
-        <i class='bx bxs-chevron-down arrow' ></i>
-      </div>
-      <ul class="sub-menu">
-        <li><a class="link_name" href="#">Settings</a></li>
-        <li><a>Change password</a></li>
-        <li><a href="#">Delete account</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="profile-details" *ngIf="checkIfLoggedIn()">
-        <div class="profile-content">
-          <img [src]="profilePicture" alt="profileImg">
-        </div>
-        <div class="name-job" >
-          <div class="profile_name">{{currentUser?.username}}</div>
-          <div class="job text-warning" [hidden]="!isAdmin">(Admin)</div>
-        </div>
-        <i class='bx bx-log-out' (click)="logOut()"></i>
-      </div>
-    </li>
-  </ul>
-</div>
-
-
+  <section class="home">
+    <div class="text">{{getTitle()}}</div>
+  </section>
+</nav>
+<script src="assets/js/some.js">
+</script>
