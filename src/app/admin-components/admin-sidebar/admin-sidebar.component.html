@@ -1,0 +1,53 @@
+<nav [ngClass]="isOpen ? 'sidebar open text-white bg-opacity' : 'sidebar close text-white bg-opacity' " (mouseenter)="sidebarShow()" (mouseleave)="sidebarHide()" >
+  <header>
+    <div class="image-text">
+                <span class="image">
+                    <img [src]="profilePicture" alt="profileImg" style="width: 50px;height: 50px">
+                </span>
+
+      <div class="text logo-text pl-2">
+        <span class="name">{{currentUser?.username}}</span>
+        <span class="profession text-warning" [hidden]="!isAdmin">(Admin)</span>
+      </div>
+    </div>
+  </header>
+  <div class="menu-bar ">
+    <div class="menu text-white">
+
+      <ul class="menu-links ">
+        <li class="nav-link ">
+          <a [routerLink]="['/home-page']"  class="">
+            <i class='bx bx-home-alt icon' ></i>
+            <span class="text nav-text" >{{menuItems[0].title}}</span>
+          </a>
+        </li>
+        <li class="nav-link">
+          <a [routerLink]="[menuItems[1].path]">
+            <i class='bx bx-collection icon'></i>
+            <span class="text nav-text">{{menuItems[1].title}}</span>
+          </a>
+        </li>
+        <li class="nav-link">
+          <a [routerLink]="[menuItems[2].path]">
+            <i class='bx bxs-user-account icon' ></i>
+            <span class="text nav-text">{{menuItems[2].title}}</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    <div class="bottom-content ">
+      <li style="cursor: pointer">
+        <a (click)="logOut()">
+          <i class='bx bx-log-out icon' ></i>
+          <span class="text ">Logout</span>
+        </a>
+      </li>
+    </div>
+  </div>
+  <section class="home">
+    <div class="text">{{getTitle()}}</div>
+  </section>
+</nav>
+<script src="assets/js/some.js">
+</script>

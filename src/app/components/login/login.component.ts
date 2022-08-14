@@ -47,7 +47,12 @@ export class LoginComponent implements OnInit {
         .subscribe(
           response => {
             this.authService.setToken(response.token);
-            window.location.reload();
+            if(this.authService.checkIfAdmin()){
+              this.router.navigateByUrl('admin-main-page')
+            }else{
+              this.router.navigateByUrl('')
+            }
+            // window.location.reload();
           },
           error => {
             this.alertService.error("Wrong credetials");

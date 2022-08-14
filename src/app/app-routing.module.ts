@@ -4,28 +4,39 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-
+import {AdminGuard} from './services/AdminGuard';
+import {UserLayoutComponent} from './layouts/user-layout/user-layout/user-layout.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'home-page',
     pathMatch: 'full'
   },
   {
     path: '',
-    component: AdminLayoutComponent,
+    component: UserLayoutComponent,
     children: [
       {
         path: '',
-        loadChildren: () => import ('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+        loadChildren: () => import ('./layouts/user-layout/user-layout/user-layout.module').then(m => m.UserLayoutModule),
       }
     ]
-
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    canActivate: [AdminGuard],
+    children: [
+      {
+        path: 'admin-main-page',
+        loadChildren: () => import ('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
+      }
+    ]
   },
   {
     path: '**',
     redirectTo: 'dashboard'
-  }
+  },
 ];
 
 @NgModule({

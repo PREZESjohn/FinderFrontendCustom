@@ -13,6 +13,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
 import {TokenInterceptorService} from './services/token-interceptor.service';
 import {BrowserModule} from '@angular/platform-browser';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout/user-layout.component';
+import { AdminMainPageComponent } from './admin-components/admin-main-page/admin-main-page/admin-main-page.component';
+import { AdminSidebarComponent } from './admin-components/admin-sidebar/admin-sidebar.component';
 
 @NgModule({
   imports: [
@@ -26,7 +29,7 @@ import {BrowserModule} from '@angular/platform-browser';
     AppRoutingModule,
     ToastrModule.forRoot()
   ],
-  declarations: [AppComponent, AdminLayoutComponent],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

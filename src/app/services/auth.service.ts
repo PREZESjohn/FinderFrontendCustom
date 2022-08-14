@@ -54,6 +54,23 @@ export class AuthService {
   setPasswordKey(passwordKey: string): Observable<any> {
     return this.http.post<TokenResponse>(this.setupKeyUrl, {passwordKey});
   }
+
+  checkIfAdmin(){
+      const token = this.getToken();
+    let jwtData = token.split('.')[1]
+    let decodedJwtJsonData = window.atob(jwtData)
+    let decodedJwtData = JSON.parse(decodedJwtJsonData)
+
+    let isAdmin = decodedJwtData.role
+
+    // console.log('jwtData: ' + jwtData)
+    // console.log('decodedJwtJsonData: ' + decodedJwtJsonData)
+    // console.log('decodedJwtData: ' + decodedJwtData)
+    // console.log('Is admin: ' + isAdmin)
+    return isAdmin == 'ROLE_ADMIN';
+
+  }
+
 }
 
 interface TokenResponse {
