@@ -7,6 +7,7 @@ import {AlertService} from '../../services/alert.service';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
+import {CodeErrors} from '../../providers/CodeErrors';
 
 @Component({
   selector: 'app-user-profile',
@@ -63,11 +64,13 @@ export class UserProfileComponent implements OnInit {
       editUserProfile: this.formBuilder.group({
         name: new FormControl('',
           [Validators.minLength(2)]),
-        email: new FormControl('',[Validators.minLength(2),Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]),
+        email: new FormControl('',[Validators.minLength(2),Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]),//
         city: new FormControl('',[Validators.minLength(2)]),
-        age: new FormControl('',[Validators.minLength(2),Validators.pattern('^[0-9]*$'),Validators.maxLength(3)]),
+        age: new FormControl('',[Validators.minLength(2),Validators.pattern('^[0-9]*$'),Validators.maxLength(3)]),//
         phone: new FormControl('',[Validators.minLength(9), Validators.pattern('^[0-9]*$'),Validators.maxLength(9)]),
         info:new FormControl('',[Validators.minLength(5),Validators.maxLength(150)])
+
+
       })
     });
   }
@@ -80,8 +83,8 @@ export class UserProfileComponent implements OnInit {
           () => {
             this.router.navigateByUrl('/user-profile');
             this.alertService.success('Data updated');
-          }, () => {
-            this.alertService.error('Something went wrong');
+          }, (e) => {
+            this.alertService.error(CodeErrors.get(e.error.code));
           }
         );
     }else{
