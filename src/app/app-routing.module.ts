@@ -23,20 +23,20 @@ const routes: Routes = [
     ]
   },
   {
-    path: '',
+    path: 'admin',
     component: AdminLayoutComponent,
     canActivate: [AdminGuard],
     children: [
       {
-        path: 'admin-main-page',
+        path: '',
         loadChildren: () => import ('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
       }
     ]
   },
-  {
-    path: '**',
-    redirectTo: 'dashboard'
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'dashboard'
+  // },
 ];
 
 @NgModule({

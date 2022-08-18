@@ -16,6 +16,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout/user-layout.component';
 import { AdminMainPageComponent } from './admin-components/admin-main-page/admin-main-page/admin-main-page.component';
 import { AdminSidebarComponent } from './admin-components/admin-sidebar/admin-sidebar.component';
+import { ManageUsersComponent } from './admin-components/manage-users/manage-users.component';
+import { SupportPanelComponent } from './admin-components/support-panel/support-panel.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { GroupRoomDetailsComponent } from './admin-components/group-room-details/group-room-details.component';
+import { UserDetailsComponent } from './admin-components/user-details/user-details.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -27,9 +35,13 @@ import { AdminSidebarComponent } from './admin-components/admin-sidebar/admin-si
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSlideToggleModule,
+    MatButtonModule
   ],
-  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

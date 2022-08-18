@@ -1,26 +1,19 @@
 import {Routes} from '@angular/router';
-
-import {DashboardComponent} from '../../components/dashboard/dashboard.component';
 import {LoginComponent} from '../../components/login/login.component';
-import {AuthGuard} from '../../services/AuthGuard';
 import {RegisterComponent} from '../../components/register/register.component';
-import {UserProfileComponent} from '../../components/user-profile/user-profile.component';
-import {MyGroupsComponent} from '../../components/my-groups/my-groups.component';
-import {GroupAddComponent} from '../../components/group-add/group-add.component';
-import {GroupShowComponent} from '../../components/group-show/group-show.component';
-import {OtherUserProfileComponent} from '../../components/other-user-profile/other-user-profile.component';
-import {HomePageComponent} from '../../components/home-page/home-page.component';
 import {AdminMainPageComponent} from '../../admin-components/admin-main-page/admin-main-page/admin-main-page.component';
+import {AdminGuard} from '../../services/AdminGuard';
+import {ManageUsersComponent} from '../../admin-components/manage-users/manage-users.component';
+import {SupportPanelComponent} from '../../admin-components/support-panel/support-panel.component';
+import {GroupRoomDetailsComponent} from '../../admin-components/group-room-details/group-room-details.component';
+import {UserDetailsComponent} from '../../admin-components/user-details/user-details.component';
 
 export const AdminLayoutRoutes: Routes = [
-  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'admin-main-page', component: AdminMainPageComponent, canActivate: [AuthGuard] },
+  { path: 'admin-main-page', component: AdminMainPageComponent, canActivate: [AdminGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // { path: 'my-groups', component: MyGroupsComponent,canActivate:[AuthGuard] },
-  // { path: 'home-page', component: HomePageComponent, canActivate:[AuthGuard] },
-  // { path: 'group-add',component:GroupAddComponent, canActivate: [AuthGuard]},
-  // { path: 'user-profile',component:UserProfileComponent, canActivate: [AuthGuard]},
-  // { path: 'profile',component:OtherUserProfileComponent, canActivate: [AuthGuard]},
-  // { path: 'group-show', component:GroupShowComponent,canActivate:[AuthGuard]}
+  { path: 'manage-users', component: ManageUsersComponent, canActivate:[AdminGuard] },
+  { path: 'group-room-details/:id', component: GroupRoomDetailsComponent, canActivate:[AdminGuard] },
+  { path: 'user-details/:id', component: UserDetailsComponent, canActivate:[AdminGuard] },
+  { path: 'support-panel', component: SupportPanelComponent, canActivate:[AdminGuard] },
 ];

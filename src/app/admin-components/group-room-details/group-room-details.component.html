@@ -1,0 +1,104 @@
+<div class="content">
+  <div class="container">
+    <div class="main-body">
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/admin-main-page">ADMIN PANEL</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{groupRoom?.name}}</li>
+        </ol>
+      </nav>
+      <app-alert></app-alert>
+      <div class="row ">
+        <div class="col-md-2">
+          <div>
+            <h5>Users in group</h5>
+            <table>
+              <tr *ngFor="let user of groupRoom?.users">
+                <a class="button" style="cursor:pointer" [routerLink]="['/admin/user-details',user.id]">
+                  <img class="img-responsive img-thumbnail mt-1" alt="icon" [src]="profilePictures.get(user.id)"
+                       style="height: 75px;width:75px;border-width:thin">
+                  <p>{{user?.username}} <i class="text-warning pt-0" *ngIf="user?.id == groupRoom?.groupLeader?.id">Leader</i>
+                  </p>
+                </a>
+                <td *ngFor="let role of user.inGameRoles" class="pb-4">
+                  <img *ngIf="tableContains(groupRoom.game.inGameRoles,role)" src="assets/img/{{role?.name}}.jpg" alt=""
+                       style="width: 25px;height: 25px">
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-10 justify-content-center">
+          <table class=" mb-4 justify-content-center">
+            <tr>
+              <td class="col-md-10">
+                <h5>Description</h5>
+                <p>{{groupRoom?.description}}</p>
+              </td>
+              <td class="col-md-10 ">
+                <button class="mt-2 pr-1 pl-1 float-right border-danger" mat-stroked-button color="warn"
+                        (click)="removeGroupRoom()">Remove
+                </button>
+                <mat-slide-toggle class="mt-3 pr-1 pl-1 float-right " [checked]="!groupRoom?.open"
+                                  (change)="togglePrivate(groupRoom)">Private
+                </mat-slide-toggle>
+
+              </td>
+            </tr>
+          </table>
+          <div class="border-light col-md-12 bg-white mb-3 align-self-end" style="height: 1px"></div>
+          <div class="justify content-center">
+            <button class=" pr-2 pl-1  border-info" mat-stroked-button color="primary" (click)="loadChatLogs()">
+              View chat logs
+            </button>
+            <button class="mr-1 ml-1 pr-2 pl-2 border-info" mat-stroked-button color="primary"
+                    (click)="connect()">Join chat
+            </button>
+            <button class="mr-1 ml-1 pr-2 pl-2 border-danger" mat-stroked-button color="warn"
+                    (click)="disconnect()">Disconnect
+            </button>
+            <h2 class="text-center">Chat</h2>
+          </div>
+          <div class="ps-container ps-theme-default ps-active-y" id="chat-content"
+               style="overflow-y: scroll !important; height:400px !important;">
+            <div #chat *ngFor="let mg of messages">
+              <div class="media media-chat pt-0 pb-0" *ngIf="mg?.user?.id !== admin?.id">
+                <!--              <img *ngIf="mg.user!=null" class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" [src]="usersPictures.get(mg?.user?.id)" alt="...">-->
+                <p class="text-white">{{mg?.user?.username}}</p>
+                <div class="media-body">
+                  <p>{{mg?.text}}</p>
+                  <p class="meta text-white-50">
+                    <time>{{mg?.time}}</time>
+                  </p>
+                </div>
+              </div>
+              <div class="media media-chat media-chat-reverse pt-0" *ngIf="mg?.user?.id === admin?.id">
+                <div class="media-body">
+                  <p class="text-white">{{mg?.text}}</p>
+                  <p class="meta text-white-50">
+                    <time>{{mg?.time}}</time>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+              <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+            </div>
+            <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+              <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+            </div>
+          </div>
+
+          <div class="publisher bt-1 border-light col-md-12">
+            <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px"
+                 src="assets/img/default-avatar.png" alt="...">
+            <input #inpt class="publisher-input text-white" type="text" value="{{message.text}}"
+                   placeholder="Write something" (keyup)="readMsg(inpt.value)">
+            <a class="publisher-btn text-info" data-abc="true" (click)="sendMsg()"><i class="fa fa-paper-plane"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -66,4 +66,8 @@ export class GroupRoomService {
   removeFromGroup(groupId:number,userId:number){
     return this.httpClient.patch(this.baseUrl+'/groups/removeUser/'+groupId+'/'+userId,{})
   }
+
+  getChatLongs(groupId:number){
+    return this.httpClient.get(this.baseUrl+'/chatLogs/'+groupId);
+  }
 }

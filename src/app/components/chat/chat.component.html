@@ -4,7 +4,7 @@
   <div #chat *ngFor="let mg of messages">
   <div class="media media-chat pt-0 pb-0" *ngIf="mg?.user?.id !== currentUser?.id">
     <img *ngIf="mg.user!=null" class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" [src]="usersPictures.get(mg?.user?.id)" alt="...">
-    <p class="text-white">{{mg?.user?.username}}</p>
+    <p [ngClass]="mg?.user?.role.name == 'ROLE_ADMIN' ? 'text-danger' : 'text-white' ">{{mg?.user?.username}}</p>
     <div class="media-body">
       <p>{{mg?.text}}</p>
       <p class="meta text-white-50"><time>{{mg?.time}}</time></p>

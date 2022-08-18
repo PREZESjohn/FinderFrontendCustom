@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           response => {
             this.authService.setToken(response.token);
             if(this.authService.checkIfAdmin()){
-              this.router.navigateByUrl('admin-main-page')
+              this.router.navigateByUrl('admin/admin-main-page')
             }else{
               this.router.navigateByUrl('')
             }

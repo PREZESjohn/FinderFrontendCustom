@@ -12,24 +12,24 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
-export const ROUTES: RouteInfo[] = [
+export const ROUTESAdmin: RouteInfo[] = [
 
   {
-    path: '/admin-main-page',
+    path: '/admin/admin-main-page',
     title: 'Admin Panel',
     rtlTitle: 'Admin Panel',
     icon: 'icon-chart-pie-36',
     class: ''
   },
   {
-    path:'/manage-users',
+    path:'/admin/manage-users',
     title: 'Manage users',
     rtlTitle: 'Manage users',
     icon: 'icon-chart-pie-36',
     class:''
   },
   {
-    path:'/support',
+    path:'/admin/support-panel',
     title: 'Support panel',
     rtlTitle: 'Support panel',
     icon: 'icon-chart-pie-36',
@@ -51,10 +51,14 @@ export class AdminSidebarComponent implements OnInit {
   public currentUser: User;
   public isAdmin = false;
   constructor(private authService: AuthService, location: Location,
-              private userService: UserService, private router: Router) { }
+              private userService: UserService, private router: Router) {
+    this.location = location;
+  }
 
   ngOnInit(): void {
   this.checkIfAdmin();
+    this.menuItems = ROUTESAdmin.filter(menuItem => menuItem);
+    this.listTitles = ROUTESAdmin.filter(listTitle => listTitle);
   }
 
   getTitle() {
@@ -69,7 +73,7 @@ export class AdminSidebarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return 'Explore';
+    return 'Admin Panel';
   }
   logOut() {
     this.authService.logout();
