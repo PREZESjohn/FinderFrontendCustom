@@ -17,7 +17,7 @@ export class UserDetailsComponent implements OnInit {
 
   public user:User;
   public userId;
-
+  public profilePicture;
   constructor(private dialog:MatDialog,private userService:UserService, private router:Router, private route:ActivatedRoute, private alertService:AlertService,
               private profilePicturesService:ProfilePicturesService) {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -31,6 +31,9 @@ export class UserDetailsComponent implements OnInit {
   loadUser(){
     this.userService.getProfile(this.userId).subscribe((data:any)=>{
       this.user = data;
+      this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
+        this.profilePicture = this.userService.prepareProfilePicture(d);
+      })
     },()=>{
       this.alertService.error("Cant load user data")
     })

@@ -30,29 +30,32 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { BannedUsersComponent } from './admin-components/manage-users/banned-users/banned-users.component';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
+import { UserChatLogsComponent } from './admin-components/user-details/user-chat-logs/user-chat-logs.component';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    NoopAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    NgbModule,
-    RouterModule,
-    AppRoutingModule,
-    ToastrModule.forRoot(),
-    MatTableModule,
-    MatPaginatorModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatGridListModule,
-    MatDialogModule,
-    MatInputModule,
-    MatIconModule
-  ],
-  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        NoopAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        NgbModule,
+        RouterModule,
+        AppRoutingModule,
+        ToastrModule.forRoot(),
+        MatTableModule,
+        MatPaginatorModule,
+        MatSlideToggleModule,
+        MatButtonModule,
+        MatGridListModule,
+        MatDialogModule,
+        MatInputModule,
+        MatIconModule,
+        MatTabsModule
+    ],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

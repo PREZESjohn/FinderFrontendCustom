@@ -107,6 +107,11 @@ export class UserService {
 
   banUser(id:number, reason:string){
     return this.http.put(this.baseURL+'/banUser',{id,reason})
-}
+  }
+
+  getUserChatLogs(userId:number){
+    return this.http.get(this.baseURL+'/chatLogs/'+userId)
+  }
+
 }
 

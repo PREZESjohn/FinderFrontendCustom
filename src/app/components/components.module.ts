@@ -30,7 +30,7 @@ import {MatButtonModule} from '@angular/material/button';
     GroupShowComponent,HomePageComponent,
     OtherUserProfileComponent,
     ChatComponent],
-    exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent]
+    exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent]
 })
 export class ComponentsModule {
 }

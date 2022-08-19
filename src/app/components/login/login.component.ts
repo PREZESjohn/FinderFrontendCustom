@@ -6,6 +6,7 @@ import {AlertService} from '../../services/alert.service';
 import {Error} from '../../domain/Error';
 import {COMMON_ERROR_MESSAGE} from '../../domain/CommonMessages';
 import {Message} from '../../domain/Message';
+import {CodeErrors} from '../../providers/CodeErrors';
 declare let EventSource:any;
 
 @Component({
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
             // window.location.reload();
           },
           error => {
-            this.alertService.error("Wrong credetials");
+            this.alertService.error(CodeErrors.get(error.error.code));
           }
         );
     }else{
