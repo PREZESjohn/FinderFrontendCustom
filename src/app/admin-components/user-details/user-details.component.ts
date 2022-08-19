@@ -4,6 +4,9 @@ import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
 import {AlertService} from '../../services/alert.service';
+import {MatDialog} from '@angular/material/dialog';
+import {BannedUserDTO} from '../../domain/dto/BannedUserDTO';
+import {CodeErrors} from '../../providers/CodeErrors';
 
 @Component({
   selector: 'app-user-details',
@@ -15,9 +18,10 @@ export class UserDetailsComponent implements OnInit {
   public user:User;
   public userId;
 
-  constructor(private userService:UserService, private router:Router, private route:ActivatedRoute, private alertService:AlertService,
+  constructor(private dialog:MatDialog,private userService:UserService, private router:Router, private route:ActivatedRoute, private alertService:AlertService,
               private profilePicturesService:ProfilePicturesService) {
     this.userId = this.route.snapshot.paramMap.get('id');
+    this.dialog.closeAll();
   }
 
   ngOnInit(): void {
@@ -29,6 +33,16 @@ export class UserDetailsComponent implements OnInit {
       this.user = data;
     },()=>{
       this.alertService.error("Cant load user data")
+    })
+  }
+
+  banUser(){
+    const reason = "REASON SOOON TO THINK ABOUT"
+    this.userService.banUser(this.userId, reason).subscribe(()=>{
+      this.ngOnInit();
+      this.alertService.success("user has been banned")
+    },(e)=>{
+      this.alertService.error(CodeErrors.get(e.error.code))
     })
   }
 }

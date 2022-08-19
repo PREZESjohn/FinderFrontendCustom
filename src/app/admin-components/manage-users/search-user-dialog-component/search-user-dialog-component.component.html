@@ -1,0 +1,11 @@
+<h1 mat-dialog-title >Type user username</h1>
+<app-alert></app-alert>
+<div mat-dialog-content style="width:100%" class="justify-content-center" >
+  <mat-form-field class="example-full-width" style="width: 100%" appearance="fill">
+    <input class="text-white" [(ngModel)]="username" matInput type="text" >
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close class="text-white">Close</button>
+  <button mat-button (click)="findUserByUsername()" class="text-white">Search</button>
+</div>

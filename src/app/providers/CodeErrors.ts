@@ -4,6 +4,8 @@ export const CodeErrors =  new Map()
   CodeErrors.set("3","You are not leader of this group")
   CodeErrors.set("4","Wrong code")
   CodeErrors.set("5","You are already in this group")
+  CodeErrors.set("6","User doesnt exist")
+  CodeErrors.set("7","User already banned")
 
   CodeErrors.set("21","Bad email credentials")
   CodeErrors.set("22","Bad password credentials")

@@ -6,8 +6,12 @@
           <li class="breadcrumb-item"><a routerLink="/manage-users">MANAGE USERS</a></li>
         </ol>
       </nav>
-      <app-alert></app-alert>
-
+        <mat-grid-list cols="2" rowHeight="2:1">
+          <a (click)="openDialog()"><mat-grid-tile class="randomTile bg-change text-white">Search user by username</mat-grid-tile></a>
+          <a (click)="showBannedUsers()"><mat-grid-tile  class="randomTile bg-change text-white">Show banned users</mat-grid-tile></a>
+          <a><mat-grid-tile  class="bg-change text-white">Show stats</mat-grid-tile></a>
+          <a><mat-grid-tile  class="bg-change text-white">IDK YET</mat-grid-tile></a>
+        </mat-grid-list>
     </div>
   </div>
 </div>

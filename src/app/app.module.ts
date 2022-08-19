@@ -1,4 +1,4 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -24,11 +24,18 @@ import { GroupRoomDetailsComponent } from './admin-components/group-room-details
 import { UserDetailsComponent } from './admin-components/user-details/user-details.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatButtonModule} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { SearchUserDialogComponentComponent } from './admin-components/manage-users/search-user-dialog-component/search-user-dialog-component.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import { BannedUsersComponent } from './admin-components/manage-users/banned-users/banned-users.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NoopAnimationsModule,
     FormsModule,
     HttpClientModule,
     ComponentsModule,
@@ -39,9 +46,13 @@ import {MatButtonModule} from '@angular/material/button';
     MatTableModule,
     MatPaginatorModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatInputModule,
+    MatIconModule
   ],
-  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from '../domain/User';
 import {PasswordChangeDto} from '../domain/dto/PasswordChangeDto';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Observable, Subject } from 'rxjs';
+import {BannedUserDTO} from '../domain/dto/BannedUserDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -92,5 +93,20 @@ export class UserService {
     return this.pictureSubject.asObservable();
   }
 
+  getUserByUsername(username:string){
+    return this.http.get(this.baseURL+'/'+username)
+  }
+
+  getBannedUsers(){
+    return this.http.get(this.baseURL+'/banned')
+  }
+
+  unbanUser(id:number){
+    return this.http.get(this.baseURL+'/unban/'+id)
+  }
+
+  banUser(id:number, reason:string){
+    return this.http.put(this.baseURL+'/banUser',{id,reason})
+}
 }
 
