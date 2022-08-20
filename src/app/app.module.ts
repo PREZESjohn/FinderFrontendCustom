@@ -32,6 +32,7 @@ import { BannedUsersComponent } from './admin-components/manage-users/banned-use
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { UserChatLogsComponent } from './admin-components/user-details/user-chat-logs/user-chat-logs.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
     imports: [
@@ -53,7 +54,8 @@ import { UserChatLogsComponent } from './admin-components/user-details/user-chat
         MatDialogModule,
         MatInputModule,
         MatIconModule,
-        MatTabsModule
+        MatTabsModule,
+        MatExpansionModule
     ],
   declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent],
   providers: [  {
