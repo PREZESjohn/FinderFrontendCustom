@@ -10,6 +10,7 @@ import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
 import {AuthService} from '../../services/auth.service';
 import {CodeErrors} from '../../providers/CodeErrors';
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 declare let EventSource:any;
 
@@ -26,6 +27,10 @@ export class GroupShowComponent implements OnInit,OnDestroy {
   isConnected = new Map();
 
   isAdmin = false;
+  isEditOff=true;
+  buttonFunction = 'Edit';
+  editGroupRoom=new GroupRoom();
+  groupEditForm: FormGroup;
   public source;
   currentUser:User;
   constructor(private groupRoomService:GroupRoomService,
@@ -33,7 +38,8 @@ export class GroupShowComponent implements OnInit,OnDestroy {
               private userService:UserService,
               private profilePicturesService:ProfilePicturesService,
               private authService:AuthService,
-              private router:Router) {
+              private router:Router,
+              private formBuilder: FormBuilder) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.source = new EventSource('http://localhost:8080/api/v1/notify/test?token='+this.authService.getToken());
     this.source.addEventListener('message', message =>{
@@ -58,6 +64,7 @@ export class GroupShowComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.showGroupContent(this.id)
     this.checkIfAdmin();
+    this.initializeForm();
   }
 
   ngOnDestroy() {
@@ -72,6 +79,9 @@ export class GroupShowComponent implements OnInit,OnDestroy {
     }
     this.groupRoomService.showGroupContent(groupId).subscribe((data:any)=>
     { this.currentGroup = data;
+      this.editGroupRoom.name=data.name;
+      this.editGroupRoom.maxUsers=data.maxUsers;
+      this.editGroupRoom.description=data.description;
       this.isUserInGroup = this.tableContains(data?.users,this.currentUser);
       this.profilePictures = this.profilePicturesService.getUsersProfilePictures();
 
@@ -149,5 +159,71 @@ export class GroupShowComponent implements OnInit,OnDestroy {
 
   public setConnection(values:any){
     this.isConnected.set(values[0],values[1]);
+  }
+  private initializeForm(){
+    this.groupEditForm=this.formBuilder.group({
+      editGroup: this.formBuilder.group({
+        name: new FormControl('',[Validators.required,Validators.minLength(2)]),
+        maxUsers: new FormControl('',[Validators.maxLength(5)]),
+        desc: new FormControl('',
+          [Validators.required,Validators.minLength(2),Validators.maxLength(150)])
+      })
+    })
+  }
+  public turnEditMode(){
+    console.log(this.currentGroup)
+
+    this.alertService.clear();
+    if(this.buttonFunction === 'Edit') {
+      //this.enableInputs();
+      //this.initializeForm();
+      this.isEditOff = false;
+      this.buttonFunction = 'Save changes';
+    }
+    else{
+      this.editGroup();
+      this.buttonFunction = 'Edit'
+      this.isEditOff = true;
+      //this.disableInputs();
+    }
+  }
+  public cancelEdit(){
+    //this.disableInputs();
+    this.buttonFunction='Edit'
+    this.isEditOff = true;
+
+  }
+
+  private editGroup() {
+    if(this.groupEditForm.valid){
+      const groupData = this.createGroupObject();
+      this.groupRoomService.editGroup(this.currentGroup.id,groupData)
+        .subscribe(
+          (data) => {
+           // this.router.navigateByUrl('/group-show');
+            this.alertService.success('Data updated');
+            this.currentGroup.name=data.name;
+            this.currentGroup.description=data.description;
+            this.currentGroup.maxUsers=data.maxUsers;
+          }, (e) => {
+            this.alertService.error(CodeErrors.get(e.error.code));
+          }
+        );
+    }else{
+      if (this.groupEditForm.get('editGroup').get('name').errors!==null) {
+        this.alertService.error('Minimum 2 letters for name')
+      }else if(this.groupEditForm.get('editGroup').get('maxUsers').errors!==null){
+        this.alertService.error('Max users must be in range of 2 to 5')
+      }else if(this.groupEditForm.get('editGroup').get('desc').errors!==null) {
+        this.alertService.error('Description must be in range of 5 to 150')
+      }
+    }
+  }
+  private createGroupObject(): GroupRoom {
+
+    this.editGroupRoom.name = this.groupEditForm.get('editGroup').get('name').value;
+    this.editGroupRoom.maxUsers = this.groupEditForm.get('editGroup').get('maxUsers').value;
+    this.editGroupRoom.description = this.groupEditForm.get('editGroup').get('desc').value;
+    return this.editGroupRoom;
   }
 }

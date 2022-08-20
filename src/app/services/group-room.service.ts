@@ -70,4 +70,9 @@ export class GroupRoomService {
   getChatLongs(groupId:number){
     return this.httpClient.get(this.baseUrl+'/chatLogs/'+groupId);
   }
+  editGroup(id:number, group:GroupRoom): Observable<any>{
+    const headers={'content-type': 'application/json'}
+    const body = JSON.stringify(group);
+    return this.httpClient.put(this.baseUrl+'/groups/'+id,body,{headers});
+  }
 }
