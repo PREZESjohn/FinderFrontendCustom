@@ -4,6 +4,8 @@ import {UserService} from '../../services/user.service';
 import {AlertService} from '../../services/alert.service';
 import {Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Report} from '../../domain/Report';
+import {CodeErrors} from '../../providers/CodeErrors';
 
 @Component({
   selector: 'app-other-user-profile',
@@ -32,5 +34,16 @@ export class OtherUserProfileComponent implements OnInit {
         this.router.navigateByUrl(this.lastUrl)
       }
     );
+  }
+
+  reportUser(){
+    const report = new Report();
+    report.reason = "TEMP REASON";
+    console.log(report);
+    this.userService.reportUser(report,this.user.id).subscribe(()=>{
+      this.alertService.success("User reported")
+    },(e)=>{
+      this.alertService.error(CodeErrors.get(e.error.code))
+    })
   }
 }

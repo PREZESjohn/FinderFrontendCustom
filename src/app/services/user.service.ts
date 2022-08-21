@@ -5,6 +5,7 @@ import {PasswordChangeDto} from '../domain/dto/PasswordChangeDto';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Observable, Subject } from 'rxjs';
 import {BannedUserDTO} from '../domain/dto/BannedUserDTO';
+import {Report} from '../domain/Report';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,6 @@ export class UserService {
   editUserUrl = 'http://localhost:8080/api/v1/users/edit'
   baseURL = 'http://localhost:8080/api/v1/users'
 
-  myGroupsGame;
 
   private pictureSubject = new Subject<any>();
 
@@ -97,6 +97,10 @@ export class UserService {
     return this.http.get(this.baseURL+'/'+username)
   }
 
+  reportUser(report:Report,userId:number){
+    return this.http.put(this.baseURL+'/report/'+userId,report)
+  }
+
   getBannedUsers(){
     return this.http.get(this.baseURL+'/banned')
   }
@@ -111,6 +115,10 @@ export class UserService {
 
   getUserChatLogs(userId:number){
     return this.http.get(this.baseURL+'/chatLogs/'+userId)
+  }
+
+  getReportedUsers(){
+    return this.http.get(this.baseURL+'/reportedUsers')
   }
 
 }
