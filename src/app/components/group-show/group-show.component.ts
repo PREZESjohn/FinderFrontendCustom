@@ -4,13 +4,14 @@ import {User} from '../../domain/User';
 import {GroupRoomService} from '../../services/group-room.service';
 import {AlertService} from '../../services/alert.service';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Message} from '../../domain/Message';
 import {JoinCodeDTO} from '../../domain/dto/JoinCodeDTO';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
 import {AuthService} from '../../services/auth.service';
 import {CodeErrors} from '../../providers/CodeErrors';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatDialog} from '@angular/material/dialog';
 
 declare let EventSource:any;
 
@@ -20,7 +21,8 @@ declare let EventSource:any;
   styleUrls: ['./group-show.component.scss']
 })
 export class GroupShowComponent implements OnInit,OnDestroy {
-  id:number = history.state.data;
+  // id:number = history.state.data;
+  id:number;
   currentGroup:GroupRoom;
   profilePictures = null;
   isUserInGroup = false;
@@ -39,7 +41,11 @@ export class GroupShowComponent implements OnInit,OnDestroy {
               private profilePicturesService:ProfilePicturesService,
               private authService:AuthService,
               private router:Router,
+              private dialog:MatDialog,
+              private route:ActivatedRoute,
               private formBuilder: FormBuilder) {
+
+    this.id = +this.route.snapshot.paramMap.get('id');
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.source = new EventSource('http://localhost:8080/api/v1/notify/test?token='+this.authService.getToken());
     this.source.addEventListener('message', message =>{
@@ -57,7 +63,7 @@ export class GroupShowComponent implements OnInit,OnDestroy {
       window.setTimeout(()=> {
         this.alertService.clear()},8000);
     })
-
+    this.dialog.closeAll();
 
     }
 
@@ -69,6 +75,10 @@ export class GroupShowComponent implements OnInit,OnDestroy {
 
   ngOnDestroy() {
     this.source.close();
+  }
+
+  navigateToProfile(profile){
+    this.router.navigate(['/profile/',profile.id])
   }
 
   showGroupContent(groupId: number) {

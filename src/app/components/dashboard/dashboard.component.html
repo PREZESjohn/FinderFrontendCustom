@@ -39,7 +39,7 @@
               <button class=" mt-2 btn btn-fill bg-card float-right " (click)="joinByCode()" type="submit">Join</button>
             </div>
           <div class="col mt-4 pt-1 pr-0 pl-md-5 ml-5">
-          <button routerLink="/group-add" class="mt-2 btn btn-fill bg-card  " type="submit"> Create own group </button>
+          <button (click)="createNewGroup()" class="mt-2 btn btn-fill bg-card  " type="submit"> Create own group </button>
           </div>
         </div>
         </div>
@@ -48,7 +48,7 @@
         <div *ngFor="let groupRoom of groupRooms">
           <div class="card bg-card ">
           <div class="row gutters-sm ">
-            <div class="col-md-4 mt-4 card-update ml-lg-4 " routerLink="/group-show" [state]="{data:groupRoom.id}">
+            <div class="col-md-4 mt-4 card-update ml-lg-4 " (click)="navigateToGroup(groupRoom)">
               <div class="card mt-2">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">

@@ -8,7 +8,12 @@
         </ol>
       </nav>
       <app-alert></app-alert>
-      <button mat-button class="btn-danger align-self-end" (click)="banUser()"> Ban User</button>
+      <button mat-button  [matMenuTriggerFor]="menu" class="btn-danger align-self-end" > Ban User</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="banUser('Verbal abuse')">Verbal abuse</button>
+        <button mat-menu-item (click)="banUser('Toxic behaviour')" >Toxic behaviour</button>
+        <button mat-menu-item (click)="banUser('Dangerous activities')" >Dangerous activities</button>
+      </mat-menu>
       <mat-tab-group dynamicHeight dynamicWidth mat-align-tabs="end">
         <mat-tab label="Standard info" class>
           <div class="row gutters-sm bg-card">

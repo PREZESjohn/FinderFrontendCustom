@@ -39,8 +39,7 @@ export class UserDetailsComponent implements OnInit {
     })
   }
 
-  banUser(){
-    const reason = "REASON SOOON TO THINK ABOUT"
+  banUser(reason:string){
     this.userService.banUser(this.userId, reason).subscribe(()=>{
       this.ngOnInit();
       this.alertService.success("user has been banned")

@@ -16,15 +16,7 @@ export class ReportsComponent implements OnInit {
   constructor(private userService:UserService, private alertService:AlertService, private router:Router) { }
 
   ngOnInit(): void {
-    this.loadReportedUsers();
-  }
-  loadReportedUsers(){
-    this.userService.getReportedUsers().subscribe((data:any)=>{
-      this.reportedUsers = data;
-      console.log(data);
-    },(e)=>{
-      this.alertService.error(CodeErrors.get(e.error.code));
-    })
+    this.reportedUsers = this.userService.getReportedUsersFromService();
   }
 
   inspectProfile(user){

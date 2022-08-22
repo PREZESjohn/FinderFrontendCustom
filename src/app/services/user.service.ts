@@ -6,6 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { Observable, Subject } from 'rxjs';
 import {BannedUserDTO} from '../domain/dto/BannedUserDTO';
 import {Report} from '../domain/Report';
+import {ReportedUser} from '../domain/ReportedUser';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
   changePasswordUrl = 'http://localhost:8080/api/auth/password-change';
   editUserUrl = 'http://localhost:8080/api/v1/users/edit'
   baseURL = 'http://localhost:8080/api/v1/users'
-
+  reportedUsers:ReportedUser[];
 
   private pictureSubject = new Subject<any>();
 
@@ -77,6 +78,14 @@ export class UserService {
     }
   }
 
+  setReportedUsers(reportedUsers){
+    this.reportedUsers = reportedUsers;
+  }
+
+  getReportedUsersFromService(){
+    return this.reportedUsers;
+  }
+
   setProfilePicture(data:any){
     console.log(data)
     if (data.size===0) {
@@ -120,6 +129,7 @@ export class UserService {
   getReportedUsers(){
     return this.http.get(this.baseURL+'/reportedUsers')
   }
+
 
 }
 

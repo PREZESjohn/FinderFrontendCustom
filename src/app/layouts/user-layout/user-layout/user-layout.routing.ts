@@ -18,6 +18,6 @@ export const UserLayoutRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent, canActivate:[AuthGuard] },
   { path: 'group-add',component:GroupAddComponent, canActivate: [AuthGuard]},
   { path: 'user-profile',component:UserProfileComponent, canActivate: [AuthGuard]},
-  { path: 'profile',component:OtherUserProfileComponent, canActivate: [AuthGuard]},
-  { path: 'group-show', component:GroupShowComponent,canActivate:[AuthGuard]}
+  { path: 'profile/:id',component:OtherUserProfileComponent, canActivate: [AuthGuard]},
+  { path: 'group-show/:id', component:GroupShowComponent,canActivate:[AuthGuard]}
   ]

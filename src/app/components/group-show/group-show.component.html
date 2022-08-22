@@ -71,7 +71,7 @@
           <div class="row text-center justify-content-center ">
             <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
                  *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
-              <a class="button" style="cursor:pointer" [state]="{userProfileId:user.id}" routerLink="/profile">
+              <a class="button" style="cursor:pointer" (click)="navigateToProfile(user)">
                 <img class="img-responsive img-thumbnail mt-1"   [style.border-color]="isConnected.get(user.id) ? 'green' : 'grey'" alt="icon"  [src]="profilePictures.get(user.id)" style="height: 150px;width:150px;border-width:thick">
                 <p class="justify-content-center">{{user?.username}}</p>
               </a>

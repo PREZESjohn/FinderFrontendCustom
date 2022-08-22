@@ -21,9 +21,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule],
+    imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent,
     AlertComponent,  UserProfileComponent, GroupAddComponent,
     MyGroupsComponent,

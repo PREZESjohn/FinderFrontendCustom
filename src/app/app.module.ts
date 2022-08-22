@@ -35,6 +35,8 @@ import { UserChatLogsComponent } from './admin-components/user-details/user-chat
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ReportsComponent } from './admin-components/manage-users/reports/reports.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
     imports: [
@@ -58,7 +60,9 @@ import {MatCardModule} from '@angular/material/card';
         MatIconModule,
         MatTabsModule,
         MatExpansionModule,
-        MatCardModule
+        MatCardModule,
+        MatBadgeModule,
+        MatMenuModule
     ],
   declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent],
   providers: [  {

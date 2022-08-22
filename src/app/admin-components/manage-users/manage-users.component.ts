@@ -3,6 +3,9 @@ import {MatDialog} from '@angular/material/dialog';
 import{SearchUserDialogComponentComponent} from './search-user-dialog-component/search-user-dialog-component.component';
 import {BannedUsersComponent} from './banned-users/banned-users.component';
 import {ReportsComponent} from './reports/reports.component';
+import {CodeErrors} from '../../providers/CodeErrors';
+import { UserService } from 'src/app/services/user.service';
+import {ReportedUser} from '../../domain/ReportedUser';
 
 @Component({
   selector: 'app-manage-users',
@@ -11,9 +14,11 @@ import {ReportsComponent} from './reports/reports.component';
 })
 export class ManageUsersComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  public reportedUsers:ReportedUser[]=[];
+  constructor(public dialog: MatDialog,private userService:UserService) { }
 
   ngOnInit(): void {
+    this.loadReportedUsers()
   }
 
   openDialog() {
@@ -39,6 +44,14 @@ export class ManageUsersComponent implements OnInit {
       height:'80%'
     })
   }
+
+  loadReportedUsers(){
+    this.userService.getReportedUsers().subscribe((data:any)=>{
+      this.reportedUsers = data;
+      this.userService.setReportedUsers(data);
+    })
+  }
+
 }
 
 

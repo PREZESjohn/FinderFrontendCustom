@@ -16,6 +16,8 @@ import {Role} from '../../domain/Role';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
 import {Subscription} from 'rxjs';
 import {CodeErrors} from '../../providers/CodeErrors';
+import {MatDialog} from '@angular/material/dialog';
+import {GroupAddComponent} from '../group-add/group-add.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,6 +40,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   constructor(private groupRoomService: GroupRoomService,
               private controlHelperService: ControlHelperService,
+              private dialog:MatDialog,
               private formBuilder: FormBuilder,
               private alertService: AlertService,
               private router: Router,
@@ -166,5 +169,17 @@ export class DashboardComponent implements OnInit,OnDestroy {
     }else{
       this.alertService.error("Wrong code");
     }
+  }
+
+  createNewGroup(){
+    this.dialog.open(GroupAddComponent,{
+      closeOnNavigation: true,
+      width:"50%",
+      height:'70%'
+    })
+  }
+
+  navigateToGroup(groupRoom){
+    this.router.navigate(['/group-show/',groupRoom.id])
   }
 }

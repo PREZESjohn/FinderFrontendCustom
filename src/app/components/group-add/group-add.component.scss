@@ -3,3 +3,12 @@ select option {
   color: #1e2534;
   text-shadow: 0 1px 0 rgb(15, 26, 38);
 }
+.bg-change{
+  background-color: #1e2534;
+}
+::ng-deep mat-dialog-container {
+  background-color: #1e2534 !important;
+}
+::ng-deep mat-dialog-container mat-dialog-content {
+  background-color: #1e2534 !important;
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserDTO} from '../../domain/dto/UserDTO';
 import {UserService} from '../../services/user.service';
 import {AlertService} from '../../services/alert.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Report} from '../../domain/Report';
 import {CodeErrors} from '../../providers/CodeErrors';
@@ -15,11 +15,13 @@ import {CodeErrors} from '../../providers/CodeErrors';
 export class OtherUserProfileComponent implements OnInit {
 
   user: UserDTO;
-  chosenUserId = history.state.userProfileId;
+  chosenUserId;
+  // chosenUserId = history.state.userProfileId;
   lastUrl = ''
   profilePicture=null;
 
-  constructor(private userService: UserService, private alertService: AlertService, private router: Router) {
+  constructor(private userService: UserService, private alertService: AlertService, private router: Router, private route:ActivatedRoute) {
+    this.chosenUserId = this.route.snapshot.paramMap.get("id");
   }
 
   ngOnInit(): void {
@@ -36,10 +38,9 @@ export class OtherUserProfileComponent implements OnInit {
     );
   }
 
-  reportUser(){
+  reportUser(reason:string){
     const report = new Report();
-    report.reason = "TEMP REASON";
-    console.log(report);
+    report.reason = reason;
     this.userService.reportUser(report,this.user.id).subscribe(()=>{
       this.alertService.success("User reported")
     },(e)=>{

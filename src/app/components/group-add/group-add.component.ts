@@ -67,8 +67,9 @@ export class GroupAddComponent implements OnInit {
     const newGroup = this.createGroupRoomObject();
     this.groupRoomService.addGroup(newGroup)
         .subscribe(
-          () => {
-            this.router.navigateByUrl('/dashboard');
+          (data:any) => {
+            console.log(data)
+            this.router.navigate(['/group-show/',data.id])
           }, () => {
             this.alertService.error('Something went wrong! Try again');
           }

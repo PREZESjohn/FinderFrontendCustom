@@ -1,22 +1,7 @@
-
-<div class=" content">
-  <div class="container">
-    <div class="main-body">
-
-      <!-- Breadcrumb -->
-      <nav aria-label="breadcrumb" class="main-breadcrumb">
-        <ol class="breadcrumb" >
-          <li class="breadcrumb-item"><a routerLink="/home-page">Home</a></li>
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Explore</a></li>
-          <li class="breadcrumb-item active" aria-current="page">New Group</li>
-        </ol>
-      </nav>
-      <!-- /Breadcrumb -->
+<h2 mat-dialog-title>Create new group</h2>
+<mat-dialog-content class="mat-typography" [formGroup]="groupAddFormGroup">
       <app-alert></app-alert>
-      <div class="row gutters-sm bg-card justify-content-center ">
-        <div class="col-md-8 mt-3 " [formGroup]="groupAddFormGroup">
-          <div class="card mb-3" formGroupName="newGroup">
-            <div class="card-body">
+            <div class="card-body" formGroupName="newGroup" >
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0 mt-2 pt-1">Name</h6>
@@ -41,7 +26,6 @@
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <select class="form-control" formControlName="category" (change)="changeCategory($event)">
-<!--                    <option  class="form-control" value="{{chosenCategory?.name}}">{{chosenCategory?.name}}</option>-->
                     <option  class="form-control text-white" *ngFor="let category of categories">{{category?.name}}</option>
                   </select>
                 </div>
@@ -67,16 +51,10 @@
               <hr>
               <div class="row justify-content-lg-center">
                 <div class="col-sm-12 ">
-                  <button class="btn btn-info"  routerLink="/dashboard">Cancel</button>
-                  <button class="btn btn-info"  (click)="addGroupRoom()">Create Group</button>
+                  <button class="btn btn-info" mat-dialog-close>Cancel</button>
+                  <button class="btn btn-info float-right" (click)="addGroupRoom()">Create Group</button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
+</mat-dialog-content>
 

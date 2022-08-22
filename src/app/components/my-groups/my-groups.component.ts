@@ -7,6 +7,7 @@ import {GameDTO} from '../../domain/dto/GameDTO';
 import {CategoryService} from '../../services/categoryService';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {ProfilePicturesService} from '../../services/profilePicturesService';
+import {Router} from '@angular/router';
 ;
 
 @Component({
@@ -19,7 +20,7 @@ export class MyGroupsComponent implements OnInit {
   currentUser: User;
   usersProfilePictures=null;
   public games: GameDTO[];
-  constructor(private alertService: AlertService, private groupRoomService: GroupRoomService, private userService:UserService,
+  constructor(private alertService: AlertService, private groupRoomService: GroupRoomService,private router:Router, private userService:UserService,
               private categoryService:CategoryService,private profilePicturesService:ProfilePicturesService) {
   }
 
@@ -70,5 +71,9 @@ export class MyGroupsComponent implements OnInit {
         this.profilePicturesService.setUsersProfilePictures(this.currentUser.groupRooms);
         this.usersProfilePictures = this.profilePicturesService.getUsersProfilePictures();
       }
+    }
+
+    navigateToGroup(groupRoom){
+      this.router.navigate(['/group-show/',groupRoom.id])
     }
 }
