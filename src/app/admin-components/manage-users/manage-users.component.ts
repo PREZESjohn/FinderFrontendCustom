@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import{SearchUserDialogComponentComponent} from './search-user-dialog-component/search-user-dialog-component.component';
 import {BannedUsersComponent} from './banned-users/banned-users.component';
+import {ReportsComponent} from './reports/reports.component';
 
 @Component({
   selector: 'app-manage-users',
@@ -25,6 +26,14 @@ export class ManageUsersComponent implements OnInit {
 
   showBannedUsers(){
     this.dialog.open(BannedUsersComponent,{
+      closeOnNavigation: true,
+      width:"90%",
+      height:'80%'
+    })
+  }
+
+  showReportedUsers(){
+    this.dialog.open(ReportsComponent,{
       closeOnNavigation: true,
       width:"90%",
       height:'80%'

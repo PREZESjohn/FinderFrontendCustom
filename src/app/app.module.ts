@@ -33,6 +33,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { UserChatLogsComponent } from './admin-components/user-details/user-chat-logs/user-chat-logs.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ReportsComponent } from './admin-components/manage-users/reports/reports.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -55,9 +57,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatInputModule,
         MatIconModule,
         MatTabsModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatCardModule
     ],
-  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

@@ -8,16 +8,6 @@
       </nav>
       <app-alert></app-alert>
 
-
-      <button (click)="loadReportedUsers()" class="btn-primary"> Load all banned users</button>
-      <div *ngFor="let user of reportedUsers">
-        <p>
-          {{user?.reportedUser?.username}}
-        </p>
-        <p *ngFor="let report of user.reports">
-          {{report.reason}} - {{report?.reportedBy?.username}}
-        </p>
-      </div>
     </div>
   </div>
 </div>

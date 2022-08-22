@@ -5,4 +5,5 @@ export class Report{
   public reason:string;
   public reportedBy:UserDTO;
   public reportedUser:UserDTO;
+  public date:string;
 }

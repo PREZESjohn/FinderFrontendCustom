@@ -13,11 +13,11 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background: whitesmoke;
+  background: #171c26;
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
+  background: #171c26;
 }
 
 .example-element-row td {
@@ -50,4 +50,17 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description-attribution {
   opacity: 0.5;
+}
+.bg-change{
+  background-color: #1a202c;
+}
+.demo-table {
+  width: 100%;
+}
+
+th{
+  color:white !important;
+}
+td{
+  color:white !important;
 }

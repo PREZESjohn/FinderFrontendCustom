@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Reported users</h2>
+<mat-accordion multi class="mt-2">
+  <mat-expansion-panel [disabled]="true">
+    <mat-expansion-panel-header>
+      <div class="col-md-2 pt-1">
+        <mat-panel-title>
+          <p class="">Username</p>
+        </mat-panel-title>
+      </div>
+      <div class="col-md-3 pt-1">
+        <mat-panel-description>
+          <p class=""> Reports count</p>
+        </mat-panel-description>
+      </div>
+      <div class="col-md-6 pt-1">
+        <p class="float-right pr-5">Action</p>
+      </div>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let user of reportedUsers" (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <div class="col-md-2">
+        <mat-panel-title>
+          <p>{{user?.reportedUser?.username}}</p>
+        </mat-panel-title>
+      </div>
+      <div class="col-md-3">
+        <mat-panel-description>
+          <p> {{user?.reports.length}}</p>
+        </mat-panel-description>
+      </div>
+      <div class="col-md-6">
+        <button mat-button class=" btn-info float-right" (click)="inspectProfile(user)"> Inspect profile</button>
+      </div>
+    </mat-expansion-panel-header>
+    <p *ngFor="let report of user.reports">
+      {{report.reportedBy.username}} - {{report.date}} - {{report.reason}}
+    </p>
+  </mat-expansion-panel>
+</mat-accordion>

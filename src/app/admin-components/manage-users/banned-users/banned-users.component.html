@@ -3,7 +3,7 @@
 
   <table mat-table
          [dataSource]="bannedUsers" multiTemplateDataRows
-         class="mat-elevation-z8">
+         class="mat-elevation-z8 bg-change">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{column}} </th>
       <td mat-cell *matCellDef="let element"> {{element[column]}} </td>

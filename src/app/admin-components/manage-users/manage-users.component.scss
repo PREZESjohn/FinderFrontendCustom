@@ -7,4 +7,9 @@
 }
 .randomTile:hover{
   border-color: #0a0c0d;
+  border-width: thick;
+}
+::ng-deep mat-grid-tile-content{
+  border-color: #0a0c0d!important;
+  border-width: thick!important;
 }
