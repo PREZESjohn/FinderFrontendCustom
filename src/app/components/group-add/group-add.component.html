@@ -31,6 +31,17 @@
                 </div>
               </div>
               <hr>
+              <div class="row" *ngIf="chosenGame.name === 'IRL'">
+                <div class="col-sm-3">
+                  <h6 class="mb-0 mt-2 pt-1">City</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <select class="form-control" formControlName="city" (change)="changeCity($event)">
+                    <option  class="form-control text-white" *ngFor="let city of cities">{{city?.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <hr>
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0 mt-2 pt-1">Users limit</h6>

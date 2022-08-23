@@ -63,6 +63,14 @@
         </div>
 
         <button class=" text-right btn btn-fill bg-card " [hidden]="currentGroup?.joinCode !== null || currentGroup?.groupLeader?.id !== currentUser?.id" (click)="generateCode(currentGroup)" >Generate code</button>
+        <button mat-button [matMenuTriggerFor]="menu" class="btn-warning">Report group</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="reportGroup('Verbal abuse')">Verbal abuse</button>
+          <button mat-menu-item (click)="reportGroup('Toxic behaviour')" >Toxic behaviour</button>
+          <button mat-menu-item (click)="reportGroup('Dangerous activities')" >Dangerous activities</button>
+          <button mat-menu-item (click)="reportGroup('Other')" >Other</button>
+        </mat-menu>
+
         <h1 class="text-right"  [hidden]="currentGroup?.joinCode == null && currentGroup?.groupLeader?.id == currentUser?.id">Quick access code: {{currentGroup?.joinCode}}</h1>
       </div>
       <div class="d-flex justify-content-center row bg-card2">

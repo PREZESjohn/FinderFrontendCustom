@@ -24,13 +24,20 @@
               <option class="form-control text-white" *ngFor="let category of chosenGame?.categories" >{{category.name}}</option>
             </select>
             </div>
-            <div class="col">
-            <label class="mt-2 mr-2" for="InGameRoleSelect">Role</label>
+            <div class="col" [hidden]="chosenGame.name==='IRL'">
+            <label class="mt-2 mr-2" for="InGameRoleSelect" >Role</label>
             <select id="InGameRoleSelect" class="form-control mr-3"  (change)="changeRole($event)" style="width: 200px">
               <option class="form-control  text-white "></option>
               <option class="form-control  text-white " *ngFor="let role of chosenGame?.inGameRoles">{{role.name}}</option>
             </select>
               </div>
+            <div class="col" [hidden]="chosenGame.name!=='IRL'">
+              <label class="mt-2 mr-2" for="InGameRoleSelect">City</label>
+              <select id="CitySelect" class="form-control mr-3"  (change)="changeCity($event)" style="width: 200px">
+                <option class="form-control  text-white "></option>
+                <option class="form-control  text-white " *ngFor="let city of cities">{{city?.name}}</option>
+              </select>
+            </div>
             <div class="col pr-1" >
               <label class=" mr-2 mt-2 text-white-50" for="joinCode">Join using code</label>
               <input type="text" class="form-control d-inline" id="joinCode" [(ngModel)]="codeInputValue" >
@@ -54,6 +61,7 @@
                   <div class="d-flex flex-column align-items-center text-center">
                     <p class="text-secondary mb-1">
                     <h3>{{groupRoom.name}}</h3>
+                    <h5 *ngIf="chosenGame.name==='IRL'">({{groupRoom.city}})</h5>
                     <h4>{{groupRoom?.category?.name}}</h4>
                     <p class="text-secondary mb-1">{{groupRoom.description}}</p>
                   </div>

@@ -18,6 +18,7 @@ import {Subscription} from 'rxjs';
 import {CodeErrors} from '../../providers/CodeErrors';
 import {MatDialog} from '@angular/material/dialog';
 import {GroupAddComponent} from '../group-add/group-add.component';
+import {cityList} from '../../providers/Cities';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,6 +37,8 @@ export class DashboardComponent implements OnInit,OnDestroy {
   public groupRooms: GroupRoom[] = [];
   public codeInputValue = '';
   public profilePictures;
+  public cities = cityList;
+  public cityName;
   private subscriptionName: Subscription;
 
   constructor(private groupRoomService: GroupRoomService,
@@ -51,6 +54,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
               private profilePictureService:ProfilePicturesService) {
     this.subscriptionName = this.categoryService.lookForUpdate().subscribe((game:any)=>{
       this.chosenGame = game;
+      this.cities = cityList;
       this.reloadGame();
     })
   }
@@ -101,6 +105,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.chosenGame = this.categoryService.getGame();
     this.groupRoomService.getGroupsByGame(this.chosenGame?.name).subscribe(
       (data: any) =>{ this.groupRooms = data;
+        console.log(data)
     this.profilePictureService.setUsersProfilePictures(data);
     this.profilePictures = this.profilePictureService.getUsersProfilePictures();
   },
@@ -111,12 +116,12 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
 
   public reloadByFilters() {
-    if (this.chosenRole == null && this.chosenCategory != null) {
+    if (this.chosenRole == null && this.chosenCategory != null && this.cityName == undefined) {
       this.groupRoomService.getGroupsByGameAndCategory(this.chosenGame.id, this.chosenCategory.id).subscribe(
         (data: any) => this.groupRooms = data,
         () => this.alertService.error('Error while getting groups')
       );
-    } else if (this.chosenCategory == null && this.chosenRole != null) {
+    } else if (this.chosenCategory == null && this.chosenRole != null ) {
       this.groupRoomService.getGroupsByGameAndRole(this.chosenGame.id, this.chosenRole.id).subscribe(
         (data: any) => this.groupRooms = data,
         () => this.alertService.error('Error while getting groups')
@@ -126,7 +131,20 @@ export class DashboardComponent implements OnInit,OnDestroy {
         (data: any) => this.groupRooms = data,
         () => this.alertService.error('Error while getting groups')
       );
-    } else {
+    }
+    else if (this.chosenCategory == null && this.cityName !== undefined) {
+      this.groupRoomService.getGroupsByGameAndCity(this.chosenGame.id, this.cityName).subscribe(
+        (data: any) => this.groupRooms = data,
+        () => this.alertService.error('Error while getting groups')
+      );
+    }else if(this.chosenCategory !== null && this.cityName !== undefined){
+      console.log("WTRFSAFSFSA")
+      this.groupRoomService.getGroupsByGameCategoryCity(this.chosenGame.id, this.chosenCategory.id, this.cityName).subscribe(
+        (data: any) => this.groupRooms = data,
+        () => this.alertService.error('Error while getting groups')
+      );
+    }
+    else {
       this.reloadGame();
     }
   }
@@ -153,6 +171,19 @@ export class DashboardComponent implements OnInit,OnDestroy {
     });
     // @ts-ignore
     this.chosenRole = temp[0];
+    this.reloadByFilters();
+  }
+
+  public changeCity(e:any){
+    const temp = this.cities.map(a => {
+      if (a.name === e.target.value) {
+        return a
+      } else return
+    }).filter((value) => {
+      return value !== undefined
+    });
+    // @ts-ignore
+    this.cityName=temp[0]?.name;
     this.reloadByFilters();
   }
 

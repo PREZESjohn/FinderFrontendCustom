@@ -48,6 +48,13 @@ export class GroupRoomService {
     return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&C&R/'+gameId+'/'+categoryId+'/'+roleId)
   }
 
+  getGroupsByGameAndCity(gameId:number,city){
+    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/g&cit/'+gameId+'/'+city)
+  }
+  getGroupsByGameCategoryCity(gameId:number,categoryId:number,city){
+    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/C&C/'+gameId+'/'+categoryId+'/'+city)
+  }
+
   setIsPrivateValue(groupId:number,value:boolean){
     return this.httpClient.patch(this.baseUrl+'/groups/changeVisibility/'+groupId+'/'+value,{})
   }

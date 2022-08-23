@@ -13,5 +13,6 @@ export class GroupRoom{
   public chat: Message[];
   public category:Category;
   public game:GameDTO;
+  public city:string;
   public joinCode:string;
 }

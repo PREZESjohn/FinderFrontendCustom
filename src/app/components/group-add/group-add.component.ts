@@ -7,7 +7,7 @@ import {GroupRoom} from '../../domain/GroupRoom';
 import {CategoryService} from '../../services/categoryService';
 import {Category} from '../../domain/Category';
 import {GameDTO} from '../../domain/dto/GameDTO';
-
+import {cityList} from '../../providers/Cities';
 @Component({
   selector: 'app-group-add',
   templateUrl: './group-add.component.html',
@@ -20,6 +20,8 @@ export class GroupAddComponent implements OnInit {
   chosenGame:GameDTO;
   chosenCategory:Category;
   categories: Category[];
+  cities;
+  city;
   games:any;
   // TODO zrobic cos z tym zeby nie pobierac w kazdym komponencie tego bo wstyd
 
@@ -28,6 +30,8 @@ export class GroupAddComponent implements OnInit {
               private router: Router,
               private alertService: AlertService,
               private categoryService:CategoryService) {
+  this.cities = cityList;
+  this.city = cityList[0].name
   }
 
   ngOnInit(): void {
@@ -44,6 +48,7 @@ export class GroupAddComponent implements OnInit {
           [Validators.required, Validators.minLength(2)]),
         game:new FormControl(this.chosenGame?.name,),
         category:new FormControl(this.chosenCategory),
+        city:new FormControl(this.city),
         maxUsers:new FormControl(this.chosenCategory?.basicMaxUsers,Validators.maxLength(5)),
         description: new FormControl('',[Validators.required, Validators.minLength(2)])
       })
@@ -83,6 +88,9 @@ export class GroupAddComponent implements OnInit {
     groupRoom.category = this.chosenCategory;
     groupRoom.maxUsers = this.groupAddFormGroup.get('newGroup').get('maxUsers').value;
     groupRoom.game = this.chosenGame;
+    groupRoom.city = this.city.name;
+
+    console.log(groupRoom)
 
     return groupRoom;
   }
@@ -93,5 +101,13 @@ export class GroupAddComponent implements OnInit {
     this.chosenCategory = temp[0];
    this.groupAddFormGroup.get('newGroup').get('category').setValue(e.target.value,{onlySelf:true});
    this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers,{onlySelf:true})
+  }
+
+  public changeCity(e){
+    const temp = this.cities.map(a =>{ if(a.name === e.target.value){return a}else return
+    }).filter((value)=>{return value !== undefined});
+    this.city = temp[0];
+    this.groupAddFormGroup.get('newGroup').get('city').setValue(e.target.value,{onlySelf:true});
+    this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers,{onlySelf:true})
   }
 }
