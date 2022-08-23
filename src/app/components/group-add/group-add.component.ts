@@ -22,6 +22,7 @@ export class GroupAddComponent implements OnInit {
   categories: Category[];
   cities;
   city;
+  isOpen = true;
   games:any;
   // TODO zrobic cos z tym zeby nie pobierac w kazdym komponencie tego bo wstyd
 
@@ -88,11 +89,15 @@ export class GroupAddComponent implements OnInit {
     groupRoom.category = this.chosenCategory;
     groupRoom.maxUsers = this.groupAddFormGroup.get('newGroup').get('maxUsers').value;
     groupRoom.game = this.chosenGame;
-    groupRoom.city = this.city.name;
-
+    groupRoom.city = this.city;
+    groupRoom.open = this.isOpen;
     console.log(groupRoom)
 
     return groupRoom;
+  }
+
+  togglePrivate(){
+    this.isOpen = !this.isOpen;
   }
 
   public changeCategory(e){

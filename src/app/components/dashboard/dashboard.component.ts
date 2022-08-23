@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.dialog.open(GroupAddComponent,{
       closeOnNavigation: true,
       width:"50%",
-      height:'70%'
+      height:'73%'
     })
   }
 
