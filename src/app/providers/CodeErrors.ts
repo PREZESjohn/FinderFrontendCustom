@@ -22,3 +22,6 @@ export const CodeErrors =  new Map()
   CodeErrors.set("31","Email already taken")
   CodeErrors.set("32","Username already taken")
   CodeErrors.set("33","Group name already taken")
+  CodeErrors.set("34","Wrong password")
+
+  CodeErrors.set("99","Something went wrong")

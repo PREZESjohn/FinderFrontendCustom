@@ -7,7 +7,7 @@ import {FooterComponent} from './footer/footer.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {LoginComponent} from './login/login.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RegisterComponent} from './register/register.component';
 import {AlertComponent} from './alert/alert.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -22,15 +22,20 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import { ChangePasswordComponent } from './user-profile/change-password/change-password.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+
 
 @NgModule({
-    imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule],
+  imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent,
     AlertComponent,  UserProfileComponent, GroupAddComponent,
     MyGroupsComponent,
     GroupShowComponent,HomePageComponent,
     OtherUserProfileComponent,
-    ChatComponent],
+    ChatComponent,
+    ChangePasswordComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent]
 })
 export class ComponentsModule {

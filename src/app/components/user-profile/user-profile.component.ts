@@ -8,6 +8,8 @@ import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
 import {CodeErrors} from '../../providers/CodeErrors';
+import {MatDialog} from '@angular/material/dialog';
+import {ChangePasswordComponent} from "./change-password/change-password.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -30,7 +32,8 @@ export class UserProfileComponent implements OnInit {
               private router:Router,
               private categoryService:CategoryService,
               private activeRoute: ActivatedRoute,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     if(this.categoryService.getAllGames().length==0){
@@ -206,4 +209,11 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  openChangePassword() {
+    this.dialog.open(ChangePasswordComponent,{
+      closeOnNavigation: true,
+      width:"50%",
+      height:"50%"
+    })
+  }
 }

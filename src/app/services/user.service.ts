@@ -13,7 +13,7 @@ import {ReportedUser} from '../domain/ReportedUser';
 })
 export class UserService {
 
-  changePasswordUrl = 'http://localhost:8080/api/auth/password-change';
+  changePasswordUrl = 'http://localhost:8080/api/v1/auth/password-change';
   editUserUrl = 'http://localhost:8080/api/v1/users/edit'
   baseURL = 'http://localhost:8080/api/v1/users'
   reportedUsers:ReportedUser[];
