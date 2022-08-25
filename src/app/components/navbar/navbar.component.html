@@ -1,8 +1,7 @@
 <nav class=" navbar navbar-expand-md  navbar-transparent float-right" style="width: 75%">
   <div class=" container-fluid">
   </div>
-  <div class=" navbar-collapse " id="navigation" *ngIf="checkIfLoggedIn()"
-       [style.visibility]="checkPath() ? 'hidden' : 'visible'">
+  <div class=" navbar-collapse " id="navigation">
     <div class="navbar-nav justify-content-start">
       <button mat-button [matMenuTriggerFor]="menu">
         <img src="assets/img/{{chosenGame?.name}}.jpg" alt="" style="width: 30px;height: 30px">
@@ -16,7 +15,35 @@
         </button>
       </mat-menu>
     </div>
-    <ul class=" navbar-nav ml-4 ">
+    <div class=" navbar-nav ml-5 pr-2 ">
+
+      <button mat-button [matMenuTriggerFor]="beforeMenu">
+        <mat-icon *ngIf="notificationsNumber!==0" matBadge="{{notificationsNumber}}" matBadgeColor="warn"
+                  aria-hidden="false">
+          <span class="material-symbols-outlined">notifications</span>
+        </mat-icon>
+        <mat-icon *ngIf="notificationsNumber==0" aria-hidden="false">
+          <span class="material-symbols-outlined">notifications</span>
+        </mat-icon>
+      </button>
+      <mat-menu #beforeMenu="matMenu" class="bg-card notif text-white" xPosition="before">
+        <div class=" custom-wrap" mat-menu-item *ngFor="let notif of notifications let row = index">
+            <div class="text-white" (click)="navigateToGroup(notif.groupRoom.id,row,notif.id)">
+              <p class="custom-text">{{notif.groupRoom.name}}</p>
+              <svg (click)="removeNotif(row,notif.id)" style="color: red" xmlns="http://www.w3.org/2000/svg" width="32"
+                   height="32" fill="currentColor"
+                   class="bi bi-x float-right pr-1" viewBox="0 0 16 16">
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                  fill="red"></path>
+              </svg>
+              <p class="custom-text">{{notif.msg}}</p>
+            </div>
+        </div>
+      </mat-menu>
+
+    </div>
+    <ul class=" navbar-nav ml-2 ">
       <li class=" nav-item justify-content-center" routerLinkActive="true">
         <div class=" photo justify-content-center">
           <a [routerLink]="'/user-profile'"><img alt="Profile Photo" [src]="profilePicture"/></a>

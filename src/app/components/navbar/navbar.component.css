@@ -11,3 +11,18 @@
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+
+::ng-deep .custom-wrap {
+  overflow-x: hidden !important;
+  white-space: pre-wrap !important;
+  height: 75px !important;
+  width: 250px !important;
+}
+
+::ng-deep .notif .mat-menu-content{
+  height:300px!important;
+}
+
+.custom-text{
+  height:20px!important;
+}

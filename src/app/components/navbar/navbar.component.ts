@@ -9,6 +9,9 @@ import {User} from '../../domain/User';
 import {CategoryService} from '../../services/categoryService';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {Subscription} from 'rxjs';
+import {AlertService} from '../../services/alert.service';
+import {NotificationService} from '../../services/NotificationService';
+import {CustomNotification} from '../../domain/CustomNotification';
 
 @Component({
   selector: 'app-navbar',
@@ -22,37 +25,47 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public currentUser: User;
   public isAdmin = false;
   public games: GameDTO[];
-  public chosenGame:GameDTO;
+  public chosenGame: GameDTO;
   public user;
-  public profilePicture=null;
+  public source;
+  public notificationsNumber = 0;
+  public notifications: CustomNotification[] = [];
+  public profilePicture = null;
   private subscriptionName: Subscription;
 
   constructor(
     location: Location,
     private element: ElementRef,
     private router: Router,
+    private alertService: AlertService,
     private modalService: NgbModal,
     private authService: AuthService,
     private userService: UserService,
+    private notificationService: NotificationService,
     private categoryService: CategoryService,
   ) {
+      this.source = this.alertService.getSource();
+
+      this.source.addEventListener('message', message => {
+        this.getNotifications();
+      })
     this.location = location;
     this.sidebarVisible = false;
     this.checkIfAdmin();
-   this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data:any)=>{
+    this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data: any) => {
       this.profilePicture = data;
     })
   }
 
 
   ngOnInit() {
-    console.log("Navbar reload")
-    if (this.checkIfLoggedIn()) {
-      this.checkIfAdmin();
-    }
-    if(this.categoryService.getAllGames().length==0) {
+    console.log('Navbar reload')
+    // if (this.checkIfLoggedIn()) {
+    //   this.checkIfAdmin();
+    // }
+    if (this.categoryService.getAllGames().length == 0) {
       this.getGames()
-    }else {
+    } else {
       this.chosenGame = this.categoryService.getGame();
       this.games = this.categoryService.getAllGames();
     }
@@ -61,6 +74,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
   }
+
+  public getNotifications(){
+    this.notificationService.getAllNotifications().subscribe((data: any) => {
+      this.notifications = data;
+      this.notificationsNumber = data.length;
+    })
+  }
+
+  public navigateToGroup(id:number,index,notifId){
+    console.log(notifId)
+    this.notificationService.removeNotification(notifId).subscribe()
+    this.router.navigate(['/group-show/',id]).then(()=> {
+        this.notifications.splice(index, 1);
+        this.notificationsNumber = this.notifications.length;
+      }
+    )
+  }
+
+  removeNotif(index,notifId){
+    this.notificationService.removeNotification(notifId).subscribe()
+    this.notifications.splice(index, 1);
+    this.notificationsNumber = this.notifications.length;
+  }
+
 
   checkIfLoggedIn() {
     if (this.authService.getToken()) {
@@ -72,9 +109,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userService.getUser().subscribe(
       data => {
         this.currentUser = data
-        this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
+        this.getNotifications();
+        this.userService.getProfilePicture(data.id).subscribe((d: any) => {
           this.profilePicture = this.userService.setProfilePicture(d);
-        },()=>{
+        }, () => {
           this.profilePicture = '../assets/img/default-avatar.png'
         })
         if (this.currentUser?.role.name === 'ROLE_ADMIN') {
@@ -84,24 +122,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
     );
   }
 
-  getGames(){
-      this.categoryService.getGames().subscribe(
-        data => {
-          this.games = data;
-          this.categoryService.setAllGames(data);
-          this.chosenGame = this.categoryService.getGame();
-          if(this.chosenGame === undefined){
-          this.chosenGame = data[0]}
-          this.categoryService.setGame(this.chosenGame);
+  getGames() {
+    this.categoryService.getGames().subscribe(
+      data => {
+        this.games = data;
+        this.categoryService.setAllGames(data);
+        this.chosenGame = this.categoryService.getGame();
+        if (this.chosenGame === undefined) {
+          this.chosenGame = data[0]
         }
-      )
-  }
-  setGame(game:GameDTO) {
-  this.categoryService.setGame(game);
-  this.chosenGame = game;
+        this.categoryService.setGame(this.chosenGame);
+      }
+    )
   }
 
-  public checkPath(){
+  setGame(game: GameDTO) {
+    this.categoryService.setGame(game);
+    this.chosenGame = game;
+  }
+
+  public checkPath() {
     return this.router.url === '/home-page';
   }
 

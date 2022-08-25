@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
+import {AuthService} from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
   private subject = new Subject<any>();
+  private source = null;
   private keepAfterRouteChange = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private authService:AuthService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         if (this.keepAfterRouteChange) {
@@ -17,6 +19,15 @@ export class AlertService {
         }
       }
     });
+  }
+
+  getSource(){
+    if(this.source == null){
+      this.source = new EventSource('http://localhost:8080/api/v1/notify/test?token=' + this.authService.getToken());
+      return this.source;
+    }else {
+      return this.source;
+    }
   }
 
   getAlert(): Observable<any> {
