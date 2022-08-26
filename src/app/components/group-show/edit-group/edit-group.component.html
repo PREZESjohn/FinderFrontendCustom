@@ -1,0 +1,21 @@
+<h1 mat-dialog-title >Change group informations</h1>
+<app-alert></app-alert>
+<div mat-dialog-content style="width:100%" [formGroup]="groupEditForm" class="justify-content-center" >
+  <div formGroupName="editGroup">
+    <mat-form-field class="example-full-width"  style="width: 100%" >
+      <input class="text-white"  matInput  placeholder="Name"  formControlName="name" type="text" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width"  style="width: 100%">
+      <input class="text-white"  matInput  placeholder="Max users"   formControlName="maxUsers" type="text" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width"  style="width: 100%" >
+      <textarea class="text-white"  matInput  placeholder="Description"   formControlName="desc" type="text" ></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close class="text-white">Close</button>
+  <button mat-button   (click)="changeGroup()" class="text-white" >Save</button>
+</div>
+
+

@@ -27,6 +27,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
+import { EditGroupComponent } from './group-show/edit-group/edit-group.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     GroupShowComponent,HomePageComponent,
     OtherUserProfileComponent,
     ChatComponent,
-    ChangePasswordComponent],
+    ChangePasswordComponent,
+    EditGroupComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent]
 })
 export class ComponentsModule {

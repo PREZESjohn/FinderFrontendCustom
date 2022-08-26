@@ -1,0 +1,20 @@
+::ng-deep mat-dialog-container {
+  background-color: #1e2534 !important;
+}
+::ng-deep .mat-form-field-placeholder{
+
+  color:white !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-placeholder{
+
+  color:white !important;
+}
+::ng-deep .mat-form-field label{
+
+  color:white !important;
+}
+:host ::ng-deep .mat-input-element::placeholder{
+  color: white !important;
+  /* Add other styles */
+}
