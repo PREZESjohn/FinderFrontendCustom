@@ -193,6 +193,7 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   openChangeGroup() {
     const dialogRef=this.dialog.open(EditGroupComponent,{
       closeOnNavigation:true,
+      disableClose:true,
       width:"40%",
       height:"40%",
       data:{

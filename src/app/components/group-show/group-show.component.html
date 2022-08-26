@@ -12,15 +12,18 @@
       </nav>
       <!-- /Breadcrumb -->
       <app-alert></app-alert>
-      <div class=" bg-card2">
-        <h2 class="text-left card-title" >{{currentGroup?.name}}</h2>
-        <h5 class="card-title">Category: {{currentGroup?.category?.name}} </h5>
-        <h5 class="card-title">Max users: {{currentGroup?.maxUsers}} </h5>
-        <h5 class="card-title">{{currentGroup?.description}} </h5>
-
-        <button mat-raised-button class="btn-info" (click)="openChangeGroup()">Edit</button>
+      <div class=" bg-card2" style="padding: 3%;margin-bottom: 30px">
+        <div >
+          <h2 class="text-left card-title" >{{currentGroup?.name}}</h2>
+          <h5 class="card-title">Category: {{currentGroup?.category?.name}} </h5>
+          <h5 class="card-title">Max users: {{currentGroup?.maxUsers}} </h5>
+          <h5 class="card-title">{{currentGroup?.description}} </h5>
+        </div>
+        <div></div>
+        <button mat-button class="btn btn-info" [hidden]="currentGroup?.groupLeader?.id !== currentUser?.id" (click)="openChangeGroup()">Edit</button>
         <button class=" text-right btn btn-fill bg-card " [hidden]="currentGroup?.joinCode !== null || currentGroup?.groupLeader?.id !== currentUser?.id" (click)="generateCode(currentGroup)" >Generate code</button>
-        <button mat-button [matMenuTriggerFor]="menu" class="btn-warning">Report group</button>
+        <button mat-button [matMenuTriggerFor]="menu" class="btn btn-warning">Report group</button>
+
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="reportGroup('Verbal abuse')">Verbal abuse</button>
           <button mat-menu-item (click)="reportGroup('Toxic behaviour')" >Toxic behaviour</button>
@@ -28,10 +31,10 @@
           <button mat-menu-item (click)="reportGroup('Other')" >Other</button>
         </mat-menu>
 
-        <h1 class="text-right"  [hidden]="currentGroup?.joinCode == null ">Quick access code: {{currentGroup?.joinCode}}</h1>
+        <h1 class="text-right"  [hidden]="currentGroup?.joinCode == null ||  currentGroup?.groupLeader?.id !== currentUser?.id">Quick access code: {{currentGroup?.joinCode}}</h1>
       </div>
-      <div class="d-flex justify-content-center row bg-card2">
-        <div class=" pr-md-1 justify-content-center" style="width: 95%">
+      <div class="d-flex justify-content-center  ">
+        <div class=" pr-md-1 justify-content-center bg-card2" style="width: 100%">
           <label class="d-flex justify-content-center title"> Users in group </label>
           <div class="row text-center justify-content-center ">
             <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
