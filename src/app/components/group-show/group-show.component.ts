@@ -13,7 +13,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Report} from '../../domain/Report';
 import {CustomNotification} from '../../domain/CustomNotification';
-import {EditGroupComponent} from "./edit-group/edit-group.component";
+import {EditGroupComponent} from './edit-group/edit-group.component';
 
 
 @Component({
@@ -29,10 +29,8 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   isConnected = new Map();
 
   isAdmin = false;
-  isEditOff = true;
-  buttonFunction = 'Edit';
+  isInGroupRoomView = false;
   editGroupRoom = new GroupRoom();
-  groupEditForm: FormGroup;
   public source;
   currentUser: User;
 
@@ -46,26 +44,11 @@ export class GroupShowComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder) {
 
+    this.isInGroupRoomView = true;
     this.id = +this.route.snapshot.paramMap.get('id');
     this.source = this.alertService.getSource()
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.source.addEventListener('message', message => {
-      const msg: CustomNotification = JSON.parse(message.data);
-      if (msg.type === 'REMOVED' && msg.removedUserId === this.currentUser.id) {
-        router.navigateByUrl('/home-page')
-      }
-      if (msg.type =='REMOVED') {
-        this.alertService.error(msg.msg);
-      } else {
-        this.alertService.success(msg.msg)
-      }
-      this.checkIfAdmin();
-      this.showGroupContent(this.id);
-
-      window.setTimeout(() => {
-        this.alertService.clear()
-      }, 8000);
-    })
+    this.source.addEventListener('message', message => this.notificationMethod(message))
     this.dialog.closeAll();
 
   }
@@ -73,13 +56,32 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.showGroupContent(this.id)
     this.checkIfAdmin();
-
   }
 
   ngOnDestroy() {
-    this.source.close();
+    this.isInGroupRoomView = false;
   }
 
+  notificationMethod(message) {
+      const msg: CustomNotification = JSON.parse(message.data);
+      if (msg.type === 'REMOVED' && msg.removedUserId === this.currentUser.id && msg.groupRoom.id === this.currentGroup.id && this.isInGroupRoomView) {
+        this.router.navigateByUrl('/home-page')
+      }
+      if (this.isInGroupRoomView && msg.groupRoom.id === this.currentGroup.id) {
+        if (msg.type == 'REMOVED') {
+          this.alertService.error(msg.msg);
+        } else {
+          this.alertService.success(msg.msg)
+        }
+        this.checkIfAdmin();
+        this.showGroupContent(this.id);
+
+      window.setTimeout(() => {
+        this.alertService.clear()
+      }, 8000);
+    }
+    this.dialog.closeAll();
+  }
   navigateToProfile(profile) {
     this.router.navigate(['/profile/', profile.id])
   }
