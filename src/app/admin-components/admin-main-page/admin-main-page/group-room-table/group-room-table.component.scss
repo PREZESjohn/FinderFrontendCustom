@@ -1,0 +1,39 @@
+.bg-change{
+  background-color: #1e2534;
+}
+.demo-table {
+  width: 100%;
+}
+
+th{
+  color:white !important;
+}
+td{
+  color:white !important;
+}
+
+mat-paginator{
+  color:white !important;
+}
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+::ng-deep .mat-select-value {
+  color: white!important;
+}
+mat-form-field mat-label{
+  color:white!important;
+}
+mat-form-field mat-label input{
+  color:white!important;
+}

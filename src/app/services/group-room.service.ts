@@ -18,6 +18,10 @@ export class GroupRoomService {
     return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/all');
   }
 
+  getDeletedGroups(){
+    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/deleted')
+  }
+
   deleteGroup(groupId: number) {
     const url = this.baseUrl + '/groups/' + groupId;
 
@@ -77,6 +81,11 @@ export class GroupRoomService {
   getChatLongs(groupId:number){
     return this.httpClient.get(this.baseUrl+'/chatLogs/'+groupId);
   }
+
+  getDeletedChatLogs(groupId:number){
+    return this.httpClient.get(this.baseUrl+"/deletedGroupLogs/"+groupId)
+  }
+
   editGroup(id:number, group:GroupRoom): Observable<any>{
     const headers={'content-type': 'application/json'}
     const body = JSON.stringify(group);

@@ -11,23 +11,11 @@ import {Router} from '@angular/router';
 })
 export class AdminMainPageComponent implements OnInit {
 
-  public displayedColumns = ['Id','Name','Users', 'Open','Group Leader','Game','Category']
-  public groupsData:GroupRoom[];
-
-  constructor(private groupRoomService:GroupRoomService, private alertService:AlertService,private router:Router) {
-    this.groupRoomService.getGroups().subscribe((data:any)=>{
-      this.groupsData = data;
-    },
-      ()=>{
-      this.alertService.error("Cant load groups")
-      })
+  constructor() {
   }
 
   ngOnInit(): void {
   }
 
 
-  public showGroupDetails(row:any){
-    this.router.navigate(["admin/group-room-details",row.id])
-  }
 }

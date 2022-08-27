@@ -37,6 +37,9 @@ import { ReportsComponent } from './admin-components/manage-users/reports/report
 import {MatCardModule} from '@angular/material/card';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatMenuModule} from '@angular/material/menu';
+import { GroupRoomTableComponent } from './admin-components/admin-main-page/admin-main-page/group-room-table/group-room-table.component';
+import {MatSortModule} from '@angular/material/sort';
+import { GroupChatLogsDialogComponent } from './admin-components/admin-main-page/admin-main-page/group-chat-logs-dialog/group-chat-logs-dialog.component';
 
 @NgModule({
     imports: [
@@ -62,9 +65,10 @@ import {MatMenuModule} from '@angular/material/menu';
         MatExpansionModule,
         MatCardModule,
         MatBadgeModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSortModule
     ],
-  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
