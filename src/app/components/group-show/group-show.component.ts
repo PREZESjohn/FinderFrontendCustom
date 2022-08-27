@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {User} from '../../domain/User';
 import {GroupRoomService} from '../../services/group-room.service';
@@ -14,6 +14,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {Report} from '../../domain/Report';
 import {CustomNotification} from '../../domain/CustomNotification';
 import {EditGroupComponent} from './edit-group/edit-group.component';
+import {MiniProfileComponent} from "../other-user-profile/mini-profile/mini-profile.component";
 
 
 @Component({
@@ -212,5 +213,14 @@ export class GroupShowComponent implements OnInit, OnDestroy {
           this.currentGroup.description = data.desc;
         }
     });
+  }
+  openMiniProfile(evt: MouseEvent): void{
+    const target = new ElementRef(evt.currentTarget);
+    const dialogProfil=this.dialog.open(MiniProfileComponent,{
+      closeOnNavigation:true,
+      hasBackdrop:false,
+      data: {trigger: target}
+    })
+
   }
 }

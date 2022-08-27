@@ -23,5 +23,5 @@ export const CodeErrors =  new Map()
   CodeErrors.set("32","Username already taken")
   CodeErrors.set("33","Group name already taken")
   CodeErrors.set("34","Wrong password")
-
+  CodeErrors.set("35", "User limit is less than the number of users in group ")
   CodeErrors.set("99","Something went wrong")

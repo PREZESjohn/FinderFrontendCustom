@@ -19,6 +19,7 @@
           <h5 class="card-title">Max users: {{currentGroup?.maxUsers}} </h5>
           <h5 class="card-title">{{currentGroup?.description}} </h5>
         </div>
+        <a class="button" style="cursor:pointer" (click)="openMiniProfile($event)">test</a>
         <div></div>
         <button mat-button class="btn btn-info" [hidden]="currentGroup?.groupLeader?.id !== currentUser?.id" (click)="openChangeGroup()">Edit</button>
         <button class=" text-right btn btn-fill bg-card " [hidden]="currentGroup?.joinCode !== null || currentGroup?.groupLeader?.id !== currentUser?.id" (click)="generateCode(currentGroup)" >Generate code</button>

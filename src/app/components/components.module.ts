@@ -28,6 +28,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { EditGroupComponent } from './group-show/edit-group/edit-group.component';
+import { MiniProfileComponent } from './other-user-profile/mini-profile/mini-profile.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { EditGroupComponent } from './group-show/edit-group/edit-group.component
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent],
+    EditGroupComponent,
+    MiniProfileComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent]
 })
 export class ComponentsModule {
