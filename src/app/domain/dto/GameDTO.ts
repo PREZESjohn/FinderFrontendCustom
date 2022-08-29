@@ -6,4 +6,5 @@ export class GameDTO{
   name:string;
   inGameRoles: InGameRoles[]
   categories:Category[];
+  assignRolesActive:boolean;
 }
