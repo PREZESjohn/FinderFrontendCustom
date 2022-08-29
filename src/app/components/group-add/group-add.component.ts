@@ -8,6 +8,8 @@ import {CategoryService} from '../../services/categoryService';
 import {Category} from '../../domain/Category';
 import {GameDTO} from '../../domain/dto/GameDTO';
 import {cityList} from '../../providers/Cities';
+import {InGameRoles} from '../../domain/dto/InGameRoles';
+import {TakenInGameRole} from '../../domain/TakenInGameRole';
 @Component({
   selector: 'app-group-add',
   templateUrl: './group-add.component.html',
@@ -23,6 +25,8 @@ export class GroupAddComponent implements OnInit {
   cities;
   city;
   isOpen = true;
+  tempRole:InGameRoles;
+  isActivated = false;
   games:any;
   // TODO zrobic cos z tym zeby nie pobierac w kazdym komponencie tego bo wstyd
 
@@ -91,6 +95,11 @@ export class GroupAddComponent implements OnInit {
     groupRoom.game = this.chosenGame;
     groupRoom.city = this.city;
     groupRoom.open = this.isOpen;
+    groupRoom.inGameRolesActive = this.isActivated;
+
+    const takenInGameRole = new TakenInGameRole();
+    takenInGameRole.inGameRole = this.tempRole;
+    groupRoom.takenInGameRoles = [takenInGameRole];
     console.log(groupRoom)
 
     return groupRoom;
@@ -98,6 +107,14 @@ export class GroupAddComponent implements OnInit {
 
   togglePrivate(){
     this.isOpen = !this.isOpen;
+  }
+
+  toggleYes(){
+    this.isActivated = !this.isActivated;
+  }
+
+  setRole(role){
+    this.tempRole = role;
   }
 
   public changeCategory(e){

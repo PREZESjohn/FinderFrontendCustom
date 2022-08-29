@@ -19,6 +19,7 @@ import {CodeErrors} from '../../providers/CodeErrors';
 import {MatDialog} from '@angular/material/dialog';
 import {GroupAddComponent} from '../group-add/group-add.component';
 import {cityList} from '../../providers/Cities';
+import {InGameRoles} from '../../domain/dto/InGameRoles';
 
 @Component({
   selector: 'app-dashboard',
@@ -70,7 +71,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
 
   joinGroup(groupId: number) {
-    this.userService.joinGroup(groupId).subscribe((data:any) => {
+    this.userService.joinGroup(groupId,new InGameRoles()).subscribe((data:any) => {
         this.alertService.success('You joined group');
         this.reloadGame()
       },
@@ -191,8 +192,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     const code:string = this.codeInputValue;
     if(code!=="") {
       this.groupRoomService.joinByCode(code).subscribe((data: any) => {
-          history.state.data = data?.id
-          this.router.navigateByUrl('/group-show');
+         this.navigateToGroup(data);
         }, (e) => {
           this.alertService.error(CodeErrors.get(e.error.code))
         }
@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.dialog.open(GroupAddComponent,{
       closeOnNavigation: true,
       width:"50%",
-      height:'73%'
+      height:'80%'
     })
   }
 

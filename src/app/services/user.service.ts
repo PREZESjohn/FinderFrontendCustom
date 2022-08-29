@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 import {BannedUserDTO} from '../domain/dto/BannedUserDTO';
 import {Report} from '../domain/Report';
 import {ReportedUser} from '../domain/ReportedUser';
+import {InGameRoles} from '../domain/dto/InGameRoles';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +48,11 @@ export class UserService {
     return this.http.get<User>(this.baseURL+'/my-groups/'+gameId)
   }
 
-  joinGroup(groupId:number){
-    return this.http.patch<User>(this.baseURL + '/joinGroup/' + groupId,{},{ observe: 'response' });
+  joinGroup(groupId:number,inGameRole:InGameRoles){
+    console.log(inGameRole+"-ROLA")
+    return this.http.patch<User>(this.baseURL + '/joinGroup/' + groupId,inGameRole,{ observe: 'response' });
   }
+
 
   leaveGroup(groupId: number) {
     const url = this.baseURL + '/my-groups/' + groupId;

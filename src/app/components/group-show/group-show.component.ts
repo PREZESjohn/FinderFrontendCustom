@@ -14,7 +14,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {Report} from '../../domain/Report';
 import {CustomNotification} from '../../domain/CustomNotification';
 import {EditGroupComponent} from './edit-group/edit-group.component';
-import {MiniProfileComponent} from "../other-user-profile/mini-profile/mini-profile.component";
+import {MiniProfileComponent} from '../other-user-profile/mini-profile/mini-profile.component';
+import {InGameRoles} from '../../domain/dto/InGameRoles';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   isInGroupRoomView = false;
   editGroupRoom = new GroupRoom();
   public source;
+  inGameRoles = [];
+  inGameRolesMap = new Map();
   currentUser: User;
 
   constructor(private groupRoomService: GroupRoomService,
@@ -64,18 +67,18 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   }
 
   notificationMethod(message) {
-      const msg: CustomNotification = JSON.parse(message.data);
-      if (msg.type === 'REMOVED' && msg.removedUserId === this.currentUser.id && msg.groupRoom.id === this.currentGroup.id && this.isInGroupRoomView) {
-        this.router.navigateByUrl('/home-page')
+    const msg: CustomNotification = JSON.parse(message.data);
+    if (msg.type === 'REMOVED' && msg.removedUserId === this.currentUser.id && msg.groupRoom.id === this.currentGroup.id && this.isInGroupRoomView) {
+      this.router.navigateByUrl('/home-page')
+    }
+    if (this.isInGroupRoomView && msg.groupRoom.id === this.currentGroup.id) {
+      if (msg.type == 'REMOVED') {
+        this.alertService.error(msg.msg);
+      } else {
+        this.alertService.success(msg.msg)
       }
-      if (this.isInGroupRoomView && msg.groupRoom.id === this.currentGroup.id) {
-        if (msg.type == 'REMOVED') {
-          this.alertService.error(msg.msg);
-        } else {
-          this.alertService.success(msg.msg)
-        }
-        this.checkIfAdmin();
-        this.showGroupContent(this.id);
+      this.checkIfAdmin();
+      this.showGroupContent(this.id);
 
       window.setTimeout(() => {
         this.alertService.clear()
@@ -83,6 +86,7 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     }
     this.dialog.closeAll();
   }
+
   navigateToProfile(profile) {
     this.router.navigate(['/profile/', profile.id])
   }
@@ -94,7 +98,7 @@ export class GroupShowComponent implements OnInit, OnDestroy {
       localStorage.setItem('groupId', groupId.toString());
     }
     this.groupRoomService.showGroupContent(groupId).subscribe((data: any) => {
-        this.currentGroup = data;
+        this.loadData(data)
         this.editGroupRoom.name = data.name;
         this.editGroupRoom.maxUsers = data.maxUsers;
         this.editGroupRoom.description = data.description;
@@ -112,6 +116,21 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     )
   }
 
+  loadData(data){
+    this.inGameRoles = [];
+    this.inGameRolesMap = new Map();
+    console.log(data)
+    this.currentGroup = data;
+    this.currentGroup.takenInGameRoles.forEach((takenRole) => {
+      if (takenRole.user === null) {
+        this.inGameRoles.push(takenRole.inGameRole);
+        console.log(data)
+      }else{
+        this.inGameRolesMap.set(takenRole.user.id,takenRole.inGameRole)
+      }
+    })
+  }
+
   checkIfAdmin() {
     this.userService.getUser().subscribe(
       data => {
@@ -126,8 +145,11 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     );
   }
 
-  public joinGroup(groupId: number) {
-    this.userService.joinGroup(groupId).subscribe((data: any) => {
+  public joinGroup(groupId: number,inGameRole:InGameRoles) {
+    if(inGameRole==undefined){
+      inGameRole = new InGameRoles();
+    }
+    this.userService.joinGroup(groupId,inGameRole).subscribe((data: any) => {
         // this.alertService.success('You joined group');
         this.showGroupContent(groupId)
       },
@@ -157,7 +179,9 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   public removeFromGroup(user: User) {
     const userId = user.id;
     const groupId = this.currentGroup.id;
-    this.groupRoomService.removeFromGroup(groupId, userId).subscribe((data: any) => this.currentGroup = data,
+    this.groupRoomService.removeFromGroup(groupId, userId).subscribe((data: any) => {
+      this.loadData(data)
+      },
       (e) => {
         this.alertService.error(CodeErrors.get(e.error.code))
       })
@@ -179,25 +203,25 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     this.isConnected.set(values[0], values[1]);
   }
 
-  reportGroup(reason:string) {
+  reportGroup(reason: string) {
     const report = new Report();
     report.reason = reason;
     this.currentGroup.users.forEach((user) => {
-      this.userService.reportUser(report,user.id).subscribe(() => {
-        this.alertService.success("Group reported")
+      this.userService.reportUser(report, user.id).subscribe(() => {
+        this.alertService.success('Group reported')
       }, (e) => {
-        this.alertService.success("Group reported")
+        this.alertService.success('Group reported')
       })
     })
   }
 
   openChangeGroup() {
-    const dialogRef=this.dialog.open(EditGroupComponent,{
-      closeOnNavigation:true,
-      disableClose:true,
-      width:"40%",
-      height:"40%",
-      data:{
+    const dialogRef = this.dialog.open(EditGroupComponent, {
+      closeOnNavigation: true,
+      disableClose: true,
+      width: '40%',
+      height: '40%',
+      data: {
         groupRoom: {
           id: this.currentGroup.id,
           name: this.currentGroup.name,
@@ -206,19 +230,20 @@ export class GroupShowComponent implements OnInit, OnDestroy {
         }
       }
     })
-    dialogRef.afterClosed().subscribe(data=> {
-        if(data.mode){
-          this.currentGroup.name = data.name;
-          this.currentGroup.maxUsers = data.maxUsers;
-          this.currentGroup.description = data.desc;
-        }
+    dialogRef.afterClosed().subscribe(data => {
+      if (data.mode) {
+        this.currentGroup.name = data.name;
+        this.currentGroup.maxUsers = data.maxUsers;
+        this.currentGroup.description = data.desc;
+      }
     });
   }
-  openMiniProfile(evt: MouseEvent): void{
+
+  openMiniProfile(evt: MouseEvent): void {
     const target = new ElementRef(evt.currentTarget);
-    const dialogProfil=this.dialog.open(MiniProfileComponent,{
-      closeOnNavigation:true,
-      hasBackdrop:false,
+    const dialogProfil = this.dialog.open(MiniProfileComponent, {
+      closeOnNavigation: true,
+      hasBackdrop: false,
       data: {trigger: target}
     })
 

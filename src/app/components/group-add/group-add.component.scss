@@ -12,3 +12,26 @@ select option {
 ::ng-deep mat-dialog-container mat-dialog-content {
   background-color: #1e2534 !important;
 }
+.image-change-hover:hover{
+  opacity: 0.3;
+}
+
+label{
+  cursor: pointer;
+}
+
+label img{
+  opacity: 0.3;
+  width:20px;
+  height: 20px;
+}
+
+:checked+label img{
+  opacity: 1;
+  width:30px;
+  height: 30px;
+}
+
+input[type=checkbox] {
+  display: none;
+}
