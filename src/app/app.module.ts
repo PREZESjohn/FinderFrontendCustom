@@ -40,6 +40,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import { GroupRoomTableComponent } from './admin-components/admin-main-page/admin-main-page/group-room-table/group-room-table.component';
 import {MatSortModule} from '@angular/material/sort';
 import { GroupChatLogsDialogComponent } from './admin-components/admin-main-page/admin-main-page/group-chat-logs-dialog/group-chat-logs-dialog.component';
+import {USER_PREVIEW_DIALOG_DATA} from "./components/other-user-profile/mini-profilev2/user-preview-overlay.tokens";
+
 
 @NgModule({
     imports: [
@@ -66,7 +68,8 @@ import { GroupChatLogsDialogComponent } from './admin-components/admin-main-page
         MatCardModule,
         MatBadgeModule,
         MatMenuModule,
-        MatSortModule
+        MatSortModule,
+
     ],
   declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent],
   providers: [  {

@@ -29,19 +29,23 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { EditGroupComponent } from './group-show/edit-group/edit-group.component';
 import { MiniProfileComponent } from './other-user-profile/mini-profile/mini-profile.component';
+import {MiniProfileDirective} from "./other-user-profile/mini-profile/mini-profile.directive";
+import {OverlayModule} from "@angular/cdk/overlay";
+import { MiniProfilev2Component } from './other-user-profile/mini-profilev2/mini-profilev2.component';
+
 
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule],
+    imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, OverlayModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent,
-    AlertComponent,  UserProfileComponent, GroupAddComponent,
+    AlertComponent, UserProfileComponent, GroupAddComponent,
     MyGroupsComponent,
-    GroupShowComponent,HomePageComponent,
+    GroupShowComponent, HomePageComponent,
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
     EditGroupComponent,
-    MiniProfileComponent],
+    MiniProfileComponent, MiniProfileDirective, MiniProfilev2Component],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent]
 })
 export class ComponentsModule {

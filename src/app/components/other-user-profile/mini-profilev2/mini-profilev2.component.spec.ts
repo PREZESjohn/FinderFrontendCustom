@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MiniProfileComponent } from './mini-profile.component';
+import { MiniProfilev2Component } from './mini-profilev2.component';
 
-describe('MiniProfileComponent', () => {
-  let component: MiniProfileComponent;
-  let fixture: ComponentFixture<MiniProfileComponent>;
+describe('MiniProfilev2Component', () => {
+  let component: MiniProfilev2Component;
+  let fixture: ComponentFixture<MiniProfilev2Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MiniProfileComponent ]
+      declarations: [ MiniProfilev2Component ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MiniProfileComponent);
+    fixture = TestBed.createComponent(MiniProfilev2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

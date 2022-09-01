@@ -16,6 +16,9 @@ import {CustomNotification} from '../../domain/CustomNotification';
 import {EditGroupComponent} from './edit-group/edit-group.component';
 import {MiniProfileComponent} from '../other-user-profile/mini-profile/mini-profile.component';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
+import {Overlay, OverlayRef} from "@angular/cdk/overlay";
+import {MiniProfilOverlayService} from "../../services/mini-profil-overlay.service";
+import {UserPreviewOverlayRef} from "../other-user-profile/mini-profilev2/user-preview-overlay-ref";
 
 
 @Component({
@@ -37,6 +40,9 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   inGameRoles = [];
   inGameRolesMap = new Map();
   currentUser: User;
+  isOpen: boolean;
+  private overlayRef: OverlayRef;
+  public dialogRef: UserPreviewOverlayRef;
 
   constructor(private groupRoomService: GroupRoomService,
               private alertService: AlertService,
@@ -46,7 +52,8 @@ export class GroupShowComponent implements OnInit, OnDestroy {
               private router: Router,
               private dialog: MatDialog,
               private route: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private previewDialog: MiniProfilOverlayService) {
 
     this.isInGroupRoomView = true;
     this.id = +this.route.snapshot.paramMap.get('id');
@@ -247,5 +254,22 @@ export class GroupShowComponent implements OnInit, OnDestroy {
       data: {trigger: target}
     })
 
+  }
+  /*open(){
+    this.overlayRef=this.overlay.create();
+    const componentPortal=new ComponentPortal(TestComponent);
+    this.overlayRef.addPanelClass("example-overlay");
+    this.overlayRef.attach(componentPortal)
+  }*/
+  showPreview(evt: MouseEvent, user: User){
+    const target = new ElementRef(evt.currentTarget);
+    //console.log(user);
+    this.dialogRef = this.previewDialog.open(target, user);
+    /*setTimeout(()=>{
+      this.dialogRef.close()
+    },2000);*/
+  }
+  closePreview(){
+    this.dialogRef.close()
   }
 }

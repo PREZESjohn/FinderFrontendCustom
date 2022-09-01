@@ -19,7 +19,8 @@
           <h5 class="card-title">Max users: {{currentGroup?.maxUsers}} </h5>
           <h5 class="card-title">{{currentGroup?.description}} </h5>
         </div>
-        <a class="button" style="cursor:pointer" (click)="openMiniProfile($event)">test</a>
+        <a class="button" style="cursor:pointer" (click)="openMiniProfile($event)"  >test</a>
+        <!--<a class="button" style="cursor:pointer" (click)="showPreview($event)">test overlay</a>-->
         <div></div>
         <button mat-button class="btn btn-info" [hidden]="currentGroup?.groupLeader?.id !== currentUser?.id"
                 (click)="openChangeGroup()">Edit
@@ -44,14 +45,16 @@
       <div class="d-flex justify-content-center  ">
         <div class=" pr-md-1 justify-content-center bg-card2" style="width: 100%">
           <label class="d-flex justify-content-center title"> Users in group </label>
-          <div class="row text-center justify-content-center ">
-            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
+          <div class="row text-center justify-content-center" >
+            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card " (mouseleave)="closePreview()"
                  *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
-              <a class="button" style="cursor:pointer" (click)="navigateToProfile(user)">
-                <img class="img-responsive img-thumbnail mt-1"
+              <a class="button" style="cursor:pointer"  >
+                <img class="img-responsive img-thumbnail mt-1" (mouseenter)="showPreview($event, user)"   cdk-overlay-origin #trigger="cdkOverlayOrigin"
                      [style.border-color]="isConnected.get(user.id) ? 'green' : 'grey'" alt="icon"
                      [src]="profilePictures.get(user.id)" style="height: 150px;width:150px;border-width:thick">
-                <p class="justify-content-center">{{user?.username}}</p>
+                <p class="justify-content-center" >{{user?.username}}</p>
+                <ng-template cdk-connected-overlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen" >{{user.email}}</ng-template>
+
               </a>
               <div class=" justify-content-center" *ngIf="currentGroup.inGameRolesActive">
                 <div class="d-inline-block justify-content-center">
