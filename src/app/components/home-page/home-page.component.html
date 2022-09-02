@@ -1,8 +1,8 @@
 <div class=" content justify-content-center">
-  <div class="justify-content-center card-body">
+  <div class="justify-content-center">
     <div class=" col-10 mr-auto ml-auto">
       <app-alert></app-alert>
-      <div class="thumbnail justify-content-center titleText">
+      <div class="thumbnail justify-content-center  titleText">
         <h1> Find group of your choice with our team finder site!</h1>
         <h3> Create own group for chosen main topic with many categories and wait for other people to join</h3>
         <h1> You dont have time to wait? No worries just select main topic below, find your prefered group using filters and join them to access chat</h1>
@@ -11,7 +11,7 @@
       </div>
       <div class="col-lg-12 thumbnail mt-3" *ngFor="let game of games">
         <a style="cursor: pointer">
-          <img class="img-fluid " src="assets/img/{{game.name}}-back.jpg" alt="lol" (click)="redirectToChosen(game)" >
+          <img class="img-fluid homepageImg " src="assets/img/{{game.name}}-back.jpg" alt="lol" (click)="redirectToChosen(game)" >
           <div class="imgText">
             <h1>{{game.name}}</h1>
           </div>

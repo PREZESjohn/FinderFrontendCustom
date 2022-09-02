@@ -54,6 +54,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
   public location
   public isOpen = false;
   public games;
+  public isDarkModeOn = true;
   profilePicture=null;
   private subscriptionName: Subscription;
 
@@ -132,9 +133,6 @@ export class SidebarComponent implements OnInit,OnDestroy {
     );
   }
 
-  setGame(){
-
-  }
 
   loadGames(){
     if(this.categoryService.getAllGames().length==0) {
@@ -151,6 +149,27 @@ export class SidebarComponent implements OnInit,OnDestroy {
         this.categoryService.setAllGames(data);
       }
     )
+  }
+
+  changeDashboardColor(color){
+    const body = document.getElementsByTagName('body')[0];
+    if (body && color === 'white-content') {
+      body.classList.add(color);
+    }
+    else if(body.classList.contains('white-content')) {
+      body.classList.remove('white-content');
+    }
+  }
+
+
+  toggleMode(){
+    if(this.isDarkModeOn){
+      this.changeDashboardColor('white-content')
+      this.isDarkModeOn = false;
+    }else{
+      this.changeDashboardColor('black-content')
+      this.isDarkModeOn = true;
+    }
   }
 
 }

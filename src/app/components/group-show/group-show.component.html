@@ -43,10 +43,10 @@
         <div class=" pr-md-1 justify-content-center bg-card2" style="width: 100%">
           <label class="d-flex justify-content-center title"> Users in group </label>
           <div class="row text-center justify-content-center" >
-            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card " (mouseleave)="closePreview()"
+            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card " (mouseenter)="showPreview($event, user)" (mouseleave)="closePreview()"
                  *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
               <a class="button" style="cursor:pointer"  >
-                <img class="img-responsive img-thumbnail mt-1" (mouseenter)="showPreview($event, user)"   cdk-overlay-origin #trigger="cdkOverlayOrigin"
+                <img class="img-responsive img-thumbnail mt-1" cdk-overlay-origin #trigger="cdkOverlayOrigin"
                      [style.border-color]="isConnected.get(user.id) ? 'green' : 'grey'" alt="icon"
                      [src]="profilePictures.get(user.id)" style="height: 150px;width:150px;border-width:thick">
                 <p class="justify-content-center" >{{user?.username}}</p>

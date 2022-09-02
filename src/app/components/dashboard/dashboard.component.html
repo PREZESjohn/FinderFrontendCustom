@@ -10,7 +10,6 @@
           <li class="breadcrumb-item active" aria-current="page">Explore</li>
         </ol>
       </nav>
-      <!-- /Breadcrumb -->
       <app-alert></app-alert>
       <div class=" col-lg-12 text-left">
         <h2 class=" card-title mb-1">Current active groups for {{chosenGame?.name}}
@@ -19,41 +18,41 @@
           <div class="row card-description ">
             <div class="col">
             <label class="  mt-2 mr-2" for="categorySelect">Category </label>
-            <select id="categorySelect" class="form-control mr-3" (change)="changeCategory($event)" style="width: 200px">
-              <option class="form-control text-white " ></option>
-              <option class="form-control text-white" *ngFor="let category of chosenGame?.categories" >{{category.name}}</option>
+            <select id="categorySelect" class="form-control filters mr-3" (change)="changeCategory($event)" style="width: 200px">
+              <option class="form-control" ></option>
+              <option class="form-control" *ngFor="let category of chosenGame?.categories" >{{category.name}}</option>
             </select>
             </div>
             <div class="col" [hidden]="chosenGame.name==='IRL'">
             <label class="mt-2 mr-2" for="InGameRoleSelect" >Role</label>
-            <select id="InGameRoleSelect" class="form-control mr-3"  (change)="changeRole($event)" style="width: 200px">
-              <option class="form-control  text-white "></option>
-              <option class="form-control  text-white " *ngFor="let role of chosenGame?.inGameRoles">{{role.name}}</option>
+            <select id="InGameRoleSelect" class="form-control filters mr-3"  (change)="changeRole($event)" style="width: 200px">
+              <option class="form-control"></option>
+              <option class="form-control" *ngFor="let role of chosenGame?.inGameRoles">{{role.name}}</option>
             </select>
               </div>
             <div class="col" [hidden]="chosenGame.name!=='IRL'">
               <label class="mt-2 mr-2" for="InGameRoleSelect">City</label>
-              <select id="CitySelect" class="form-control mr-3"  (change)="changeCity($event)" style="width: 200px">
-                <option class="form-control  text-white "></option>
-                <option class="form-control  text-white " *ngFor="let city of cities">{{city?.name}}</option>
+              <select id="CitySelect" class="form-control filters  mr-3"  (change)="changeCity($event)" style="width: 200px">
+                <option class="form-control"></option>
+                <option class="form-control" *ngFor="let city of cities">{{city?.name}}</option>
               </select>
             </div>
             <div class="col pr-1" >
-              <label class=" mr-2 mt-2 text-white-50" for="joinCode">Join using code</label>
+              <label class=" mr-2 mt-2" for="joinCode">Join using code</label>
               <input type="text" class="form-control d-inline" id="joinCode" [(ngModel)]="codeInputValue" >
 <!--            </div>-->
 <!--            <div class="col mt-4 pt-1 pl-0">-->
-              <button class=" mt-2 btn btn-fill bg-card float-right " (click)="joinByCode()" type="submit">Join</button>
+              <button class=" mt-2 btn  btn-color float-right " (click)="joinByCode()" type="submit">Join</button>
             </div>
           <div class="col mt-4 pt-1 pr-0 pl-md-5 ml-5">
-          <button (click)="createNewGroup()" class="mt-2 btn btn-fill bg-card  " type="submit"> Create own group </button>
+          <button (click)="createNewGroup()" class="mt-2 btn btn-color " type="submit"> Create own group </button>
           </div>
         </div>
         </div>
         <h5 class=" card-title">Total: {{groupRooms?.length}}</h5>
       </div>
         <div *ngFor="let groupRoom of groupRooms">
-          <div class="card bg-card ">
+          <div class="card bg-card group-show-card ">
           <div class="row gutters-sm ">
             <div class="col-md-4 mt-4 card-update ml-lg-4 " (click)="navigateToGroup(groupRoom)">
               <div class="card mt-2">
@@ -63,7 +62,7 @@
                     <h3>{{groupRoom.name}}</h3>
                     <h5 *ngIf="chosenGame.name==='IRL'">({{groupRoom.city}})</h5>
                     <h4>{{groupRoom?.category?.name}}</h4>
-                    <p class="text-secondary mb-1">{{groupRoom.description}}</p>
+                    <p class=" mb-1">{{groupRoom.description}}</p>
                   </div>
                 </div>
               </div>

@@ -13,18 +13,18 @@
       <!-- /Breadcrumb -->
       <app-alert></app-alert>
       <div *ngFor="let game of games">
-        <nav class="main-breadcrumb">
+        <nav class="col-md-4">
           <h4><img class="pr-1" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px"> {{game?.name}}</h4>
         </nav>
-        <div *ngFor="let groupRoom of currentUser?.groupRooms">
-          <div *ngIf="groupRoom.game?.name == game?.name" class="row gutters-sm bg-card mb-lg-5">
+        <div  *ngFor="let groupRoom of currentUser?.groupRooms">
+          <div *ngIf="groupRoom.game?.name == game?.name" class="row gutters-sm group-show-card mb-lg-5">
             <div class="col-md-4 mb-3 mt-2">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <p class="text-secondary mb-1"><h3>{{groupRoom?.name}}</h3>
+                    <p class=" mb-1"><h3>{{groupRoom?.name}}</h3>
                       <h4>{{groupRoom.category?.name}}</h4>
-                      <p class="text-secondary mb-1">{{groupRoom.description}}</p>
+                      <p class=" mb-1">{{groupRoom.description}}</p>
                       <button class="btn btn-primary"  (click)="navigateToGroup(groupRoom)">Show Group</button>
                       <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'" >Delete</button>
                     <div *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'">

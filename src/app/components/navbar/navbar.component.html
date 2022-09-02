@@ -5,11 +5,11 @@
     <div class="navbar-nav justify-content-start">
       <button mat-button [matMenuTriggerFor]="menu">
         <img src="assets/img/{{chosenGame?.name}}.jpg" alt="" style="width: 30px;height: 30px">
-        <b class="pl-1 text-white pr-1">{{chosenGame?.name}}</b>
+        <b class="pl-1 pr-1 textMode">{{chosenGame?.name}}</b>
         <i class="arrow down"></i>
       </button>
-      <mat-menu #menu="matMenu" class="bg-card text-white">
-        <button class="text-white" mat-menu-item *ngFor="let game of games" (click)="setGame(game)"><img
+      <mat-menu #menu="matMenu" class="bg-dropdown">
+        <button class="textMode" mat-menu-item *ngFor="let game of games" (click)="setGame(game)"><img
           src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px">
           {{game?.name}}
         </button>
@@ -26,10 +26,10 @@
           <span class="material-symbols-outlined">notifications</span>
         </mat-icon>
       </button>
-      <mat-menu #beforeMenu="matMenu" class="bg-card notif text-white" xPosition="before">
-        <div class=" custom-wrap" mat-menu-item *ngFor="let notif of notifications let row = index">
-            <div class="text-white" (click)="navigateToGroup(notif.groupRoom.id,row,notif.id)">
-              <p class="custom-text">{{notif.groupRoom.name}}</p>
+      <mat-menu #beforeMenu="matMenu" class="bg-dropdown notif" xPosition="before">
+        <div class="custom-wrap" mat-menu-item *ngFor="let notif of notifications let row = index">
+            <div class="textMode" (click)="navigateToGroup(notif.groupRoom.id,row,notif.id)">
+              <p class="custom-text textMode">{{notif.groupRoom.name}}</p>
               <svg (click)="removeNotif(row,notif.id)" style="color: red" xmlns="http://www.w3.org/2000/svg" width="32"
                    height="32" fill="currentColor"
                    class="bi bi-x float-right pr-1" viewBox="0 0 16 16">
@@ -37,7 +37,7 @@
                   d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
                   fill="red"></path>
               </svg>
-              <p class="custom-text">{{notif.msg}}</p>
+              <p class="custom-text textMode">{{notif.msg}}</p>
             </div>
         </div>
       </mat-menu>
