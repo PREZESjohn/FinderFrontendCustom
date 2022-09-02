@@ -19,9 +19,6 @@
           <h5 class="card-title">Max users: {{currentGroup?.maxUsers}} </h5>
           <h5 class="card-title">{{currentGroup?.description}} </h5>
         </div>
-        <a class="button" style="cursor:pointer" (click)="openMiniProfile($event)"  >test</a>
-        <!--<a class="button" style="cursor:pointer" (click)="showPreview($event)">test overlay</a>-->
-        <div></div>
         <button mat-button class="btn btn-info" [hidden]="currentGroup?.groupLeader?.id !== currentUser?.id"
                 (click)="openChangeGroup()">Edit
         </button>

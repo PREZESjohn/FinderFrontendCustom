@@ -14,7 +14,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {Report} from '../../domain/Report';
 import {CustomNotification} from '../../domain/CustomNotification';
 import {EditGroupComponent} from './edit-group/edit-group.component';
-import {MiniProfileComponent} from '../other-user-profile/mini-profile/mini-profile.component';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
 import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {MiniProfilOverlayService} from "../../services/mini-profil-overlay.service";
@@ -246,15 +245,6 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     });
   }
 
-  openMiniProfile(evt: MouseEvent): void {
-    const target = new ElementRef(evt.currentTarget);
-    const dialogProfil = this.dialog.open(MiniProfileComponent, {
-      closeOnNavigation: true,
-      hasBackdrop: false,
-      data: {trigger: target}
-    })
-
-  }
   /*open(){
     this.overlayRef=this.overlay.create();
     const componentPortal=new ComponentPortal(TestComponent);

@@ -28,8 +28,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { EditGroupComponent } from './group-show/edit-group/edit-group.component';
-import { MiniProfileComponent } from './other-user-profile/mini-profile/mini-profile.component';
-import {MiniProfileDirective} from "./other-user-profile/mini-profile/mini-profile.directive";
 import {OverlayModule} from "@angular/cdk/overlay";
 import { MiniProfilev2Component } from './other-user-profile/mini-profilev2/mini-profilev2.component';
 
@@ -44,8 +42,7 @@ import { MiniProfilev2Component } from './other-user-profile/mini-profilev2/mini
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent,
-    MiniProfileComponent, MiniProfileDirective, MiniProfilev2Component],
+    EditGroupComponent, MiniProfilev2Component],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent]
 })
 export class ComponentsModule {
