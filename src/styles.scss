@@ -43,6 +43,19 @@
   filter: alpha(opacity=100);
 }
 
+.white-content .homepageImg{
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.white-content .homepageImg:hover {
+  opacity: 0.7;
+  filter: alpha(opacity=40);
+  width: 100%;
+  display: block;
+
+}
+
 .thumbnail{
   position:relative;
   display: inline-block;
@@ -149,8 +162,13 @@ body{
 }
 
 .bg-change{
-  background-color: #1a202c;
+  background-color: #0f1a26!important;
 }
+
+.white-content .bg-change {
+  background: linear-gradient(to bottom right,#cbb5c7,white);
+}
+
 .group-show-card{
   background-color: #1d253b !important;
 }
@@ -175,6 +193,9 @@ body{
 
 input[type="text"][disabled] {
   color: white;
+}
+.white-content input[type="text"][disabled] {
+  color:black !important;
 }
 
 .btnNew{
@@ -263,6 +284,7 @@ input[type="text"][disabled] {
 .white-content .textMode {
   color:black;
 }
+
 
 
 /* #################### SIDEBAR ####################### */
@@ -395,4 +417,64 @@ body.dark .home .text{
   justify-content: center;
   border-radius: 6px;
   cursor: pointer;
+}
+
+/* ################# PROFILE ###########################
+ */
+
+
+.image-change-hover:hover{
+  opacity: 0.3;
+}
+
+label{
+  cursor: pointer;
+}
+
+label img{
+  opacity: 0.3;
+  width:20px;
+  height: 20px;
+}
+
+:checked+label img{
+  opacity: 1;
+  width:30px;
+  height: 30px;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+.bg-profile {
+  background-color: #1d253b;
+}
+.white-content .bg-profile{
+  background-color: white;
+}
+
+/*
+##################### DIALOGS ##############################
+ */
+.image-change-hover:hover{
+  opacity: 0.3;
+}
+label{
+  cursor: pointer;
+}
+
+label img{
+  opacity: 0.3;
+  width:20px;
+  height: 20px;
+}
+
+:checked+label img{
+  opacity: 1;
+  width:30px;
+  height: 30px;
+}
+
+input[type=radio] {
+  display: none;
 }
