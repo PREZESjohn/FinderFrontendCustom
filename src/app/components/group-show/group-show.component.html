@@ -12,22 +12,8 @@
       </nav>
       <!-- /Breadcrumb -->
       <app-alert></app-alert>
-      <div class=" bg-card2" style="padding: 3%;margin-bottom: 30px">
-        <div>
-          <h2 class="text-left card-title">{{currentGroup?.name}}</h2>
-          <h5 class="card-title">Category: {{currentGroup?.category?.name}} </h5>
-          <h5 class="card-title">Max users: {{currentGroup?.maxUsers}} </h5>
-          <h5 class="card-title">{{currentGroup?.description}} </h5>
-        </div>
-        <button mat-button class="btn btn-info" [hidden]="currentGroup?.groupLeader?.id !== currentUser?.id"
-                (click)="openChangeGroup()">Edit
-        </button>
-        <button class=" text-right btn btn-fill bg-card "
-                [hidden]="currentGroup?.joinCode !== null || currentGroup?.groupLeader?.id !== currentUser?.id"
-                (click)="generateCode(currentGroup)">Generate code
-        </button>
-        <button mat-button [matMenuTriggerFor]="menu" class="btn btn-warning">Report group</button>
-
+      <div class="card-body" style="padding: 3%;margin-bottom: 30px">
+        <button mat-button [matMenuTriggerFor]="menu" class="btn float-right btn-warning">Report group</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="reportGroup('Verbal abuse')">Verbal abuse</button>
           <button mat-menu-item (click)="reportGroup('Toxic behaviour')">Toxic behaviour</button>
@@ -35,70 +21,91 @@
           <button mat-menu-item (click)="reportGroup('Other')">Other</button>
         </mat-menu>
 
-        <h1 class="text-right"
+        <div class="row">
+          <div class="col-md-12 pl-0">
+            <h1 class="text-left card-title d-inline-block">{{currentGroup?.name}}</h1>
+            <button mat-button class="bg-transparent ml-1 " [hidden]="currentGroup?.groupLeader?.id !== currentUser?.id"
+                    (click)="openChangeGroup()"><img class="img-responsive pb-3" alt="icon"
+                                                     src="assets/img/edit.png" style="width: 30px;height: 50px">
+            </button>
+          </div>
+        </div>
+        <h3 class="float-right"
             [hidden]="currentGroup?.joinCode == null ||  currentGroup?.groupLeader?.id !== currentUser?.id">Quick access
-          code: {{currentGroup?.joinCode}}</h1>
-      </div>
-      <div class="d-flex justify-content-center  ">
-        <div class=" pr-md-1 justify-content-center bg-card2" style="width: 100%">
-          <label class="d-flex justify-content-center title"> Users in group </label>
-          <div class="row text-center justify-content-center" >
-            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card " (mouseenter)="showPreview($event, user)" (mouseleave)="closePreview()"
-                 *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
-              <a class="button" style="cursor:pointer"  >
-                <img class="img-responsive img-thumbnail mt-1" (click)="navigateToProfile(user)"
-                     [style.border-color]="isConnected.get(user.id) ? 'green' : 'grey'" alt="icon"
-                     [src]="profilePictures.get(user.id)" style="height: 150px;width:150px;border-width:thick">
-                <p class="justify-content-center" >{{user?.username}}</p>
+          code: {{currentGroup?.joinCode}}</h3>
+        <button class=" float-right btn btn-fill bg-card "
+                [hidden]="currentGroup?.joinCode !== null || currentGroup?.groupLeader?.id !== currentUser?.id"
+                (click)="generateCode(currentGroup)">Generate code
+        </button>
+        <h4 class="card-title font-weight-light">Category: {{currentGroup?.category?.name}} </h4>
+        <h4 class="card-title font-weight-light">Max users: {{currentGroup?.maxUsers}} </h4>
 
-              </a>
-              <div class=" justify-content-center" *ngIf="currentGroup.inGameRolesActive">
-                <div class="d-inline-block justify-content-center">
-                  <div class="ml-1 mr-1">
-                    <img class="" src="assets/img/{{inGameRolesMap.get(user.id).name}}.jpg" alt=""
-                         style="width: 30px;height: 30px">
-                    <p>{{inGameRolesMap.get(user.id).name}}</p>
+        <div class="align-self-center text-center col-md-12">
+          <h5 class="card-title">{{currentGroup?.description}} </h5>
+        </div>
+
+
+        <div class="d-flex justify-content-center  ">
+          <div class=" pr-md-1 justify-content-center " style="width: 100%">
+            <label class="d-flex justify-content-center title mb-2 mt-3"> Users in group </label>
+            <div class="row text-center justify-content-center">
+              <div class="col-md-2 card card-user  ml-1 mr-1 bg-tile " (mouseenter)="showPreview($event, user)"
+                   (mouseleave)="closePreview()"
+                   *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
+                <a class="button" style="cursor:pointer">
+                  <img class="img-responsive img-thumbnail mt-1" (click)="navigateToProfile(user)"
+                       [style.border-color]="isConnected.get(user.id) ? 'green' : 'grey'" alt="icon"
+                       [src]="profilePictures.get(user.id)" style="height: 150px;width:150px;border-width:thick">
+                  <p class="justify-content-center">{{user?.username}}</p>
+
+                </a>
+                <div class=" justify-content-center" *ngIf="currentGroup.inGameRolesActive">
+                  <div class="d-inline-block justify-content-center">
+                    <div class="ml-1 mr-1">
+                      <img class="" src="assets/img/{{inGameRolesMap.get(user.id).name}}.jpg" alt=""
+                           style="width: 30px;height: 30px">
+                      <p>{{inGameRolesMap.get(user.id).name}}</p>
+                    </div>
                   </div>
                 </div>
+
+                <p class="text-warning" *ngIf="user?.id == currentGroup?.groupLeader?.id">Leader</p>
+
+                <div class=" justify-content-center" *ngIf="currentGroup?.groupLeader?.id !== user?.id"
+                     [hidden]="currentUser?.id !== currentGroup?.groupLeader?.id">
+                  <a type="button" title="Make Leader" style="cursor: pointer" (click)="makePartyLeader(user)">
+                    <img class="mr-2 d-inline" style="height: 25px;width: 25px;" src="assets/img/leader.png" alt="icon">
+                  </a>
+                  <a type="button" title="Remove from group" style="cursor: pointer" (click)="removeFromGroup(user)">
+                    <img class="d-inline" style="height: 20px;width: 20px;" src="assets/img/remove.png" alt="icon">
+                  </a>
+                </div>
+
               </div>
-
-              <p class="text-warning" *ngIf="user?.id == currentGroup?.groupLeader?.id">Leader</p>
-
-              <div class=" justify-content-center" *ngIf="currentGroup?.groupLeader?.id !== user?.id"
-                   [hidden]="currentUser?.id !== currentGroup?.groupLeader?.id">
-                <a type="button" title="Make Leader" style="cursor: pointer" (click)="makePartyLeader(user)">
-                  <img class="mr-2 d-inline" style="height: 25px;width: 25px;" src="assets/img/leader.png" alt="icon">
-                </a>
-                <a type="button" title="Remove from group" style="cursor: pointer" (click)="removeFromGroup(user)">
-                  <img class="d-inline" style="height: 20px;width: 20px;" src="assets/img/remove.png" alt="icon">
-                </a>
-              </div>
-
-            </div>
-            <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
-                 *ngFor=" let _ of [].constructor(currentGroup?.maxUsers-currentGroup?.users.length),let i = index">
-              <button class='bg-transparent pt-1 btnNew hover-add mt-2'
-                      [disabled]="tableContains(currentGroup.users,currentUser)"
-                      (click)="joinGroup(currentGroup.id,inGameRoles[i])"><img class="img-responsive" alt="icon"
-                                                                src="assets/img/join.jpg">
-                <p class="justify-content-center">Join </p></button>
-              <div class=" justify-content-center" *ngIf="currentGroup.inGameRolesActive">
-                <div class="d-inline-block justify-content-center">
-                  <div class="ml-1 mr-1">
-                    <img class="" src="assets/img/{{inGameRoles[i].name}}.jpg" alt=""
-                         style="width: 30px;height: 30px">
-                    <p>{{inGameRoles[i].name}}</p>
+              <div class="col-md-2 card card-user  ml-1 mr-1 bg-card"
+                   *ngFor=" let _ of [].constructor(currentGroup?.maxUsers-currentGroup?.users.length),let i = index">
+                <button class='bg-transparent pt-1 btnNew mt-2'
+                        [disabled]="tableContains(currentGroup.users,currentUser)"
+                        (click)="joinGroup(currentGroup.id,inGameRoles[i])"><img class="img-responsive" alt="icon"
+                                                                                 src="assets/img/join.jpg">
+                  <p class="justify-content-center">Join </p></button>
+                <div class=" justify-content-center" *ngIf="currentGroup.inGameRolesActive">
+                  <div class="d-inline-block justify-content-center">
+                    <div class="ml-1 mr-1">
+                      <img class="" src="assets/img/{{inGameRoles[i].name}}.jpg" alt=""
+                           style="width: 30px;height: 30px">
+                      <p>{{inGameRoles[i].name}}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <app-chat (onConnection)="setConnection($event)" [groupRoom]="currentGroup" [currentUser]="currentUser"
+                  [isInGroup]="isUserInGroup" [usersPictures]="profilePictures"></app-chat>
+
       </div>
-      <app-chat (onConnection)="setConnection($event)" [groupRoom]="currentGroup" [currentUser]="currentUser"
-                [isInGroup]="isUserInGroup" [usersPictures]="profilePictures"></app-chat>
-
     </div>
-
   </div>
 </div>

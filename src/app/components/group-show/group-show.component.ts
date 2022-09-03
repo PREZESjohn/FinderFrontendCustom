@@ -94,6 +94,7 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   }
 
   navigateToProfile(profile) {
+    this.dialogRef.close();
     this.router.navigate(['/profile/', profile.id])
   }
 
