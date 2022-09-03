@@ -15,6 +15,7 @@ import {InGameRoles} from '../domain/dto/InGameRoles';
 export class UserService {
 
   changePasswordUrl = 'http://localhost:8080/api/v1/auth/password-change';
+  deleteUserUrl = 'http://localhost:8080/api/v1/auth/delete-user';
   editUserUrl = 'http://localhost:8080/api/v1/users/edit'
   baseURL = 'http://localhost:8080/api/v1/users'
   reportedUsers:ReportedUser[];
@@ -40,7 +41,9 @@ export class UserService {
   getUser():Observable<User>{
     return this.http.get<User>(this.baseURL)
   }
-
+  deleteUser():Observable<any>{
+    return this.http.delete(this.deleteUserUrl);
+  }
   getUserGroups() {
     return this.http.get<User>(this.baseURL+'/my-groups')
   }

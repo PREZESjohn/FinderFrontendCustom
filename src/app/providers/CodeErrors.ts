@@ -8,6 +8,7 @@ export const CodeErrors =  new Map()
   CodeErrors.set("7","User already banned")
   CodeErrors.set("8","Account blocked")
   CodeErrors.set("9","User already reported")
+  CodeErrors.set("10","Error with deleting user")
 
   CodeErrors.set("21","Bad email credentials")
   CodeErrors.set("22","Bad password credentials")
