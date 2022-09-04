@@ -27,6 +27,7 @@ export class GroupAddComponent implements OnInit {
   isOpen = true;
   tempRole:InGameRoles;
   isActivated = false;
+  partnerRole;
   games:any;
   // TODO zrobic cos z tym zeby nie pobierac w kazdym komponencie tego bo wstyd
 
@@ -99,7 +100,9 @@ export class GroupAddComponent implements OnInit {
 
     const takenInGameRole = new TakenInGameRole();
     takenInGameRole.inGameRole = this.tempRole;
-    groupRoom.takenInGameRoles = [takenInGameRole];
+    const partnerRole = new TakenInGameRole();
+    partnerRole.inGameRole = this.partnerRole;
+    groupRoom.takenInGameRoles = [takenInGameRole,partnerRole];
     console.log(groupRoom)
 
     return groupRoom;
@@ -111,10 +114,19 @@ export class GroupAddComponent implements OnInit {
 
   toggleYes(){
     this.isActivated = !this.isActivated;
+    if(this.isActivated) {
+      this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory.basicMaxUsers);
+      this.groupAddFormGroup.get('newGroup').get('maxUsers').disable();
+    }else{
+      this.groupAddFormGroup.get('newGroup').get('maxUsers').enable();
+    }
   }
 
   setRole(role){
     this.tempRole = role;
+  }
+  setPartnerRole(role){
+    this.partnerRole = role;
   }
 
   public changeCategory(e){

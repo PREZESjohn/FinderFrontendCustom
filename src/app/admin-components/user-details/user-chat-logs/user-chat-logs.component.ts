@@ -23,7 +23,7 @@ export class UserChatLogsComponent implements OnInit,OnChanges {
   ngOnChanges(){
     this.loadChatLogs();
   }
-    //TODO NARAZIE ZWYKLE POBIERANIE SAMYCH MSG TRZEBA DODAC ODPOWIEDNI MODEL DTO I LADNIE TO WYSWIETLAC W ZALEZNOSCI OD GRUP
+
   loadChatLogs(){
     console.log(this.userId)
     this.userService.getUserChatLogs(this.userId).subscribe((data:any)=>{

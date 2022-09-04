@@ -54,7 +54,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
   public location
   public isOpen = false;
   public games;
-  public isDarkModeOn = true;
+  public isDarkModeOn;
   profilePicture=null;
   private subscriptionName: Subscription;
 
@@ -66,6 +66,8 @@ export class SidebarComponent implements OnInit,OnDestroy {
       this.profilePicture = data;
     }
   )
+    const body = document.getElementsByTagName('body')[0];
+    this.isDarkModeOn = !body.classList.contains('white-content');
   }
 
   ngOnInit() {

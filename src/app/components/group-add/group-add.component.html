@@ -60,7 +60,7 @@
       </div>
     </div>
     <hr>
-    <div class="row" *ngIf="chosenGame.assignRolesActive">
+    <div class="row" *ngIf="chosenGame.assignRolesActive && chosenCategory.canAssignRoles">
       <div class="col-sm-3">
         <h6 class="mb-0 mt-2 pt-1">Assigning roles </h6>
       </div>
@@ -78,8 +78,21 @@
       <div class="col-sm-9 textMode">
         <div class="d-inline" *ngFor="let role of chosenGame?.inGameRoles, let i = index">
           <p class=" d-inline pr-2" style="width:20%">
-            <input type="radio" class="radio" name="role" id="checkbox{{i}}" (change)="setRole(role)"/>
+            <input type="radio" class="radio" name="role" id="checkbox{{i}}"  [disabled]="partnerRole===role" (change)="setRole(role)"/>
             <label for="checkbox{{i}}"><img title="{{role?.name}}" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px"/></label>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="isActivated && chosenCategory.name=='SoloQ'">
+      <div class="col-sm-3">
+        <h6 class="mb-0 mt-2 pt-1">Choose your partner role</h6>
+      </div>
+      <div class="col-sm-9 textMode">
+        <div class="d-inline" *ngFor="let role of chosenGame?.inGameRoles , let i = index">
+          <p class=" d-inline pr-2" style="width:20%">
+            <input type="radio" class="radio" name="partnerRole" id="checkbox{{i+6}}" (change)="setPartnerRole(role)" [disabled]="tempRole===role"/>
+            <label for="checkbox{{i+6}}"><img title="{{role?.name}}" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px"/></label>
           </p>
         </div>
       </div>
