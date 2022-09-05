@@ -9,8 +9,6 @@ import {GameDTO} from '../../domain/dto/GameDTO';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
 import {CodeErrors} from '../../providers/CodeErrors';
 import {MatDialog} from '@angular/material/dialog';
-import {ChangePasswordComponent} from "./change-password/change-password.component";
-import {DeleteUserComponent} from "../sidebar/delete-user/delete-user.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -210,18 +208,5 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  openChangePassword() {
-    this.dialog.open(ChangePasswordComponent,{
-      closeOnNavigation: true,
-      width:"50%",
-      height:"50%"
-    })
-  }
-  openDeleteUser(){
-    this.dialog.open(DeleteUserComponent,{
-      closeOnNavigation: false,
-      width:"30%",
-      height:"30%"
-    })
-  }
+
 }

@@ -149,3 +149,17 @@ body.dark .home .text{
 .bg-opacity{
   opacity:1 !important;
 }
+::ng-deep .setMenu{
+  background: #1d253b;
+  color: white;
+}
+::ng-deep .setMenu button{
+  color: white;
+}
+::ng-deep .white-content .setMenu {
+  background:  #cbb5c7;
+  color: black;
+}
+::ng-deep .white-content .setMenu button {
+  color: black;
+}

@@ -6,6 +6,9 @@ import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {Subscription} from 'rxjs';
 import {CategoryService} from '../../services/categoryService';
+import {ChangePasswordComponent} from "../user-profile/change-password/change-password.component";
+import {DeleteUserComponent} from "./delete-user/delete-user.component";
+import {MatDialog} from "@angular/material/dialog";
 
 declare interface RouteInfo {
   path: string;
@@ -60,7 +63,8 @@ export class SidebarComponent implements OnInit,OnDestroy {
 
 
   constructor( private authService: AuthService, location: Location,
-               private userService: UserService, private router: Router, private categoryService:CategoryService) {
+               private userService: UserService, private router: Router, private categoryService:CategoryService,
+               public dialog: MatDialog) {
     this.location = location;
     this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data:any)=>{
       this.profilePicture = data;
@@ -172,6 +176,20 @@ export class SidebarComponent implements OnInit,OnDestroy {
       this.changeDashboardColor('black-content')
       this.isDarkModeOn = true;
     }
+  }
+  openChangePassword() {
+    this.dialog.open(ChangePasswordComponent,{
+      closeOnNavigation: true,
+      width:"50%",
+      height:"50%"
+    })
+  }
+  openDeleteUser(){
+    this.dialog.open(DeleteUserComponent,{
+      closeOnNavigation: false,
+      width:"30%",
+      height:"30%"
+    })
   }
 
 }

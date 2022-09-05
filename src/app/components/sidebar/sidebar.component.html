@@ -51,10 +51,19 @@
         </li>
 
         <li class="nav-link">
-          <a routerLink="#">
+          <a class="btnNew"  [matMenuTriggerFor]="menu">
             <i class='bx bx-cog icon' ></i>
             <span class="text nav-text">Settings</span>
           </a>
+          <mat-menu #menu="matMenu" class="setMenu">
+            <button mat-menu-item class="px-1" (click)="openChangePassword()">Change password</button>
+            <button mat-menu-item class="px-1">Change email</button>
+            <button mat-menu-item class="px-1" (click)="openDeleteUser()">Delete account</button>
+          </mat-menu>
+          <!--<a routerLink="#">
+            <i class='bx bx-cog icon' ></i>
+            <span class="text nav-text">Settings</span>
+          </a>-->
         </li>
 
       </ul>
