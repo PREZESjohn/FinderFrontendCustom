@@ -11,10 +11,12 @@
         </div>
         <div class="col-md-auto  justify-content-center">
           <div class="d-block  justify-content-center pt-3 " *ngFor="let game of games">
+            <div *ngIf="game.assignRolesActive">
             <img class="" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 20px;height: 20px">
             <div class="d-inline" *ngFor="let role of user?.inGameRoles, let i = index">
               <div class="d-inline" *ngIf="tableContains(game?.inGameRoles,role)">
                 <img class="d-inline" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 20px;height: 20px">
+              </div>
               </div>
             </div>
           </div>

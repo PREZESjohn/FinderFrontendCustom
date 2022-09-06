@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Report} from '../../domain/Report';
 import {CodeErrors} from '../../providers/CodeErrors';
+import {CategoryService} from '../../services/categoryService';
 
 @Component({
   selector: 'app-other-user-profile',
@@ -16,11 +17,11 @@ export class OtherUserProfileComponent implements OnInit {
 
   user: UserDTO;
   chosenUserId;
-  // chosenUserId = history.state.userProfileId;
   lastUrl = ''
   profilePicture=null;
+  public games;
 
-  constructor(private userService: UserService, private alertService: AlertService, private router: Router, private route:ActivatedRoute) {
+  constructor(private userService: UserService, private alertService: AlertService, private router: Router,private categoryService:CategoryService, private route:ActivatedRoute) {
     this.chosenUserId = this.route.snapshot.paramMap.get("id");
   }
 
@@ -36,6 +37,15 @@ export class OtherUserProfileComponent implements OnInit {
         this.router.navigateByUrl(this.lastUrl)
       }
     );
+    if(this.categoryService.getAllGames().length==0){
+      this,this.categoryService.getGames().subscribe((data:any)=>{
+          this.games = data;
+        }
+      )
+    }else {
+      this.games = this.categoryService.getAllGames();
+    }
+
   }
 
   reportUser(reason:string){
@@ -46,5 +56,17 @@ export class OtherUserProfileComponent implements OnInit {
     },(e)=>{
       this.alertService.error(CodeErrors.get(e.error.code))
     })
+  }
+
+  tableContains(table,objectToFind):boolean{
+    let found = false;
+    // tslint:disable-next-line:prefer-for-of
+    for(let i=0; i<table?.length;i++){
+      if(table[i].id === objectToFind.id){
+        found = true;
+        break;
+      }
+    }
+    return found
   }
 }

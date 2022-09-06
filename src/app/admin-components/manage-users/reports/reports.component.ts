@@ -20,7 +20,14 @@ export class ReportsComponent implements OnInit {
   }
 
   inspectProfile(user){
-    console.log(user)
     this.router.navigate(['admin/user-details',user.reportedUser.id])
+  }
+  verified(user){
+    this.userService.deleteReports(user.reportedUser).subscribe(()=>{
+      this.userService.getReportedUsers().subscribe((data:any)=>{
+        this.reportedUsers = data;
+        this.userService.setReportedUsers(data);
+      })
+    })
   }
 }

@@ -15,7 +15,12 @@ import {ReportedUser} from '../../domain/ReportedUser';
 export class ManageUsersComponent implements OnInit {
 
   public reportedUsers:ReportedUser[]=[];
-  constructor(public dialog: MatDialog,private userService:UserService) { }
+  public reportedUserSubscription;
+  constructor(public dialog: MatDialog,private userService:UserService) {
+    this.reportedUserSubscription = this.userService.lookForReportUpdate().subscribe((reportedUsers:any)=> {
+      this.reportedUsers = reportedUsers;
+    })
+  }
 
   ngOnInit(): void {
     this.loadReportedUsers()

@@ -33,6 +33,9 @@
       <div class="col-md-6">
         <button mat-button class=" btn-info float-right" (click)="inspectProfile(user)"> Inspect profile</button>
       </div>
+      <div class="col-md-6">
+        <button mat-button class=" btn-info" (click)="verified(user)"> Verified</button>
+      </div>
     </mat-expansion-panel-header>
     <p *ngFor="let report of user.reports">
       {{report.reportedBy.username}} - {{report.date}} - {{report.reason}}

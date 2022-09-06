@@ -21,7 +21,7 @@ export class UserService {
   reportedUsers:ReportedUser[];
 
   private pictureSubject = new Subject<any>();
-
+  private reportedUsersSubject = new Subject<any>();
 
   constructor(private http: HttpClient, private sanitizer:DomSanitizer) {
   }
@@ -86,11 +86,17 @@ export class UserService {
 
   setReportedUsers(reportedUsers){
     this.reportedUsers = reportedUsers;
+    this.reportedUsersSubject.next(reportedUsers);
   }
 
   getReportedUsersFromService(){
     return this.reportedUsers;
   }
+
+  lookForReportUpdate():Observable<any>{
+    return this.reportedUsersSubject.asObservable();
+  }
+
 
   setProfilePicture(data:any){
     console.log(data)
@@ -135,7 +141,9 @@ export class UserService {
   getReportedUsers(){
     return this.http.get(this.baseURL+'/reportedUsers')
   }
-
+  deleteReports(user){
+    return this.http.delete(this.baseURL+'/deleteReports/'+user.id)
+  }
 
 }
 
