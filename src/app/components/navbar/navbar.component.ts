@@ -12,6 +12,7 @@ import {Subscription} from 'rxjs';
 import {AlertService} from '../../services/alert.service';
 import {NotificationService} from '../../services/NotificationService';
 import {CustomNotification} from '../../domain/CustomNotification';
+import {FriendRequest} from '../../domain/FriendRequest';
 
 @Component({
   selector: 'app-navbar',
@@ -32,6 +33,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public notifications: CustomNotification[] = [];
   public profilePicture = null;
   private subscriptionName: Subscription;
+  public friendRequests:FriendRequest[];
+  public friendRequestsNumber = 0;
 
   constructor(
     location: Location,
@@ -60,9 +63,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('Navbar reload')
-    // if (this.checkIfLoggedIn()) {
-    //   this.checkIfAdmin();
-    // }
+
+    this.userService.getFriendRequests().subscribe((data:any)=>{
+      this.friendRequests = data;
+      this.friendRequestsNumber = this.friendRequests.length;
+    })
+
     if (this.categoryService.getAllGames().length == 0) {
       this.getGames()
     } else {
@@ -143,6 +149,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public checkPath() {
     return this.router.url === '/home-page';
+  }
+
+  public declineFriendRequest(index,requestId:number){
+    this.userService.declineFriendRequest(requestId).subscribe(()=>{
+      this.friendRequests.splice(index, 1);
+      this.friendRequestsNumber -= 1;
+
+    })
+
+  }
+
+  public acceptFriendRequest(index,requestId:number){
+    this.userService.acceptFriendRequest(requestId).subscribe((data:any)=>{
+      this.friendRequests.splice(index, 1);
+      this.friendRequestsNumber -= 1;
+    })
   }
 
 }

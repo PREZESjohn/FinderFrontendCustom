@@ -9,3 +9,6 @@
   height:300px!important;
 
 }
+::ng-deep .friendRequest .mat-menu-item{
+  line-height: 10px !important;
+}

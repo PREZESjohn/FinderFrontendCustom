@@ -1,0 +1,20 @@
+.toggle-friendList{
+  position: fixed;
+  top: 40%;
+  right: 250px;
+  height: 8%;
+  color:white;
+  width: 3%;
+  padding: 13px 0;
+  background: #050505;
+}
+.toggle-friendList.close{
+  position: fixed;
+  top: 40%;
+  right: 0;
+  height: 8%;
+  color:white;
+  width: 3%;
+  padding: 13px 0;
+  background: #050505;
+}

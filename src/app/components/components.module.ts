@@ -31,6 +31,7 @@ import { EditGroupComponent } from './group-show/edit-group/edit-group.component
 import {OverlayModule} from "@angular/cdk/overlay";
 import { MiniProfilev2Component } from './other-user-profile/mini-profilev2/mini-profilev2.component';
 import { DeleteUserComponent } from './sidebar/delete-user/delete-user.component';
+import { FriendlistComponent } from './friendlist/friendlist.component';
 
 
 
@@ -43,8 +44,8 @@ import { DeleteUserComponent } from './sidebar/delete-user/delete-user.component
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent],
-    exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent]
+    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent],
+    exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent, FriendlistComponent]
 })
 export class ComponentsModule {
 }

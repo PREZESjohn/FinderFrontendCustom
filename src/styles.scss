@@ -710,3 +710,78 @@ button, input, optgroup, select, textarea {
 .customFont{
   font-size:11px;
 }
+
+/*
+#################### FRIEND LIST ###############################
+ */
+.friendList{
+  position: fixed;
+  top: 50px;
+  right: 0;
+  height: 100%;
+  color:white;
+  width: 250px;
+  padding: 10px 14px;
+  background: #0f1a26;
+  transition: var(--tran-05);
+  z-index: 100;
+}
+.friendList.close{
+  width: 0;
+  padding:0;
+}
+
+.white-content .friendList{
+  position: fixed;
+  top: 50px;
+  right: 0;
+  height: 100%;
+  color:black;
+  width: 250px;
+  padding: 10px 14px;
+  background: #cbb5c7;
+  transition: var(--tran-05);
+  z-index: 100;
+}
+.white-content .friendList.close{
+  width: 0;
+  padding:0;
+}
+
+
+
+.white-content .toggle-friendList{
+  position: fixed;
+  top: 40%;
+  right: 250px;
+  height: 8%;
+  color:black!important;
+  width: 3%;
+  padding: 13px 0;
+  background: #cbb5c7!important;
+}
+
+.white-content .toggle-friendList.close{
+  position: fixed;
+  top: 40%;
+  right: 0;
+  height: 8%;
+  color:black!important;
+  width: 3%;
+  padding: 13px 0px;
+  background: #cbb5c7!important;
+}
+
+.friend-card{
+  padding:10px 15px;
+  cursor: pointer;
+  box-shadow: black;
+}
+
+.friend-card:hover{
+  background-color: #1e2534;
+}
+
+.white-content .friend-card:hover{
+  background-color: #cbb5c7!important;
+}

@@ -145,5 +145,24 @@ export class UserService {
     return this.http.delete(this.baseURL+'/deleteReports/'+user.id)
   }
 
+  sendFriendRequest(user){
+    return this.http.post(this.baseURL+'/sendFriendRequest/'+user.id,{})
+  }
+
+  getFriendRequests(){
+    return this.http.get(this.baseURL+'/loadFriendRequests')
+  }
+
+  acceptFriendRequest(requestId:number){
+    return this.http.put(this.baseURL+'/acceptFriendRequest/'+requestId,{})
+  }
+  declineFriendRequest(requestId:number){
+    return this.http.put(this.baseURL+'/declineFriendRequest/'+requestId,{})
+  }
+
+  getFriends(){
+    return this.http.get(this.baseURL+'/loadFriends')
+  }
+
 }
 

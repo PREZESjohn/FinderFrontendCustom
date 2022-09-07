@@ -69,4 +69,8 @@ export class OtherUserProfileComponent implements OnInit {
     }
     return found
   }
+
+  sendFriendRequest(){
+    this.userService.sendFriendRequest(this.user).subscribe();
+  }
 }

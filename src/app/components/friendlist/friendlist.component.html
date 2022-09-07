@@ -1,0 +1,18 @@
+<div>
+  <button mat-button (click)="toggleFriendList()" [ngClass]="friendListClosed ? 'toggle-friendList close' : 'toggle-friendList'">
+    <mat-icon *ngIf="friendListClosed">keyboard_arrow_left</mat-icon>
+    <mat-icon *ngIf="!friendListClosed">keyboard_arrow_right</mat-icon>
+    <mat-icon  aria-hidden="false">
+      <span class="material-symbols-outlined pr-1 ">group</span>
+    </mat-icon>
+  </button>
+</div>
+<div [ngClass]="friendListClosed ? 'friendList close' : 'friendList'">
+    <h2 class="pt-1 pb-1 mb-1">FRIEND LIST</h2>
+    <h6 class="mb-4">Total: {{friendsNumber}}</h6>
+    <div class="card friend-card textMode" *ngFor="let friend of friendList">
+      <h4>{{friend.user?.username}}</h4>
+      <h5>Click to open private chat</h5>
+    </div>
+  <p *ngIf="friendsNumber==0">So quiet here maybe you can change it</p>
+</div>

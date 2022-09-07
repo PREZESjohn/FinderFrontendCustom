@@ -43,6 +43,31 @@
       </mat-menu>
 
     </div>
+
+    <div class=" navbar-nav pr-2 ">
+
+      <button mat-button [matMenuTriggerFor]="friendList">
+        <mat-icon *ngIf="friendRequestsNumber!==0" matBadge="{{friendRequestsNumber}}" matBadgeColor="warn"
+                  aria-hidden="false">
+          <span class="material-symbols-outlined">group</span>
+        </mat-icon>
+        <mat-icon *ngIf="friendRequestsNumber==0" aria-hidden="false">
+          <span class="material-symbols-outlined">group</span>
+        </mat-icon>
+      </button>
+      <mat-menu #friendList="matMenu" class="bg-dropdown friendRequest " xPosition="before">
+        <div class="custom-wrap" mat-menu-item *ngFor="let request of friendRequests let row = index">
+          <div class="textMode d-inline">
+            <p class="custom-text textMode d-inline-block">{{request.sendingUser.username}}</p>
+            <mat-icon (click)="acceptFriendRequest(row,request.id)" class="pl-2 ml-1 mr-2" style="color:green">done</mat-icon>
+            <mat-icon (click)="declineFriendRequest(row,request.id)" class="ml-1 mr-1" style="color:red">not_interested</mat-icon>
+            <p class="custom-text textMode mb-0 ">wants to be your friend</p>
+          </div>
+        </div>
+      </mat-menu>
+
+    </div>
+
     <ul class=" navbar-nav ml-2 ">
       <li class=" nav-item justify-content-center" routerLinkActive="true">
         <div class=" photo justify-content-center">
