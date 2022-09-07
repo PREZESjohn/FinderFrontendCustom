@@ -8,6 +8,9 @@
   padding: 13px 0;
   background: #050505;
 }
+.toggle-friendList:hover{
+  background-color: grey!important;
+}
 .toggle-friendList.close{
   position: fixed;
   top: 40%;
