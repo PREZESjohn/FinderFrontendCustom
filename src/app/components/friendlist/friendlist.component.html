@@ -1,18 +1,70 @@
 <div>
-  <button mat-button (click)="toggleFriendList()" [ngClass]="friendListClosed ? 'toggle-friendList close' : 'toggle-friendList'">
+  <button mat-button (click)="toggleFriendList()"
+          [ngClass]="friendListClosed ? 'toggle-friendList close' : 'toggle-friendList'">
     <mat-icon *ngIf="friendListClosed">keyboard_arrow_left</mat-icon>
     <mat-icon *ngIf="!friendListClosed">keyboard_arrow_right</mat-icon>
-    <mat-icon  aria-hidden="false">
+    <mat-icon aria-hidden="false">
       <span class="material-symbols-outlined pr-1 ">group</span>
     </mat-icon>
   </button>
 </div>
 <div [ngClass]="friendListClosed ? 'friendList close' : 'friendList'">
-    <h2 class="pt-1 pb-1 mb-1">FRIEND LIST</h2>
-    <h6 class="mb-4">Total: {{friendsNumber}}</h6>
-    <div class="card friend-card textMode" *ngFor="let friend of friendList">
+  <h2 class="pt-1 pb-1 mb-1">FRIEND LIST</h2>
+  <h6 class="mb-4">Total: {{friendsNumber}}</h6>
+  <div class="card textMode" *ngFor="let friend of friendList">
+    <div class="friend-card" (click)="connectPrivateChat(friend.chat?.id,friend)">
       <h4>{{friend.user?.username}}</h4>
       <h5>Click to open private chat</h5>
     </div>
+    <div class="card-body bg-chat pl-0 pr-0 pb-0" style="height: 100%" *ngIf="chosenFriend!=null && chosenFriend.id==friend.id">
+        <h5 class="pl-2">MESSAGES:</h5>
+        <div class="example-viewport">
+          <div *ngFor="let message of chosenFriend.chat.messages">
+            <div class="media media-chat pt-0 pb-0" *ngIf="message.user.id==chosenFriend.user.id">
+              <div class="media-body mt-1">
+                <h5 class="font-weight-light mb-1 pl-1 customFont">{{message.user.username}}</h5>
+                <p class="textMode">{{message?.text}}</p>
+                <p class="meta textMode pl-1 customFont">
+                  <time>{{message?.time}}</time>
+                </p>
+              </div>
+            </div>
+            <div *ngIf="message.user.id!==chosenFriend.user.id" class="media media-chat media-chat-reverse pt-0">
+              <div class="media-body">
+                <p class="txt textMode">{{message.text}}</p>
+                <p class="meta textMode customFont">{{message.time}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-light col-md-12 bg-line mb-3 mt-1 " style="height: 1px"></div>
+          <div *ngFor="let msg of messages">
+            <div class="media media-chat pt-0 pb-0" *ngIf="msg.user.id==chosenFriend.user.id">
+              <div class="media-body mt-1">
+                <h5 class="font-weight-light mb-1 pl-1 customFont">{{msg.user.username}}</h5>
+                <p class="textMode">{{msg?.text}}</p>
+                <p class="meta textMode pl-1 customFont">
+                  <time>{{msg?.time}}</time>
+                </p>
+              </div>
+            </div>
+            <div *ngIf="msg.user.id!==chosenFriend.user.id" class="media media-chat media-chat-reverse pt-0">
+              <div class="media-body">
+                <p class="txt textMode">{{msg.text}}</p>
+                <p class="meta textMode customFont">{{msg.time}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="card mb-0 pb-0">
+      <div class="d-inline pt-3 pb-3 pr-3 pl-3 publisher">
+        <input #inpt class="publisher-input textMode" type="text" value="{{message?.text}}"
+               placeholder="Write something" (keyup)="readMsg(inpt.value)" style="width:70%">
+        <a class="publisher-btn text-info float-right" data-abc="true" (click)="sendMsg(currentChatId)"><i
+          class="fa fa-paper-plane"></i></a>
+      </div>
+      </div>
+    </div>
+  </div>
   <p *ngIf="friendsNumber==0">So quiet here maybe you can change it</p>
 </div>
