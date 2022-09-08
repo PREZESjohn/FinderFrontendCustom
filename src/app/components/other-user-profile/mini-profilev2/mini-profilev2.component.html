@@ -1,6 +1,7 @@
-<div class="content bg-card">
+<div class="content ">
   <div class="container ">
-    <div class="row ">
+
+      <div class="row ">
         <div class="col my-2 ml-2">
           <div class="row">
             <img class="img-responive img-thumbnail "alt="icon" [src]="usersProfilePictures.get(user.id)" style="height: 75px;width:75px;">
@@ -12,15 +13,17 @@
         <div class="col-md-auto  justify-content-center">
           <div class="d-block  justify-content-center pt-3 " *ngFor="let game of games">
             <div *ngIf="game.assignRolesActive">
-            <img class="" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 20px;height: 20px">
-            <div class="d-inline" *ngFor="let role of user?.inGameRoles, let i = index">
-              <div class="d-inline" *ngIf="tableContains(game?.inGameRoles,role)">
-                <img class="d-inline" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 20px;height: 20px">
-              </div>
+              <img class="" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 20px;height: 20px">
+              <div class="d-inline" *ngFor="let role of user?.inGameRoles, let i = index">
+                <div class="d-inline" *ngIf="tableContains(game?.inGameRoles,role)">
+                  <img class="d-inline" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 20px;height: 20px">
+                </div>
               </div>
             </div>
           </div>
         </div>
-    </div>
+      </div>
+
+
   </div>
 </div>

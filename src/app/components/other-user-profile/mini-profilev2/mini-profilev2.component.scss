@@ -1,5 +1,7 @@
 
-
-/*.content{
-  background-color: #0e84f8;
-}*/
+.container{
+  background-color: #1d253b;
+}
+::ng-deep .white-content .cdk-overlay-container .container{
+  background: linear-gradient(to bottom right, #cbb5c7, white);
+}
