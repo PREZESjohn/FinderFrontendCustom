@@ -1,8 +1,8 @@
 import {UserMsgDTO} from './dto/UserMsgDTO';
-import {Message} from './Message';
+import {Chat} from './Chat';
 
 export class Friend{
   public id:number;
   public user:UserMsgDTO;
-  public chat:Message[];
+  public chat:Chat;
 }

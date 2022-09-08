@@ -1,7 +1,7 @@
 .toggle-friendList{
   position: fixed;
   top: 40%;
-  right: 250px;
+  right: 400px;
   height: 8%;
   color:white;
   width: 3%;
@@ -20,4 +20,33 @@
   width: 3%;
   padding: 13px 0;
   background: #050505;
+}
+.example-viewport {
+  height: 250px;
+  width: 100%;
+  overflow-x: hidden!important;
+  overflow-y: breakpoint-max(20px);
+}
+
+.example-item {
+  height: 35px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1e2534;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0b0f11;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
 }
