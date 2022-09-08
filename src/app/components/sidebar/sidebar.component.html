@@ -50,20 +50,20 @@
           </a>
         </li>
 
-        <li class="nav-link">
-          <a class="btnNew"  [matMenuTriggerFor]="menu">
-            <i class='bx bx-cog icon' ></i>
-            <span class="text nav-text">Settings</span>
-          </a>
-          <mat-menu #menu="matMenu" class="setMenu">
-            <button mat-menu-item class="px-1" (click)="openChangePassword()">Change password</button>
-            <button mat-menu-item class="px-1">Change email</button>
-            <button mat-menu-item class="px-1" (click)="openDeleteUser()">Delete account</button>
-          </mat-menu>
-          <!--<a routerLink="#">
-            <i class='bx bx-cog icon' ></i>
-            <span class="text nav-text">Settings</span>
-          </a>-->
+        <li class="nav-link dropdown">
+          <div class="iocn-link">
+            <a routerLink="#">
+              <i class='bx bx-cog icon' ></i>
+              <span class="text nav-text link_name">Settings</span>
+            </a>
+            <i class='bx bxs-chevron-down arrow' ></i>
+          </div>
+          <ul class="sub-menu">
+
+            <li><a routerLink="#" (click)="openChangePassword()">Change password</a></li>
+            <li><a routerLink="#">Change email</a></li>
+            <li><a routerLink="#" (click)="openDeleteUser()">Delete account</a></li>
+          </ul>
         </li>
 
       </ul>
@@ -91,6 +91,8 @@
   <section class="home">
     <div class="text">{{getTitle()}}</div>
   </section>
+  <script src="assets/js/some.js">
+  </script>
 </nav>
-<script src="assets/js/some.js">
-</script>
+
+
