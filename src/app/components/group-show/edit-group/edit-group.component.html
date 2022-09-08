@@ -18,7 +18,7 @@
       <div class="col-sm-9 textMode">
         <!--<input class="form-control"   placeholder="Max users"   formControlName="maxUsers" type="text" >-->
         <select class="form-control filters" formControlName="maxUsers">
-          <option class="form-control textMode" *ngFor="let number of [0,1,2,3]">{{number}}</option>
+          <option class="form-control textMode" *ngFor="let number of possibleUsersCount">{{number}}</option>
         </select>
       </div>
     </div>
