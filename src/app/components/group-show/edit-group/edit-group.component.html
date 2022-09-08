@@ -2,20 +2,44 @@
 <app-alert></app-alert>
 <div mat-dialog-content style="width:100%" [formGroup]="groupEditForm" class="justify-content-center" >
   <div formGroupName="editGroup">
-    <mat-form-field class="example-full-width"  style="width: 100%" >
-      <input class="textMode"  matInput  placeholder="Name"  formControlName="name" type="text" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width"  style="width: 100%">
-      <input class="textMode"  matInput  placeholder="Max users"   formControlName="maxUsers" type="text" >
-    </mat-form-field>
-    <mat-form-field class="example-full-width"  style="width: 100%" >
-      <textarea class="textMode"  matInput  placeholder="Description"   formControlName="desc" type="text" ></textarea>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-sm-3">
+        <h6 class="mb-0 mt-2 pt-1">Name</h6>
+      </div>
+      <div class="col-sm-9 textMode">
+        <input class="form-control"    placeholder="Name"  formControlName="name" type="text" >
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-3">
+        <h6 class="mb-0 mt-2 pt-1">Max users</h6>
+      </div>
+      <div class="col-sm-9 textMode">
+        <!--<input class="form-control"   placeholder="Max users"   formControlName="maxUsers" type="text" >-->
+        <select class="form-control filters" formControlName="maxUsers">
+          <option class="form-control textMode" *ngFor="let number of [0,1,2,3]">{{number}}</option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-3">
+        <h6 class="mb-0 mt-2 pt-1">Description</h6>
+      </div>
+      <div class="col-sm-9 textMode">
+        <textarea class="form-control"    placeholder="Description" rows="3"  formControlName="desc" type="text" ></textarea>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="row justify-content-lg-center">
+    <div class="col-sm-12 ">
+      <button class="btn btn-info" mat-dialog-close >Close</button>
+      <button class="btn btn-info float-right"   (click)="changeGroup()" >Save</button>
+    </div>
   </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close class="textMode">Close</button>
-  <button mat-button   (click)="changeGroup()" class="textMode" >Save</button>
-</div>
+
 
 

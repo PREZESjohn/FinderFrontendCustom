@@ -7,6 +7,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {GroupRoom} from "../../../domain/GroupRoom";
 import {CodeErrors} from "../../../providers/CodeErrors";
 import {GroupRoomService} from "../../../services/group-room.service";
+import {range} from "rxjs";
 
 @Component({
   selector: 'app-edit-group',
@@ -16,6 +17,8 @@ import {GroupRoomService} from "../../../services/group-room.service";
 export class EditGroupComponent implements OnInit {
   groupEditForm: FormGroup;
   editGroupRoom = new GroupRoom();
+  isGameRolesActive=false;
+  possibleUsersCount;
 
   constructor(private groupRoomService: GroupRoomService,
               private router:Router,
@@ -26,14 +29,26 @@ export class EditGroupComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data)
+    this.isGameRolesActive=this.data.groupRoom.activeRoles
+
     this.groupEditForm=this.formBuilder.group({
       editGroup: this.formBuilder.group({
         name: new FormControl(this.data.groupRoom.name,[Validators.required,Validators.minLength(2)]),
-        maxUsers: new FormControl(this.data.groupRoom.maxUsers,[Validators.maxLength(5)]),
+        maxUsers: new FormControl(this.data.groupRoom?.maxUsers,[Validators.maxLength(5)]),
         desc: new FormControl(this.data.groupRoom.desc,
           [Validators.required, Validators.minLength(2), Validators.maxLength(150)])
       })
     })
+    if(this.isGameRolesActive){
+      this.groupEditForm.get("editGroup").get("maxUsers").disable();
+    }else{
+      this.groupEditForm.get("editGroup").get("maxUsers").enable();
+      let temp= [];
+      for(let x=this.data.groupRoom.usersInGroup; x<=10; x++){
+        temp.push(x)
+      }
+      this.possibleUsersCount=temp;
+    }
   }
 
   changeGroup() {

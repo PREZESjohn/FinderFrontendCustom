@@ -226,14 +226,16 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(EditGroupComponent, {
       closeOnNavigation: true,
       disableClose: true,
-      width: '40%',
-      height: '40%',
+      width: '50%',
+      height: '50%',
       data: {
         groupRoom: {
           id: this.currentGroup.id,
           name: this.currentGroup.name,
           maxUsers: this.currentGroup.maxUsers,
-          desc: this.currentGroup.description
+          usersInGroup: this.currentGroup.users.length,
+          desc: this.currentGroup.description,
+          activeRoles: this.currentGroup.inGameRolesActive
         }
       }
     })

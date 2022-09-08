@@ -47,7 +47,10 @@
         <h6 class="mb-0 mt-2 pt-1">Users limit</h6>
       </div>
       <div class="col-sm-9 textMode">
-        <input type="text" class="form-control" [value]="chosenCategory?.basicMaxUsers" formControlName="maxUsers">
+        <!--<input type="text" class="form-control" [value]="chosenCategory?.basicMaxUsers" formControlName="maxUsers">-->
+        <select class="form-control filters" formControlName="maxUsers">
+          <option class="form-control textMode" *ngFor="let number of [2,3,4,5,6,7,8,9,10]">{{number}}</option>
+        </select>
       </div>
     </div>
     <hr>
