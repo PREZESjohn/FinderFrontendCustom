@@ -164,5 +164,7 @@ export class UserService {
     return this.http.get(this.baseURL+'/loadFriends')
   }
 
+
+
 }
 

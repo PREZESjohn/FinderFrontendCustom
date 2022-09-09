@@ -74,7 +74,9 @@ export class RegisterComponent implements OnInit {
   }
 
   private redirectToDashboard() {
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('').then(()=>{
+      const temp =  this.alertService.getSource();
+    });
   }
 
   toggleFieldTextType() {

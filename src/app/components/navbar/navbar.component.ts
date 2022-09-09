@@ -51,6 +51,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
       this.source.addEventListener('message', message => {
         this.getNotifications();
+        this.getFriendRequests();
       })
     this.location = location;
     this.sidebarVisible = false;
@@ -63,11 +64,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('Navbar reload')
-
-    this.userService.getFriendRequests().subscribe((data:any)=>{
-      this.friendRequests = data;
-      this.friendRequestsNumber = this.friendRequests.length;
-    })
+    this.getFriendRequests();
 
     if (this.categoryService.getAllGames().length == 0) {
       this.getGames()
@@ -79,6 +76,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
+  }
+
+  public getFriendRequests(){
+    this.userService.getFriendRequests().subscribe((data:any)=>{
+      this.friendRequests = data;
+      this.friendRequestsNumber = this.friendRequests.length;
+    })
   }
 
   public getNotifications(){

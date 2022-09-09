@@ -51,7 +51,10 @@ export class LoginComponent implements OnInit {
             if(this.authService.checkIfAdmin()){
               this.router.navigateByUrl('admin/admin-main-page')
             }else{
-              this.router.navigateByUrl('')
+              this.router.navigateByUrl('').then(()=>{
+               const temp =  this.alertService.getSource();
+              })
+
             }
             // window.location.reload();
           },

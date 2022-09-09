@@ -22,10 +22,15 @@
   background: #050505;
 }
 .example-viewport {
-  height: 250px;
+  height: 250px !important;
   width: 100%;
   overflow-x: hidden!important;
-  overflow-y: breakpoint-max(20px);
+  overflow-y: auto!important;
+}
+
+.friend-list-scroll{
+  height: 100%;
+  overflow-y:auto!important;
 }
 
 .example-item {

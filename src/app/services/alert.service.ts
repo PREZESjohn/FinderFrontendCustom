@@ -6,7 +6,7 @@ import {AuthService} from './auth.service';
 @Injectable({ providedIn: 'root' })
 export class AlertService {
   private subject = new Subject<any>();
-  private source = null;
+  private source:EventSource = null;
   private keepAfterRouteChange = false;
 
   constructor(private router: Router,private authService:AuthService) {
@@ -22,12 +22,16 @@ export class AlertService {
   }
 
   getSource(){
-    if(this.source == null){
-      this.source = new EventSource('http://localhost:8080/api/v1/notify/test?token=' + this.authService.getToken());
-      return this.source;
-    }else {
-      return this.source;
-    }
+      if (this.source == null) {
+        this.source = new EventSource('http://localhost:8080/api/v1/notify/info?token=' + this.authService.getToken());
+        return this.source;
+      } else {
+        return this.source;
+      }
+  }
+  closeSource(){
+    this.source.close();
+    this.source = null;
   }
 
   getAlert(): Observable<any> {

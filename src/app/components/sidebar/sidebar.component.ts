@@ -9,6 +9,7 @@ import {CategoryService} from '../../services/categoryService';
 import {ChangePasswordComponent} from "../user-profile/change-password/change-password.component";
 import {DeleteUserComponent} from "./delete-user/delete-user.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AlertService} from '../../services/alert.service';
 
 declare interface RouteInfo {
   path: string;
@@ -62,7 +63,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
   private subscriptionName: Subscription;
 
 
-  constructor( private authService: AuthService, location: Location,
+  constructor( private authService: AuthService,private alertService:AlertService, location: Location,
                private userService: UserService, private router: Router, private categoryService:CategoryService,
                public dialog: MatDialog) {
     this.location = location;
@@ -115,6 +116,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
   }
   logOut() {
     this.authService.logout();
+    this.alertService.closeSource()
     this.router.navigateByUrl('/login');
   }
 

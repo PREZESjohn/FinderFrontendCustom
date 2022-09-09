@@ -71,6 +71,9 @@ export class OtherUserProfileComponent implements OnInit {
   }
 
   sendFriendRequest(){
-    this.userService.sendFriendRequest(this.user).subscribe();
+    this.userService.sendFriendRequest(this.user).subscribe(()=>{
+    },(e)=>{
+      this.alertService.error(CodeErrors.get(e.error.code))
+    });
   }
 }

@@ -1,30 +1,45 @@
 <div class="border-light col-lg-12 bg-line mb-3 " style="height: 1px"></div>
 <h2 class="text-center mb-2">Chat</h2>
-<div class="ps-container ps-theme-default bg-chat ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
+<div #content class="ps-container ps-theme-default bg-chat ps-active-y" id="chat-content"
+     style="overflow-y: auto !important; height:400px !important;">
   <div class="border-light col-md-12 bg-line mb-3 mt-1 " style="height: 1px"></div>
-  <div  *ngFor="let mg of messages">
-  <div class="media media-chat pt-0 pb-0" *ngIf="mg?.user?.id !== currentUser?.id">
-    <div class="pt-4">
-    <img *ngIf="mg.user!=null" class=" avatar avatar-xs img-responsive " style="height: 30px;width: 30px" [src]="usersPictures.get(mg?.user?.id)" alt="...">
-    </div>
+  <div #messagesTracker *ngFor="let mg of messages">
+    <div class="media media-chat pt-0 pb-0" *ngIf="mg?.user?.id !== currentUser?.id">
+      <div class="pt-4">
+        <img *ngIf="mg.user!=null" class=" avatar avatar-xs img-responsive " style="height: 30px;width: 30px"
+             [src]="usersPictures.get(mg?.user?.id)" alt="...">
+      </div>
       <div class="media-body mt-1">
-      <h5 class="font-weight-light mb-1 pl-1 customFont" [ngClass]="mg?.user?.role.name == 'ROLE_ADMIN' ? 'text-danger' : 'textMode' ">{{mg?.user?.username}}</h5>
-      <p class="textMode">{{mg?.text}}</p>
-      <p class="meta textMode pl-1 customFont"><time>{{mg?.time}}</time></p>
+        <h5 class="font-weight-light mb-1 pl-1 customFont"
+            [ngClass]="mg?.user?.role.name == 'ROLE_ADMIN' ? 'text-danger' : 'textMode' ">{{mg?.user?.username}}</h5>
+        <p class="textMode">{{mg?.text}}</p>
+        <p class="meta textMode pl-1 customFont">
+          <time>{{mg?.time}}</time>
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="media media-chat media-chat-reverse pt-0" *ngIf="mg?.user?.id === currentUser?.id">
-    <div class="media-body">
-      <p class="txt textMode">{{mg?.text}}</p>
-      <p class="meta textMode customFont"><time>{{mg?.time}}</time></p>
+    <div class="media media-chat media-chat-reverse pt-0" *ngIf="mg?.user?.id === currentUser?.id">
+      <div class="media-body">
+        <p class="txt textMode">{{mg?.text}}</p>
+        <p class="meta textMode customFont">
+          <time>{{mg?.time}}</time>
+        </p>
+      </div>
     </div>
-  </div>
   </div>
 
-  <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div></div></div>
+  <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+    <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+  </div>
+  <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+    <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+  </div>
+</div>
 
 <div class="publisher bt-1 border-light ">
-  <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" src="assets/img/default-avatar.png" alt="...">
-  <input #inpt class="publisher-input textMode" type="text" value="{{message.text}}" placeholder="Write something" (keyup)="readMsg(inpt.value)" >
-  <a class="publisher-btn text-info"  data-abc="true" (click)="sendMsg()"><i class="fa fa-paper-plane"></i></a>
+  <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" src="assets/img/default-avatar.png"
+       alt="...">
+  <input #inpt class="publisher-input textMode" type="text" value="{{message.text}}" placeholder="Write something"
+         (keyup)="readMsg(inpt.value)" (keydown.enter)="sendMsg()">
+  <a class="publisher-btn text-info" data-abc="true" (click)="sendMsg()"><i class="fa fa-paper-plane"></i></a>
 </div>

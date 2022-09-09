@@ -1,4 +1,16 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {Stomp} from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import {Message} from '../../domain/Message';
@@ -20,23 +32,28 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   @Input() usersPictures = null;
   @Output() onConnection = new EventEmitter<any>()
 
-  isConnected = false;
-  message:Message=new Message();
-  messages = [];
+  @ViewChild('content') content!: ElementRef;
+  @ViewChildren('messagesTracker') messagesTracker!: QueryList<any>;
+
+  public isConnected = false;
+  public message:Message=new Message();
+  public messages = [];
 
   constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
-    // if(this.isInGroup) {
-    //   this.connectOn();
-    // }
+
   }
+
   ngOnChanges(){
     if(this.isInGroup){
     this.connectOn();}
     else{
       this.disconnectOn();
     }
+    this.scrollToBottom();
+    this.messagesTracker?.changes.subscribe(this.scrollToBottom);
+
   }
 
   connectOn(){
@@ -93,5 +110,11 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
     this.disconnectOn();
   }
 
+  scrollToBottom = () => {
+    try {
+      this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
+    } catch (err) {
+    }
+  }
 }
 
