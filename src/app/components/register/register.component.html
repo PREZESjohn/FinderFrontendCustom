@@ -12,8 +12,6 @@
         <form [formGroup]="loginFormGroup" (ngSubmit)="register()">
           <div formGroupName="user" class="d-flex justify-content-center card-body">
             <div class=" card card-user col-10 ">
-              <div>
-              </div>
               <div class=" card-body">
                 <p class=" card-text"></p>
                 <div class=" author">
@@ -55,7 +53,8 @@
                         <input class=" form-control" placeholder="Repeat password" required [type]="fieldTextType ? 'text' : 'password'" formControlName="repeatPassword"/>
 
                       </div>
-                      <label><input type="checkbox" formControlName="checkTerm"> Do you accept terms ?</label>
+                      <label> Do you accept terms ?</label>
+                      <input type="checkbox" class="checkTerms" formControlName="checkTerm"/>
                     </div>
                   </div>
                 </div>

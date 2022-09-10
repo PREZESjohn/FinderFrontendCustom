@@ -1,0 +1,33 @@
+.card-body{
+  background-color: transparent;
+}
+input[type=checkbox] {
+  display: inline;
+}
+.checkTerms{
+
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 30px;
+  background-color: #eee;
+}
+.checkTerms:checked{
+  background-color: #2196F3;
+}
+.checkTerms:after{
+  content: "";
+  position: absolute;
+  display: none;
+}
+.checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

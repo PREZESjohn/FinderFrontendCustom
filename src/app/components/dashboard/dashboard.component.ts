@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 
 import {ControlHelperService} from '../../services/control-helper.service';
 import {Router} from '@angular/router';
@@ -212,5 +212,14 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   navigateToGroup(groupRoom){
     this.router.navigate(['/group-show/',groupRoom.id])
+  }
+  public miniView=false
+  @HostListener('window:resize',['$event'])
+  onResize(event){
+    if(window.innerWidth<1000){
+      this.miniView=true;
+    }else{
+      this.miniView=false;
+    }
   }
 }
