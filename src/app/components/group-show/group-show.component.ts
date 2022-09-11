@@ -74,10 +74,10 @@ export class GroupShowComponent implements OnInit, OnDestroy {
 
   notificationMethod(message) {
     const msg: CustomNotification = JSON.parse(message.data);
-    if (msg.type === 'REMOVED' && msg.removedUserId === this.currentUser.id && msg.groupRoom.id === this.currentGroup.id && this.isInGroupRoomView) {
+    if (msg.type === 'REMOVED' && msg.removedUserId === this.currentUser.id && msg.groupRoom?.id === this.currentGroup.id && this.isInGroupRoomView) {
       this.router.navigateByUrl('/home-page')
     }
-    if (this.isInGroupRoomView && msg.groupRoom.id === this.currentGroup.id) {
+    if (this.isInGroupRoomView && msg.groupRoom?.id === this.currentGroup.id) {
       if (msg.type == 'REMOVED') {
         this.alertService.error(msg.msg);
       } else {

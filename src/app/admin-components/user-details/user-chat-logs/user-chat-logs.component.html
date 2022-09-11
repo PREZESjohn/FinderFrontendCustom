@@ -8,7 +8,7 @@
       <p>{{group}} chat logs</p>
     </mat-panel-description>
   </mat-expansion-panel-header>
-  <p *ngFor="let msg of msgMap.get(group)">{{msg?.user?.username}}:{{msg.time}} -- {{msg.text}}</p>
+  <p *ngFor="let msg of msgMap.get(group)">{{msg?.user?.username}}:{{msg.date}} -- {{msg.text}}</p>
 </mat-expansion-panel>
 
 <h4 *ngIf="messageGroups?.length == 0">This user haven't send any messages yet.</h4>

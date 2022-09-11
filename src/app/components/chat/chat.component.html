@@ -6,13 +6,13 @@
   <div #messagesTracker *ngFor="let mg of messages">
     <div class="media media-chat pt-0 pb-0" *ngIf="mg?.user?.id !== currentUser?.id">
       <div class="pt-4">
-        <img *ngIf="mg.user!=null" class=" avatar avatar-xs img-responsive " style="height: 30px;width: 30px"
+        <img *ngIf="mg?.user!=null" class=" avatar avatar-xs img-responsive " style="height: 30px;width: 30px"
              [src]="usersPictures.get(mg?.user?.id)" alt="...">
       </div>
       <div class="media-body mt-1">
         <h5 class="font-weight-light mb-1 pl-1 customFont"
             [ngClass]="mg?.user?.role.name == 'ROLE_ADMIN' ? 'text-danger' : 'textMode' ">{{mg?.user?.username}}</h5>
-        <p class="textMode">{{mg?.text}}</p>
+        <p class="textMode" matTooltip="{{mg?.date}}" [matTooltipPosition]="'right'">{{mg?.text}}</p>
         <p class="meta textMode pl-1 customFont">
           <time>{{mg?.time}}</time>
         </p>
@@ -20,7 +20,7 @@
     </div>
     <div class="media media-chat media-chat-reverse pt-0" *ngIf="mg?.user?.id === currentUser?.id">
       <div class="media-body">
-        <p class="txt textMode">{{mg?.text}}</p>
+        <p class="txt textMode" matTooltip="{{mg?.date}}" [matTooltipPosition]="'left'">{{mg?.text}}</p>
         <p class="meta textMode customFont">
           <time>{{mg?.time}}</time>
         </p>

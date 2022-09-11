@@ -50,8 +50,8 @@ export class FriendlistComponent implements OnInit {
       this.friendsNumber = this.friendList.length;
     })
     this.scrollToBottom();
-    this.messagesTracker1.changes.subscribe(this.scrollToBottom);
-    this.messagesTracker2.changes.subscribe(this.scrollToBottom);
+    this.messagesTracker1?.changes.subscribe(this.scrollToBottom);
+    this.messagesTracker2?.changes.subscribe(this.scrollToBottom);
   }
 
 
@@ -86,15 +86,31 @@ export class FriendlistComponent implements OnInit {
         this.isConnectedToChat = true;
         this.currentChatId=chatId;
         this.chosenFriend = friend;
+        this.splitDateInMessages(this.chosenFriend)
         this.ngOnInit();
         this.stompClient.subscribe('/topic/privateMessages/'+chatId, (chatMessage) => {
-          const data = JSON.parse(chatMessage.body)
+          let data = JSON.parse(chatMessage.body)
+          data = this.splitDate(data)
           this.messages.push(data);
         });
       });
     }
   }
 
+  splitDateInMessages(friend){
+    friend.chat.messages.forEach(message=>{
+      this.splitDate(message);
+    })
+  }
+
+  splitDate(data:Message){
+    if(data.date!==null) {
+      const x = data.date?.split(" ")
+      data.date = x[0];
+      data.time = x[1];
+      return data
+    }
+  }
   disconnectPrivateChat(){
     if (this.stompClient !== null && this.stompClient !== undefined) {
       this.stompClient?.disconnect();

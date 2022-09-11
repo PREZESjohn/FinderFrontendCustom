@@ -32,11 +32,12 @@ import {OverlayModule} from "@angular/cdk/overlay";
 import { MiniProfilev2Component } from './other-user-profile/mini-profilev2/mini-profilev2.component';
 import { DeleteUserComponent } from './sidebar/delete-user/delete-user.component';
 import { FriendlistComponent } from './friendlist/friendlist.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
 @NgModule({
-    imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, OverlayModule],
+    imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, OverlayModule, MatTooltipModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent,
     AlertComponent, UserProfileComponent, GroupAddComponent,
     MyGroupsComponent,

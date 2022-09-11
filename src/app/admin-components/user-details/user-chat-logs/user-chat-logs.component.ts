@@ -26,8 +26,9 @@ export class UserChatLogsComponent implements OnInit,OnChanges {
 
   loadChatLogs(){
     console.log(this.userId)
-    this.userService.getUserChatLogs(this.userId).subscribe((data:any)=>{
-      this.sortMessages(data);
+    this.userService.getUserChatLogs(this.userId).subscribe((messages:any)=>{
+      console.log(messages)
+      this.sortMessages(messages);
     },(e)=>{
 
     })

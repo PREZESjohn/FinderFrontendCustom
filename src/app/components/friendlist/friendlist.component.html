@@ -27,16 +27,16 @@
           <div class="media media-chat pt-0 pb-0" *ngIf="message.user.id==chosenFriend.user.id">
             <div class="media-body mt-1">
               <h5 class="font-weight-light mb-1 pl-1 customFont">{{message.user.username}}</h5>
-              <p class="textMode">{{message?.text}}</p>
+              <p class="textMode" matTooltip="{{message?.date}}" [matTooltipPosition]="'right'">{{message?.text}}</p>
               <p class="meta textMode pl-1 customFont">
-                <time>{{message?.time}}</time>
+                <time>{{message.time}}</time>
               </p>
             </div>
           </div>
           <div *ngIf="message.user.id!==chosenFriend.user.id" class="media media-chat media-chat-reverse pt-0">
             <div class="media-body">
-              <p class="txt textMode">{{message.text}}</p>
-              <p class="meta textMode customFont">{{message.time}}</p>
+              <p class="txt textMode" matTooltip="{{message?.date}}" [matTooltipPosition]="'left'">{{message.text}}</p>
+              <p class="meta textMode customFont">{{message?.time}}</p>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <div class="media media-chat pt-0 pb-0" *ngIf="msg.user.id==chosenFriend.user.id">
             <div class="media-body mt-1">
               <h5 class="font-weight-light mb-1 pl-1 customFont">{{msg.user.username}}</h5>
-              <p class="textMode">{{msg?.text}}</p>
+              <p class="textMode" matTooltip="{{msg?.date}}" [matTooltipPosition]="'right'">{{msg?.text}}</p>
               <p class="meta textMode pl-1 customFont">
                 <time>{{msg?.time}}</time>
               </p>
@@ -54,7 +54,7 @@
           </div>
           <div *ngIf="msg.user.id!==chosenFriend.user.id" class="media media-chat media-chat-reverse pt-0">
             <div class="media-body">
-              <p class="txt textMode">{{msg.text}}</p>
+              <p class="txt textMode" matTooltip="{{msg?.date}}" [matTooltipPosition]="'left'">{{msg.text}}</p>
               <p class="meta textMode customFont">{{msg.time}}</p>
             </div>
           </div>

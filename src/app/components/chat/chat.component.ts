@@ -69,7 +69,8 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
         console.log('Connected: ' + frame);
         this.isConnected = true;
         this.stompClient.subscribe('/topic/messages/'+this.groupRoom.id, (chatMessage) => {
-          const data = JSON.parse(chatMessage.body)
+          let data = JSON.parse(chatMessage.body)
+           data = this.splitDate(data)
             this.messages.push(data);
           if(data?.connectedUsers!==null && data?.connectedUsers!==undefined){
             this.groupRoom.users.forEach((u)=>{
@@ -92,6 +93,16 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
     }else{
       console.log('Not in group')
     }
+  }
+
+  splitDate(data:Message){
+    if(data.date!==null) {
+      const x = data.date?.split(" ")
+      data.date = x[0];
+      data.time = x[1];
+      return data
+    }
+    return data;
   }
 
   readMsg(text){
