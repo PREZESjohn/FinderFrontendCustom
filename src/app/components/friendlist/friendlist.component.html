@@ -3,9 +3,11 @@
           [ngClass]="friendListClosed ? 'toggle-friendList close' : 'toggle-friendList'">
     <mat-icon *ngIf="friendListClosed">keyboard_arrow_left</mat-icon>
     <mat-icon *ngIf="!friendListClosed">keyboard_arrow_right</mat-icon>
+    <span *ngIf="unreadMessagesNumber!=0" matBadge="{{unreadMessagesNumber}}" matBadgePosition="before"></span>
     <mat-icon aria-hidden="false">
       <span class="material-symbols-outlined pr-1 ">group</span>
     </mat-icon>
+
   </button>
 </div>
 <div [ngClass]="friendListClosed ? 'friendList close' : 'friendList friend-list-scroll'">
@@ -16,6 +18,7 @@
   <h6 class="mb-4">Total: {{friendsNumber}}</h6>
   <div class="card textMode" *ngFor="let friend of friendList">
     <div class="friend-card" (click)="connectPrivateChat(friend.chat?.id,friend)">
+      <span *ngIf="unreadMessages.get(friend.user.id)!=0" matBadge="{{unreadMessages.get(friend.user.id)}}"></span>
       <h4>{{friend.user?.username}}</h4>
       <h5>Click to open private chat</h5>
     </div>

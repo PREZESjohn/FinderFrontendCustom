@@ -164,7 +164,13 @@ export class UserService {
     return this.http.get(this.baseURL+'/loadFriends')
   }
 
+  setMessagesAsRead(chatId:number){
+    return this.http.patch("http://localhost:8080/api/v1/messageRead/"+chatId,{})
+  }
 
+  countUnreadMessages(){
+    return this.http.get("http://localhost:8080/api/v1/unreadMessages")
+  }
 
 }
 

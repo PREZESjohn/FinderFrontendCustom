@@ -1,4 +1,5 @@
 import {User} from './User';
+import {MessageStatus} from './MessageStatus';
 
 export class Message {
   public id:number;
@@ -10,4 +11,5 @@ export class Message {
   public connectedUsers:number[];
   public negative:boolean;
   public type:string;
+  public statuses:MessageStatus[];
 }

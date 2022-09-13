@@ -7,6 +7,7 @@ import {AuthService} from '../../services/auth.service';
 import {Message} from '../../domain/Message';
 import {AlertService} from '../../services/alert.service';
 import {CustomNotification} from '../../domain/CustomNotification';
+import {UnreadMessageCountDTO} from '../../domain/dto/UnreadMessageCountDTO';
 
 @Component({
   selector: 'app-friendlist',
@@ -28,7 +29,9 @@ export class FriendlistComponent implements OnInit {
   public message:Message=new Message();
   public chosenFriend:Friend = null;
   public currentChatId:number;
+  public unreadMessagesNumber=0;
   public eventSource;
+  public unreadMessages = new Map();
 
 
   constructor(private userService: UserService,private authService:AuthService,private alertService:AlertService) {
@@ -45,6 +48,12 @@ export class FriendlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.userService.countUnreadMessages().subscribe((data:any)=>{
+      this.mapUnreadMessages(data);
+    })
+
+
     this.userService.getFriends().subscribe((data:any)=>{
       this.friendList = data;
       this.friendsNumber = this.friendList.length;
@@ -54,6 +63,17 @@ export class FriendlistComponent implements OnInit {
     this.messagesTracker2?.changes.subscribe(this.scrollToBottom);
   }
 
+  mapUnreadMessages(unreadMessagesList:UnreadMessageCountDTO[]){
+    console.log(unreadMessagesList+"OC JEST")
+    if(unreadMessagesList!=null) {
+      this.unreadMessagesNumber = 0;
+      unreadMessagesList.forEach((msg) => {
+        this.unreadMessages.set(msg.userId, msg.count);
+        this.unreadMessagesNumber+=msg.count;
+        console.log(this.unreadMessages.get(msg.userId)+"KLUCZ ITD")
+      })
+    }
+  }
 
   scrollToBottom = () => {
     try {
@@ -85,6 +105,7 @@ export class FriendlistComponent implements OnInit {
         console.log('Connected: ' + frame);
         this.isConnectedToChat = true;
         this.currentChatId=chatId;
+        this.userService.setMessagesAsRead(chatId).subscribe();
         this.chosenFriend = friend;
         this.splitDateInMessages(this.chosenFriend)
         this.ngOnInit();
