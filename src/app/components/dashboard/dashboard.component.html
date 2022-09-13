@@ -16,35 +16,35 @@
       </h2>
         <div class="d-flex card-description mb-2">
           <div class="row card-description ">
-            <div class="col">
+            <div class="col col-lg-3">
             <label class="  mt-2 mr-2" for="categorySelect">Category </label>
             <select id="categorySelect" class="form-control filters mr-3" (change)="changeCategory($event)" style="width: 200px">
               <option class="form-control" ></option>
               <option class="form-control" *ngFor="let category of chosenGame?.categories" >{{category.name}}</option>
             </select>
             </div>
-            <div class="col" [hidden]="chosenGame.name==='IRL'">
+            <div class="col col-lg-3" [hidden]="chosenGame.name==='IRL'">
             <label class="mt-2 mr-2" for="InGameRoleSelect" >Role</label>
             <select id="InGameRoleSelect" class="form-control filters mr-3"  (change)="changeRole($event)" style="width: 200px">
               <option class="form-control"></option>
               <option class="form-control" *ngFor="let role of chosenGame?.inGameRoles">{{role.name}}</option>
             </select>
               </div>
-            <div class="col" [hidden]="chosenGame.name!=='IRL'">
+            <div class="col col-lg-3" [hidden]="chosenGame.name!=='IRL'">
               <label class="mt-2 mr-2" for="InGameRoleSelect">City</label>
               <select id="CitySelect" class="form-control filters  mr-3"  (change)="changeCity($event)" style="width: 200px">
                 <option class="form-control"></option>
                 <option class="form-control" *ngFor="let city of cities">{{city?.name}}</option>
               </select>
             </div>
-            <div class="col pr-1" >
+            <div class="col col-lg-3 pr-1" >
               <label class=" mr-2 mt-2" for="joinCode">Join using code</label>
               <input type="text" class="form-control d-inline" id="joinCode" [(ngModel)]="codeInputValue" >
 <!--            </div>-->
 <!--            <div class="col mt-4 pt-1 pl-0">-->
               <button class=" mt-2 btn  btn-color float-right " (click)="joinByCode()" type="submit">Join</button>
             </div>
-          <div class="col mt-4 pt-1 pr-0 pl-md-5 ml-5">
+          <div class="col col-lg-3 mt-lg-4 mt-md-1 pt-1  pr-0 pl-xl-5 pl-lg-3 pl-md-1 text-md-right">
           <button (click)="createNewGroup()" class="mt-2 btn btn-color " type="submit"> Create own group </button>
           </div>
         </div>
@@ -54,7 +54,7 @@
         <div *ngFor="let groupRoom of groupRooms">
           <div class="card bg-card group-show-card ">
           <div class="row gutters-sm ">
-            <div class="col-md-4 mt-4 card-update ml-lg-4 " (click)="navigateToGroup(groupRoom)">
+            <div class="col-md-4 mt-4 card-update ml-lg-4 ml-md-3" (click)="navigateToGroup(groupRoom)">
               <div class="card mt-2">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
@@ -67,20 +67,20 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-7 mt-4 ml-md-3 pr-3">
+            <div class="col-lg-7 col-md-7 mt-4 ml-md-3 pr-3 pr-md-1">
               <div class="card ">
                 <div class="card-body">
                   <div class="row justify-content-center" >
                     <div class=" flex-column align-items-center text-center p-lg-2" style="width: 100%">
                         <div class=" pr-md-1 justify-content-center">
                           <label class="d-flex justify-content-center title"> Users in group </label>
-                          <div class="row text-center justify-content-center">
-                            <div class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2"
+                          <div class="row text-center justify-content-center mx-1">
+                            <div class="col-md-3 card bg-card card-user col-2 col-sm-2 col-lg-2"
                                  *ngFor=" let user of groupRoom.users | slice:0:groupRoom.maxUsers; let i = index">
                               <img class=" card-img mt-2" alt="icon" [src]="profilePictures.get(user.id)" style="height: 75px;width: 150px">
                               <p class="justify-content-center">{{user.username}}</p>
                             </div>
-                            <div class="col-md-2 card bg-card card-user col-2 col-sm-2 col-lg-2 " style="opacity: 40%"
+                            <div class="col-md-3 card bg-card card-user col-2 col-sm-2 col-lg-2 " style="opacity: 40%"
                                  *ngFor=" let _ of [].constructor(groupRoom.maxUsers-groupRoom.users.length)" >
                               <button class='bg-transparent pt-1 btnNew hover-add mt-2'
                                       (click)="joinGroupMethod(groupRoom.id)"><img class="img-responsive" alt="icon"
