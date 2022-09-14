@@ -172,5 +172,10 @@ export class UserService {
     return this.http.get("http://localhost:8080/api/v1/unreadMessages")
   }
 
+  getChatMessages(chatId){
+    return this.http.get("http://localhost:8080/api/v1/chat/"+chatId)
+  }
+
+
 }
 

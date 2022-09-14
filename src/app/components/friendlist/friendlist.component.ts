@@ -28,6 +28,7 @@ export class FriendlistComponent implements OnInit {
   public messages:Message[]=[];
   public message:Message=new Message();
   public chosenFriend:Friend = null;
+  public chosenFriendMessages:Message[];
   public currentChatId:number;
   public unreadMessagesNumber=0;
   public eventSource;
@@ -43,6 +44,10 @@ export class FriendlistComponent implements OnInit {
       console.log("MESSAGE TYPE - "+msg.type)
       if(msg.type=='FRIENDREQUEST') {
         this.ngOnInit()
+      }else if(msg.type=="PRIVATE_MESSAGE"){
+        this.userService.countUnreadMessages().subscribe((data:any)=>{
+          this.mapUnreadMessages(data);
+        })
       }
     })
   }
@@ -52,7 +57,6 @@ export class FriendlistComponent implements OnInit {
     this.userService.countUnreadMessages().subscribe((data:any)=>{
       this.mapUnreadMessages(data);
     })
-
 
     this.userService.getFriends().subscribe((data:any)=>{
       this.friendList = data;
@@ -64,13 +68,11 @@ export class FriendlistComponent implements OnInit {
   }
 
   mapUnreadMessages(unreadMessagesList:UnreadMessageCountDTO[]){
-    console.log(unreadMessagesList+"OC JEST")
     if(unreadMessagesList!=null) {
       this.unreadMessagesNumber = 0;
       unreadMessagesList.forEach((msg) => {
         this.unreadMessages.set(msg.userId, msg.count);
         this.unreadMessagesNumber+=msg.count;
-        console.log(this.unreadMessages.get(msg.userId)+"KLUCZ ITD")
       })
     }
   }
@@ -89,7 +91,8 @@ export class FriendlistComponent implements OnInit {
     this.friendListClosed = !this.friendListClosed;
   }
 
-  connectPrivateChat(chatId:number,friend:Friend){
+  connectPrivateChat(friend:Friend){
+    const chatId = friend.chatId;
     const headers={
       'Authorization': 'Bearer ' + this.authService.getToken(),
       'chatId': chatId
@@ -106,10 +109,14 @@ export class FriendlistComponent implements OnInit {
         this.isConnectedToChat = true;
         this.currentChatId=chatId;
         this.userService.setMessagesAsRead(chatId).subscribe();
+        this.userService.getChatMessages(chatId).subscribe((msgs:any)=>{
+          this.chosenFriendMessages = msgs;
+          this.splitDateInMessages()
+        });
         this.chosenFriend = friend;
-        this.splitDateInMessages(this.chosenFriend)
         this.ngOnInit();
         this.stompClient.subscribe('/topic/privateMessages/'+chatId, (chatMessage) => {
+          this.userService.setMessagesAsRead(this.currentChatId).subscribe();
           let data = JSON.parse(chatMessage.body)
           data = this.splitDate(data)
           this.messages.push(data);
@@ -118,8 +125,8 @@ export class FriendlistComponent implements OnInit {
     }
   }
 
-  splitDateInMessages(friend){
-    friend.chat.messages.forEach(message=>{
+  splitDateInMessages(){
+    this.chosenFriendMessages.forEach(message=>{
       this.splitDate(message);
     })
   }
@@ -157,4 +164,6 @@ export class FriendlistComponent implements OnInit {
     this.stompClient.send('/app/privateChat/'+chatId,{}, JSON.stringify(this.message));
     this.message.text = '';
   }
+
+
 }

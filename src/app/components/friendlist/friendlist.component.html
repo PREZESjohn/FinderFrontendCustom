@@ -17,7 +17,7 @@
   </button>
   <h6 class="mb-4">Total: {{friendsNumber}}</h6>
   <div class="card textMode" *ngFor="let friend of friendList">
-    <div class="friend-card" (click)="connectPrivateChat(friend.chat?.id,friend)">
+    <div class="friend-card" (click)="connectPrivateChat(friend)">
       <span *ngIf="unreadMessages.get(friend.user.id)!=0" matBadge="{{unreadMessages.get(friend.user.id)}}"></span>
       <h4>{{friend.user?.username}}</h4>
       <h5>Click to open private chat</h5>
@@ -26,7 +26,7 @@
          *ngIf="chosenFriend!=null && chosenFriend.id==friend.id">
       <h5 class="pl-2">MESSAGES:</h5>
       <div #content class=" ps-active-y" style="overflow-y: auto !important; height:250px !important;">
-        <div #messagesTracker1 *ngFor="let message of chosenFriend.chat.messages">
+        <div #messagesTracker1 *ngFor="let message of chosenFriendMessages">
           <div class="media media-chat pt-0 pb-0" *ngIf="message.user.id==chosenFriend.user.id">
             <div class="media-body mt-1">
               <h5 class="font-weight-light mb-1 pl-1 customFont">{{message.user.username}}</h5>
