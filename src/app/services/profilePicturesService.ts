@@ -3,6 +3,7 @@ import {GameDTO} from '../domain/dto/GameDTO';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from './user.service';
 import {GroupRoom} from '../domain/GroupRoom';
+import {Friend} from '../domain/Friend';
 
 @Injectable({providedIn: 'root'})
 export class ProfilePicturesService {
@@ -26,5 +27,12 @@ export class ProfilePicturesService {
   }
   getUsersProfilePictures(){
     return this.usersProfilePictures;
+  }
+  setProfilePicturesForFriends(friendList:Friend[]){
+    friendList.forEach((friend)=>{
+      this.userService.getProfilePicture(friend.user.id).subscribe((data:any)=>{
+        this.usersProfilePictures.set(friend.user.id,this.userService.prepareProfilePicture(data))
+      })
+    })
   }
 }

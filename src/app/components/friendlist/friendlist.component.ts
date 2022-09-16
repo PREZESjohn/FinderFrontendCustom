@@ -8,6 +8,7 @@ import {Message} from '../../domain/Message';
 import {AlertService} from '../../services/alert.service';
 import {CustomNotification} from '../../domain/CustomNotification';
 import {UnreadMessageCountDTO} from '../../domain/dto/UnreadMessageCountDTO';
+import {ProfilePicturesService} from '../../services/profilePicturesService';
 
 @Component({
   selector: 'app-friendlist',
@@ -33,9 +34,10 @@ export class FriendlistComponent implements OnInit {
   public unreadMessagesNumber=0;
   public eventSource;
   public unreadMessages = new Map();
+  public profilePictures = new Map();
 
 
-  constructor(private userService: UserService,private authService:AuthService,private alertService:AlertService) {
+  constructor(private userService: UserService,private authService:AuthService,private profilePictureService:ProfilePicturesService,private alertService:AlertService) {
 
     this.eventSource = this.alertService.getSource();
 
@@ -61,6 +63,10 @@ export class FriendlistComponent implements OnInit {
     this.userService.getFriends().subscribe((data:any)=>{
       this.friendList = data;
       this.friendsNumber = this.friendList.length;
+      if (this.profilePictures.size === 0) {
+        this.profilePictureService.setProfilePicturesForFriends(this.friendList);
+        this.profilePictures = this.profilePictureService.getUsersProfilePictures();
+      }
     })
     this.scrollToBottom();
     this.messagesTracker1?.changes.subscribe(this.scrollToBottom);
