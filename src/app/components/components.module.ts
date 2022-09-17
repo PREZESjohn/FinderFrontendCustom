@@ -33,6 +33,7 @@ import { MiniProfilev2Component } from './other-user-profile/mini-profilev2/mini
 import { DeleteUserComponent } from './sidebar/delete-user/delete-user.component';
 import { FriendlistComponent } from './friendlist/friendlist.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ConfirmDeleteComponent } from './verification/confirm-delete/confirm-delete.component';
 
 
 
@@ -45,7 +46,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent],
+    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmDeleteComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent, FriendlistComponent]
 })
 export class ComponentsModule {

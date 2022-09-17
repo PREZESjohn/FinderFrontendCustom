@@ -9,6 +9,7 @@ import {GroupAddComponent} from '../../../components/group-add/group-add.compone
 import {UserProfileComponent} from '../../../components/user-profile/user-profile.component';
 import {OtherUserProfileComponent} from '../../../components/other-user-profile/other-user-profile.component';
 import {GroupShowComponent} from '../../../components/group-show/group-show.component';
+import {ConfirmDeleteComponent} from '../../../components/verification/confirm-delete/confirm-delete.component';
 
 export const UserLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -17,6 +18,7 @@ export const UserLayoutRoutes: Routes = [
   { path: 'my-groups', component: MyGroupsComponent,canActivate:[AuthGuard] },
   { path: 'home-page', component: HomePageComponent, canActivate:[AuthGuard] },
   { path: 'group-add',component:GroupAddComponent, canActivate: [AuthGuard]},
+  { path: 'deleteAccountConfirm',component:ConfirmDeleteComponent, canActivate: [AuthGuard]},
   { path: 'user-profile',component:UserProfileComponent, canActivate: [AuthGuard]},
   { path: 'profile/:id',component:OtherUserProfileComponent, canActivate: [AuthGuard]},
   { path: 'group-show/:id', component:GroupShowComponent,canActivate:[AuthGuard]}

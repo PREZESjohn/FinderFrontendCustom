@@ -71,6 +71,10 @@ export class AuthService {
 
   }
 
+  confirmDelete(token:string){
+    return this.http.get("http://localhost:8080/api/v1/auth/deleteAccountConfirm?token="+token)
+  }
+
 }
 
 interface TokenResponse {
