@@ -17,31 +17,33 @@
           <h4><img class="pr-1" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 30px;height: 30px"> {{game?.name}}</h4>
         </nav>
         <div  *ngFor="let groupRoom of currentUser?.groupRooms">
-          <div *ngIf="groupRoom.game?.name == game?.name" class="row gutters-sm group-show-card mb-lg-5">
-            <div class="col-md-4 mb-3 mt-2">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
-                    <p class=" mb-1"><h3>{{groupRoom?.name}}</h3>
+          <div *ngIf="groupRoom.game?.name == game?.name" class=" card bg-card group-show-card">
+            <div class="row gutters-sm ">
+              <div class="col-md-4  mt-4 ml-lg-4 ml-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                      <p class=" mb-1"><h3>{{groupRoom?.name}}</h3>
                       <h4>{{groupRoom.category?.name}}</h4>
                       <p class=" mb-1">{{groupRoom.description}}</p>
                       <button class="btn btn-primary"  (click)="navigateToGroup(groupRoom)">Show Group</button>
                       <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'" >Delete</button>
-                    <div *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'">
-                      <mat-slide-toggle class="mt-2" [checked]="!groupRoom.open" (change)="togglePrivate(groupRoom)" >Private </mat-slide-toggle>
+                      <div *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'">
+                        <mat-slide-toggle class="mt-2" [checked]="!groupRoom.open" (change)="togglePrivate(groupRoom)" >Private </mat-slide-toggle>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-8 mt-2">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class=" flex-column align-items-center text-center p-lg-2 col-md-2" *ngFor=" let user of groupRoom?.users; let i = index">
-                      <img class="img-responsive" alt="icon" [src]="usersProfilePictures.get(user.id)" style="height: 100px;width: 100px"/>
-                      <p class="justify-content-center">{{user.username}}</p>
-                      <button class=" btnNew btn-danger text-sm-center" style="width: 80px;height: 30px" *ngIf="user.id == currentUser.id " (click)="leaveGroup(groupRoom.id)">Leave</button>
+              <div class="col-md-7 mt-4 ml-md-3 pr-3 pr-md-1">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row justify-content-center">
+                      <div class=" flex-column align-items-center text-center pt-md-2 p-lg-2 col-sm-5 col-md-3 col-lg-2" *ngFor=" let user of groupRoom?.users; let i = index">
+                        <img class="img-responsive" alt="icon" [src]="usersProfilePictures.get(user.id)" style="height: 100px;width: 100px"/>
+                        <p class="justify-content-center">{{user.username}}</p>
+                        <button class=" btnNew btn-danger text-sm-center" style="width: 80px;height: 30px" *ngIf="user.id == currentUser.id " (click)="leaveGroup(groupRoom.id)">Leave</button>
+                      </div>
                     </div>
                   </div>
                 </div>

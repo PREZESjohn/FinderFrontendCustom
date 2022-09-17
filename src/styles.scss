@@ -79,27 +79,20 @@
 .titleText h1 {
   color: #24eaea;
 }
-/* ################# CHANGING SIZE OF CONTENT #################*/
-@media (min-width: 830px) and (max-width: 860px){
-  .container {
-    max-width: 700px ;
-  }
-}
+/* ################# CHANGING SIZE OF CONTENT/CONTAINER #################*/
 @media (min-width: 805px) and (max-width: 830px){
   .container {
-    margin-right: 0;
-    padding-right: 0;
-    max-width: 700px ;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
   }
 }
 @media (min-width: 768px) and (max-width: 805px){
   .container {
-    margin-right: 0;
-    padding-right: 0;
-    max-width: 700px ;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
   }
   .content{
-    padding-right: 1px;
+    padding-right: 1px !important;
   }
 }
 /* ################# BREADCRUMB ############################ */
@@ -250,28 +243,7 @@ input[type="text"][disabled] {
 .white-content .filters option{
   background-color: rgba(255, 255, 255, 0.37);
 }
-/*@media (min-width: 830px) and (max-width: 860px){
-  .container {
-    max-width: 700px !important;
-  }
-}
-@media (min-width: 805px) and (max-width: 830px){
-  .container {
-    margin-right: 0 !important;
-    padding-right: 0 !important;
-    max-width: 700px !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 805px){
-  .container {
-    margin-right: 0 !important;
-    padding-right: 0 !important;
-    max-width: 700px !important;
-  }
-  .content{
-    padding-right: 1px !important;
-  }
-}*/
+
 /* ##################### NAVBAR #########################
  */
 .arrow {
