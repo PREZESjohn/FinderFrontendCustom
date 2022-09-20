@@ -33,12 +33,14 @@ import { MiniProfilev2Component } from './other-user-profile/mini-profilev2/mini
 import { DeleteUserComponent } from './sidebar/delete-user/delete-user.component';
 import { FriendlistComponent } from './friendlist/friendlist.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { ConfirmDeleteComponent } from './verification/confirm-delete/confirm-delete.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ConfirmEmailChangeComponent } from './verification/confirm-email-change/confirm-email-change.component';
+import { ConfirmRegisterComponent } from './verification/confirm-register/confirm-register.component';
 
 
 
 @NgModule({
-    imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, OverlayModule, MatTooltipModule],
+  imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, OverlayModule, MatTooltipModule, MatProgressSpinnerModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent,
     AlertComponent, UserProfileComponent, GroupAddComponent,
     MyGroupsComponent,
@@ -46,7 +48,7 @@ import { ConfirmDeleteComponent } from './verification/confirm-delete/confirm-de
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmDeleteComponent],
+    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmEmailChangeComponent, ConfirmRegisterComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent, FriendlistComponent]
 })
 export class ComponentsModule {

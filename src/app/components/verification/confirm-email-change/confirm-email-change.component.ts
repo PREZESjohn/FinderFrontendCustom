@@ -3,16 +3,16 @@ import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-confirm-delete',
-  templateUrl: './confirm-delete.component.html',
-  styleUrls: ['./confirm-delete.component.scss']
+  selector: 'app-confirm-email-change',
+  templateUrl: './confirm-email-change.component.html',
+  styleUrls: ['./confirm-email-change.component.scss']
 })
-export class ConfirmDeleteComponent implements OnInit {
+export class ConfirmEmailChangeComponent implements OnInit {
 
   token:string =""
   constructor(private authService:AuthService,private activatedRoute:ActivatedRoute) {
 
-   this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
     })
   }
@@ -21,10 +21,11 @@ export class ConfirmDeleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  confirmDelete(){
+  confirmEmailChange(){
 
     this.authService.confirmDelete(this.token).subscribe(()=>{
       this.authService.logout();
     })
   }
+
 }

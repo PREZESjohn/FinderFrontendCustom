@@ -41,14 +41,16 @@ import { GroupRoomTableComponent } from './admin-components/admin-main-page/admi
 import {MatSortModule} from '@angular/material/sort';
 import { GroupChatLogsDialogComponent } from './admin-components/admin-main-page/admin-main-page/group-chat-logs-dialog/group-chat-logs-dialog.component';
 import {USER_PREVIEW_DIALOG_DATA} from "./components/other-user-profile/mini-profilev2/user-preview-overlay.tokens";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        NoopAnimationsModule,
+        // NoopAnimationsModule,
         FormsModule,
+        MatProgressSpinnerModule,
         HttpClientModule,
         ComponentsModule,
         NgbModule,

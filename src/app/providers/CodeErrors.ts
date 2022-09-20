@@ -13,6 +13,10 @@ export const CodeErrors =  new Map()
   CodeErrors.set("12","Your are already friend with this user")
   CodeErrors.set("13","Chat doesnt exist")
   CodeErrors.set("14","You cant send empty message")
+  CodeErrors.set("15","Token already send")
+  CodeErrors.set("16","Token expired")
+  CodeErrors.set("17","Account not enabled. Check email to enable account.")
+
 
   CodeErrors.set("21","Bad email credentials")
   CodeErrors.set("22","Bad password credentials")

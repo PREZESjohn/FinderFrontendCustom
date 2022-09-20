@@ -8,7 +8,6 @@ export class AuthService {
 
   authUrl = 'http://localhost:8080/api/v1/auth/login';
   registerUrl = 'http://localhost:8080/api/v1/auth/new-account';
-  setupKeyUrl = 'http://localhost:8080/api/v1/auth/key';
 
   constructor(private http: HttpClient) {
   }
@@ -35,25 +34,14 @@ export class AuthService {
     sessionStorage.setItem('token', token);
   }
 
-  setPasswordKeyStorage() {
-    sessionStorage.setItem('key', 'true');
-  }
-
   getPasswordKeyStorage(): any {
     return sessionStorage.getItem('key');
-  }
-
-  flushPasswordKeyStorage(): void {
-    return sessionStorage.removeItem('key');
   }
 
   register(username: string,email:string, password: string): Observable<any> {
     return this.http.post<TokenResponse>(this.registerUrl, {username,email, password});
   }
 
-  setPasswordKey(passwordKey: string): Observable<any> {
-    return this.http.post<TokenResponse>(this.setupKeyUrl, {passwordKey});
-  }
 
   checkIfAdmin(){
       const token = this.getToken();
@@ -63,10 +51,6 @@ export class AuthService {
 
     let isAdmin = decodedJwtData.role
 
-    // console.log('jwtData: ' + jwtData)
-    // console.log('decodedJwtJsonData: ' + decodedJwtJsonData)
-    // console.log('decodedJwtData: ' + decodedJwtData)
-    // console.log('Is admin: ' + isAdmin)
     return isAdmin == 'ROLE_ADMIN';
 
   }
@@ -75,6 +59,9 @@ export class AuthService {
     return this.http.get("http://localhost:8080/api/v1/auth/deleteAccountConfirm?token="+token)
   }
 
+  confirmRegister(token:string){
+    return this.http.get("http://localhost:8080/api/v1/auth/confirmAccountRegister?token="+token)
+  }
 }
 
 interface TokenResponse {

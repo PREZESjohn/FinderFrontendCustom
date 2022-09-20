@@ -13,6 +13,10 @@ import {AuthService} from "../../../services/auth.service";
 })
 export class DeleteUserComponent implements OnInit {
 
+  public token:string ="";
+  public tokenInputMode = false;
+  public isLoading = false;
+
   constructor(private userService: UserService,
               private alertService: AlertService,
               private router: Router,
@@ -24,14 +28,31 @@ export class DeleteUserComponent implements OnInit {
   }
 
   deleteUser() {
+    this.isLoading = true;
     this.userService.deleteUser().subscribe(
       ()=>{
-      this.alertService.success('Account deleted');
+        this.tokenInputMode = true;
+        this.isLoading = false;
+      },
+      (e)=> {
+        if (e.error.code == "15") {
+          this.tokenInputMode = true;
+          this.isLoading = false;
+        } else {
+          this.alertService.error(CodeErrors.get(e.error.code));
+        }
+      })
+  }
+
+  confirmDelete(){
+    this.authService.confirmDelete(this.token).subscribe(()=>{
       this.dialogRef.close();
-      this.authService.logout()
+      this.authService.logout();
       this.router.navigateByUrl('/login');
-    },(e)=>{
+    },
+      (e)=>{
         this.alertService.error(CodeErrors.get(e.error.code));
       })
   }
+
 }

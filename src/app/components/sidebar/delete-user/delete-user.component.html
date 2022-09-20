@@ -1,11 +1,30 @@
-<h1 mat-dialog-title >Delete account</h1>
+<h1 mat-dialog-title>Delete account</h1>
 <app-alert></app-alert>
-<div mat-dialog-content style="width:100%"  class="justify-content-center" >
-  <div>
-    <h3>Do you want to delete your accoun?</h3>
+<div *ngIf="!tokenInputMode">
+  <div mat-dialog-content style="width:100%" class="justify-content-center">
+    <div>
+      <h3>Do you want to delete your account?</h3>
+      <mat-spinner *ngIf="isLoading" diameter="40"></mat-spinner>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-dialog-close class="btn btn-info">No</button>
+    <button (click)="deleteUser()" class="btn btn-info">Yes</button>
   </div>
 </div>
-<div mat-dialog-actions>
-  <button  mat-dialog-close class="btn btn-info">NO</button>
-  <button   (click)="deleteUser()" class="btn btn-info" >Yes</button>
+<div *ngIf="tokenInputMode">
+  <div mat-dialog-content style="width:100%" class="justify-content-center">
+    <div>
+      <h3 class="mb-1 pb-1">Verification token has been send</h3>
+      <p>Enter token</p>
+      <div class="col-sm-9 pl-0 textMode">
+        <input type="text" class="form-control" [(ngModel)]="token" >
+      </div>
+<!--      <input class="textMode" [(ngModel)]="token" matInput type="text" >-->
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-dialog-close class="btn btn-info">Cancel</button>
+    <button (click)="confirmDelete()" class="btn btn-info">Confirm</button>
+  </div>
 </div>

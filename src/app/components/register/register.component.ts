@@ -9,6 +9,7 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {CustomValidators} from "../../providers/CustomValidators";
+import {CodeErrors} from '../../providers/CodeErrors';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,8 @@ export class RegisterComponent implements OnInit {
   loginFormGroup: FormGroup;
   selected: string;
   fieldTextType: boolean;
+  public isLoading = false;
+  public isEmailSend = false;
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
@@ -45,18 +48,18 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if(this.loginFormGroup.valid){
+      this.isLoading = true;
     this.authService.register(
       this.loginFormGroup.get('user').get('username').value,
       this.loginFormGroup.get('user').get('email').value,
       this.loginFormGroup.get('user').get('password').value).subscribe({
         next: response => {
-          if(response?.token == null){
-            this.alertService.error("User with this username already exist");
-          }else{
-          this.authService.setToken(response.token);
-          this.redirectToDashboard();}
+            this.isEmailSend = true;
         },
         error: err => {
+          this.isEmailSend = false;
+          this.isLoading = false;
+          this.alertService.error(CodeErrors.get(err.error.code))
         }
       }
     );}
@@ -73,11 +76,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  private redirectToDashboard() {
-    this.router.navigateByUrl('').then(()=>{
-      const temp =  this.alertService.getSource();
-    });
-  }
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
