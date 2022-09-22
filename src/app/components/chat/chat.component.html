@@ -1,6 +1,10 @@
 <div class="border-light col-lg-12 bg-line mb-3 " style="height: 1px"></div>
 <h2 class="text-center mb-2">Chat</h2>
-<div #content class="ps-container ps-theme-default bg-chat ps-active-y" id="chat-content"
+<div *ngIf="!isConnected" class="ps-container ps-theme-default blur bg-chat ps-active-y"
+      style="height:400px !important;">
+  <span class="textMode">Join group to connect </span>
+</div>
+<div #content *ngIf="isConnected" class="ps-container ps-theme-default bg-chat ps-active-y" id="chat-content"
      style="overflow-y: auto !important; height:400px !important;">
   <div class="border-light col-md-12 bg-line mb-3 mt-1 " style="height: 1px"></div>
   <div #messagesTracker *ngFor="let mg of messages">
@@ -36,7 +40,7 @@
   </div>
 </div>
 
-<div class="publisher bt-1 border-light ">
+<div [className]="isConnected ? 'publisher bt-1 border-light' : 'publisher bt-1 border-light blur'" >
   <img class="avatar avatar-xs img-responsive " style="height: 30px;width: 30px" src="assets/img/default-avatar.png"
        alt="...">
   <input #inpt class="publisher-input textMode " type="text" value="{{message.text}}" placeholder="Write something"

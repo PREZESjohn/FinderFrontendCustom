@@ -17,3 +17,27 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #000000;
 }
+
+.blur {
+  position:relative;
+  text-align:center;
+}
+.blur:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: inherit;
+  filter: blur(5px);
+  z-index:0;
+}
+
+.blur span{
+  position:relative;
+  filter:none;
+  font-size:40px;
+  top:45%;
+  z-index:1;
+}
