@@ -26,15 +26,14 @@ export class ConfirmRegisterComponent implements OnInit {
   confirmRegister(){
     this.authService.confirmRegister(this.token).subscribe((response:any)=>{
       this.authService.setToken(response.token);
-      window.setTimeout(()=>{
         this.redirectToDashboard()
-      },8000)
     })
   }
 
   private redirectToDashboard() {
     this.router.navigateByUrl('').then(()=>{
       const temp =  this.alertService.getSource();
+      this.alertService.success("You successfully enabled your account")
     });
   }
 

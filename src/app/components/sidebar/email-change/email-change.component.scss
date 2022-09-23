@@ -1,0 +1,6 @@
+::ng-deep mat-dialog-container {
+  background-color: #0f1a26 !important;
+}
+::ng-deep .white-content mat-dialog-container {
+  background: linear-gradient(to bottom right,#cbb5c7,white) !important;
+}

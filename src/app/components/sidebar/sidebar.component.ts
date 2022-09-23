@@ -10,6 +10,7 @@ import {ChangePasswordComponent} from "../user-profile/change-password/change-pa
 import {DeleteUserComponent} from "./delete-user/delete-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AlertService} from '../../services/alert.service';
+import {EmailChangeComponent} from './email-change/email-change.component';
 
 declare interface RouteInfo {
   path: string;
@@ -188,6 +189,14 @@ export class SidebarComponent implements OnInit,OnDestroy {
   }
   openDeleteUser(){
     this.dialog.open(DeleteUserComponent,{
+      closeOnNavigation: false,
+      width:"30%",
+      height:"30%"
+    })
+  }
+
+  openEmailChange(){
+    this.dialog.open(EmailChangeComponent,{
       closeOnNavigation: false,
       width:"30%",
       height:"30%"

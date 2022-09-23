@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AlertService} from '../../../services/alert.service';
 
 @Component({
   selector: 'app-confirm-email-change',
@@ -10,7 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 export class ConfirmEmailChangeComponent implements OnInit {
 
   token:string =""
-  constructor(private authService:AuthService,private activatedRoute:ActivatedRoute) {
+  constructor(private authService:AuthService,private activatedRoute:ActivatedRoute,private router:Router, private alertService:AlertService) {
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
@@ -19,13 +20,20 @@ export class ConfirmEmailChangeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.confirmEmailChange();
   }
 
   confirmEmailChange(){
 
-    this.authService.confirmDelete(this.token).subscribe(()=>{
-      this.authService.logout();
+    this.authService.confirmEmailChange(this.token).subscribe((token:any)=>{
+      this.authService.setToken(token.token)
+      this.redirectToDashboard();
     })
   }
-
+  private redirectToDashboard() {
+    this.router.navigateByUrl('').then(()=>{
+      const temp =  this.alertService.getSource();
+      this.alertService.success("Email changes succesfully")
+    });
+  }
 }

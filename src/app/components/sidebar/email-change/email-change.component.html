@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Email change</h1>
+<app-alert></app-alert>
+<div *ngIf="inputMode">
+  <div mat-dialog-content style="width:100%" class="justify-content-center">
+    <div>
+      <h3>Please type your new e-mail</h3>
+      <div class="col-sm-9 pl-0 textMode">
+        <input type="text" class="form-control" [(ngModel)]="email" >
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-dialog-close class="btn btn-info">Cancel</button>
+    <button (click)="changeEmail()" class="btn btn-info">Change email</button>
+  </div>
+</div>
+<div *ngIf="!inputMode">
+  <div mat-dialog-content style="width:100%" class="justify-content-center">
+    <div>
+      <h3 class="mb-1 pb-1">In order to verify your request we send email to your current email address</h3>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-dialog-close class="btn btn-info">Confirm</button>
+  </div>
+</div>

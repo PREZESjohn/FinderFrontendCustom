@@ -36,6 +36,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ConfirmEmailChangeComponent } from './verification/confirm-email-change/confirm-email-change.component';
 import { ConfirmRegisterComponent } from './verification/confirm-register/confirm-register.component';
+import { EmailChangeComponent } from './sidebar/email-change/email-change.component';
 
 
 
@@ -48,7 +49,7 @@ import { ConfirmRegisterComponent } from './verification/confirm-register/confir
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmEmailChangeComponent, ConfirmRegisterComponent],
+    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmEmailChangeComponent, ConfirmRegisterComponent, EmailChangeComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent, FriendlistComponent]
 })
 export class ComponentsModule {
