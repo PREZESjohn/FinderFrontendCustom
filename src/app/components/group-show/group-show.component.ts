@@ -57,7 +57,7 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     this.isInGroupRoomView = true;
     this.id = +this.route.snapshot.paramMap.get('id');
     this.source = this.alertService.getSource()
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.source.addEventListener('message', message => this.notificationMethod(message))
     this.dialog.closeAll();
 
