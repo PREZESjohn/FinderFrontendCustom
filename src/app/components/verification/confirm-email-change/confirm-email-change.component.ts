@@ -15,6 +15,7 @@ export class ConfirmEmailChangeComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
+      console.log(this.token)
     })
   }
 
@@ -25,15 +26,14 @@ export class ConfirmEmailChangeComponent implements OnInit {
 
   confirmEmailChange(){
 
-    this.authService.confirmEmailChange(this.token).subscribe((token:any)=>{
-      this.authService.setToken(token.token)
+    this.authService.confirmEmailChange(this.token).subscribe(()=>{
       this.redirectToDashboard();
     })
   }
   private redirectToDashboard() {
-    this.router.navigateByUrl('').then(()=>{
+    this.router.navigateByUrl('/dashboard').then(()=>{
       const temp =  this.alertService.getSource();
-      this.alertService.success("Email changes succesfully")
+      this.alertService.success("Email changed succesfully")
     });
   }
 }

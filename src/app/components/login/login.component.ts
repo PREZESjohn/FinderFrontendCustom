@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
-import {Error} from '../../domain/Error';
-import {COMMON_ERROR_MESSAGE} from '../../domain/CommonMessages';
-import {Message} from '../../domain/Message';
 import {CodeErrors} from '../../providers/CodeErrors';
 declare let EventSource:any;
 
@@ -18,12 +15,19 @@ export class LoginComponent implements OnInit {
 
   loginFormGroup: FormGroup;
   fieldTextType: boolean;
-
+  returnUrl = '';
+  tokenParam = '';
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
               private router: Router,
+              private route:ActivatedRoute,
               private alertService: AlertService) {
+    this.route.queryParams
+      .subscribe(params => {
+        this.returnUrl = params.returnUrl;
+        this.tokenParam = params.token
+      })
   }
 
   ngOnInit(): void {
@@ -51,12 +55,16 @@ export class LoginComponent implements OnInit {
             if(this.authService.checkIfAdmin()){
               this.router.navigateByUrl('admin/admin-main-page')
             }else{
-              this.router.navigateByUrl('').then(()=>{
-               const temp =  this.alertService.getSource();
-              })
-
+              if(this.returnUrl !== undefined && this.tokenParam !== undefined) {
+                this.router.navigateByUrl('/' + this.returnUrl + "?token="+this.tokenParam).then(() => {
+                  const temp = this.alertService.getSource();
+                })
+              }else {
+                this.router.navigateByUrl('').then(() => {
+                  const temp = this.alertService.getSource();
+                })
+              }
             }
-            // window.location.reload();
           },
           error => {
             this.alertService.error(CodeErrors.get(error.error.code));

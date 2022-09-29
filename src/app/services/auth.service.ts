@@ -56,6 +56,26 @@ export class AuthService {
     return isAdmin == 'ROLE_ADMIN';
 
   }
+  checkToken(){
+    if(this.getToken()) {
+      const token = this.getToken();
+      try {
+        let jwtData = token.split('.')[1]
+        let decodedJwtJsonData = window.atob(jwtData)
+        let decodedJwtData = JSON.parse(decodedJwtJsonData)
+
+        let role = decodedJwtData.role
+
+        return role == 'ROLE_USER' || role =="ROLE_ADMIN";
+      }catch(e){
+        this.logout()
+        return false;
+      }
+    }else{
+      return false;
+    }
+
+  }
 
   confirmDelete(token:string){
     return this.http.get(this.baseUrl+"/deleteAccountConfirm?token="+token)
