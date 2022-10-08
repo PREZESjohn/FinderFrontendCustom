@@ -7,6 +7,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {Report} from '../../domain/Report';
 import {CodeErrors} from '../../providers/CodeErrors';
 import {CategoryService} from '../../services/categoryService';
+import {Platform} from '../../domain/Platform';
 
 @Component({
   selector: 'app-other-user-profile',
@@ -19,6 +20,7 @@ export class OtherUserProfileComponent implements OnInit {
   chosenUserId;
   lastUrl = ''
   profilePicture=null;
+  platformMap = new Map();
   public games;
 
   constructor(private userService: UserService, private alertService: AlertService, private router: Router,private categoryService:CategoryService, private route:ActivatedRoute) {
@@ -29,6 +31,9 @@ export class OtherUserProfileComponent implements OnInit {
     this.userService.getProfile(this.chosenUserId).subscribe(
       (data:any) => {
         this.user = data
+
+        this.mapPlatforms(this.user.platforms);
+
         this.userService.getProfilePicture(data.id).subscribe((d:any)=>{
           this.profilePicture = this.userService.prepareProfilePicture(d);
         })
@@ -46,6 +51,14 @@ export class OtherUserProfileComponent implements OnInit {
       this.games = this.categoryService.getAllGames();
     }
 
+  }
+
+  mapPlatforms(platforms:Platform[]){
+    if (platforms != undefined) {
+      platforms.forEach((platform) => {
+        this.platformMap.set(platform.platformType, platform);
+      })
+    }
   }
 
   reportUser(reason:string){

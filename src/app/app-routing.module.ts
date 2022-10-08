@@ -12,6 +12,8 @@ const routes: Routes = [
     redirectTo: 'home-page',
     pathMatch: 'full'
   },
+
+
   {
     path: '',
     component: UserLayoutComponent,
@@ -33,10 +35,6 @@ const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'dashboard'
-  // },
 ];
 
 @NgModule({
@@ -44,7 +42,7 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: true
+      onSameUrlNavigation:'reload',
     })
   ],
   exports: [RouterModule]

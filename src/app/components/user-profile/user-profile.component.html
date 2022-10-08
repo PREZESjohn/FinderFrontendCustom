@@ -73,7 +73,8 @@
                   </svg>
                   Steam
                 </h6>
-                <span class="textMode">Evistix</span>
+                <span class="textMode" *ngIf="platformMap.get('STEAM')">{{platformMap.get("STEAM").username}}</span>
+                <span class="textMode" *ngIf="!platformMap.get('STEAM')">N/A</span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap bg-change">
                 <h6 class="mb-0">
@@ -85,7 +86,8 @@
                   </svg>
                   Riot Games
                 </h6>
-                <span class="textMode">Yarkiel</span>
+                <span class="textMode" *ngIf="platformMap.get('RIOTGAMES')">{{platformMap.get("DISCORD").username}}</span>
+                <span class="textMode" *ngIf="!platformMap.get('RIOTGAMES')">N/A</span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap bg-change">
                 <h6 class="mb-0">
@@ -96,7 +98,8 @@
                   </svg>
                   Discord
                 </h6>
-                <span class="textMode">Levi#2232</span>
+                <span class="textMode" *ngIf="platformMap.get('DISCORD')">{{platformMap.get("DISCORD").username+'#'+platformMap.get("DISCORD").discriminator}}</span>
+                <span class="textMode" *ngIf="!platformMap.get('DISCORD')">N/A</span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap bg-change">
                 <h6 class="mb-0">
@@ -107,7 +110,8 @@
                   </svg>
                   Facebook
                 </h6>
-                <span class="textMode">Evi</span>
+                <span *ngIf="platformMap.get('FACEBOOK')" class="textMode">{{platformMap.get("FACEBOOK").username}}</span>
+                <span class="textMode" *ngIf="!platformMap.get('FACEBOOK')">N/A</span>
               </li>
             </ul>
           </div>

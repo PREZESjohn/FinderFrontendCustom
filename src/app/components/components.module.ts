@@ -37,6 +37,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ConfirmEmailChangeComponent } from './verification/confirm-email-change/confirm-email-change.component';
 import { ConfirmRegisterComponent } from './verification/confirm-register/confirm-register.component';
 import { EmailChangeComponent } from './sidebar/email-change/email-change.component';
+import { DiscordAddComponent } from './verification/plugins/discord-add/discord-add.component';
 
 
 
@@ -49,7 +50,7 @@ import { EmailChangeComponent } from './sidebar/email-change/email-change.compon
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmEmailChangeComponent, ConfirmRegisterComponent, EmailChangeComponent],
+    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmEmailChangeComponent, ConfirmRegisterComponent, EmailChangeComponent, DiscordAddComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent, FriendlistComponent]
 })
 export class ComponentsModule {

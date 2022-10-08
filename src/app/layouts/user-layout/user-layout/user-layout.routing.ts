@@ -11,6 +11,7 @@ import {OtherUserProfileComponent} from '../../../components/other-user-profile/
 import {GroupShowComponent} from '../../../components/group-show/group-show.component';
 import {ConfirmRegisterComponent} from '../../../components/verification/confirm-register/confirm-register.component';
 import {ConfirmEmailChangeComponent} from '../../../components/verification/confirm-email-change/confirm-email-change.component';
+import {DiscordAddComponent} from '../../../components/verification/plugins/discord-add/discord-add.component';
 
 export const UserLayoutRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -23,5 +24,6 @@ export const UserLayoutRoutes: Routes = [
   {path: 'emailChangeConfirm', component: ConfirmEmailChangeComponent,canActivate: [AuthGuard]},
   {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile/:id', component: OtherUserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'discord-add', component: DiscordAddComponent, canActivate: [AuthGuard]},
   {path: 'group-show/:id', component: GroupShowComponent, canActivate: [AuthGuard]}
 ]

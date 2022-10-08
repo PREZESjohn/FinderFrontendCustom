@@ -1,4 +1,5 @@
 import {InGameRoles} from './InGameRoles';
+import {Platform} from '../Platform';
 
 export class UserDTO{
   public id:number;
@@ -10,4 +11,5 @@ export class UserDTO{
   public phone:number;
   public city:string;
   public inGameRoles: InGameRoles[];
+  public platforms:Platform[];
 }

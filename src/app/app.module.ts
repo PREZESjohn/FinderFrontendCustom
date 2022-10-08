@@ -42,6 +42,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { GroupChatLogsDialogComponent } from './admin-components/admin-main-page/admin-main-page/group-chat-logs-dialog/group-chat-logs-dialog.component';
 import {USER_PREVIEW_DIALOG_DATA} from "./components/other-user-profile/mini-profilev2/user-preview-overlay.tokens";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {APP_BASE_HREF, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 
 @NgModule({
@@ -78,7 +79,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-  }],
-  bootstrap: [AppComponent]
+  }
+  ,
+    {provide: APP_BASE_HREF, useValue : '/' }
+    ,Location, {provide: LocationStrategy, useClass: PathLocationStrategy}
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

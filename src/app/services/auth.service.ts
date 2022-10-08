@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserCredentials} from '../domain/UserCredentials';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {EmailDto} from '../domain/dto/EmailDto';
 
 @Injectable({providedIn: 'root'})
@@ -92,6 +92,7 @@ export class AuthService {
   confirmEmailChange(token:string){
     return this.http.get(this.baseUrl + "/confirmEmailChange?token="+token)
   }
+
 
 }
 
