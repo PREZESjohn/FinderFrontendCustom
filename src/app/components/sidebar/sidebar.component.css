@@ -151,12 +151,15 @@ body.dark .home .text{
 .bg-opacity{
   opacity:1 !important;
 }
-
+a .arrow{
+  cursor:pointer;
+}
 
 /* Google Fonts Import Link */
 
 .sidebar .dropdown{
-  display: block;
+  display: inline;
+  position: relative;
 
 }.sidebar .dropdown li{
   height: 20px;
@@ -173,6 +176,7 @@ body.dark .home .text{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 /*.sidebar.close .menu-bar .menu  li .iocn-link{
   display: block
@@ -212,6 +216,7 @@ body.dark .home .text{
 }
 .sidebar .menu-bar .menu  li.showMenu .sub-menu{
   display: block;
+  position: relative;
 }
 .sidebar .menu-bar .menu  li .sub-menu a{
   color: #fff;
@@ -242,6 +247,8 @@ body.dark .home .text{
   pointer-events: auto;
   /*transition: all 0.4s ease;*/
 }
+
+/*nowe*/
 
 
 

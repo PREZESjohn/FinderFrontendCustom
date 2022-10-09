@@ -1,4 +1,4 @@
-<nav [ngClass]="isOpen ? 'sidebar open bg-opacity' : 'sidebar close bg-opacity' " (mouseenter)="sidebarShow()" (mouseleave)="sidebarHide()" >
+<nav [ngClass]="isOpen ? 'sidebar open bg-opacity' : 'sidebar open bg-opacity' " (mouseenter)="sidebarShow()" (mouseleave)="sidebarHide()" >
   <header>
     <div class="image-text">
                 <span class="image">
@@ -44,15 +44,15 @@
         </li>
 
         <li class="nav-link dropdown">
-          <div class="iocn-link">
-          <a >
-            <i class='bx bx-plug icon' ></i>
-            <span class="text nav-text">Plugins</span>
-          </a>
+          <a class="iocn-link " >
+            <a class="arrow">
+              <i class='bx bx-plug icon dropTrigger' ></i>
+              <span class="text nav-text dropTrigger">Plugins</span>
+            </a>
             <i class='bx bxs-chevron-down arrow' ></i>
-          </div>
+
+          </a>
           <ul class="sub-menu">
-            <li><a style="cursor: pointer" >Facebook</a></li>
             <li><a style="cursor: pointer" href="https://discord.com/api/oauth2/authorize?client_id=1027987598318243850&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fdiscord-add&response_type=token&scope=identify">Discord</a></li>
             <li><a style="cursor: pointer" >Steam</a></li>
             <li><a style="cursor: pointer" >Riot Games</a></li>
@@ -62,9 +62,9 @@
 
         <li class="nav-link dropdown">
           <div class="iocn-link">
-            <a>
-              <i class='bx bx-cog icon' ></i>
-              <span class="text nav-text link_name">Settings</span>
+            <a class="arrow">
+              <i class='bx bx-cog icon dropTrigger' ></i>
+              <span class="text nav-text dropTrigger">Settings</span>
             </a>
             <i class='bx bxs-chevron-down arrow' ></i>
           </div>
