@@ -10,6 +10,7 @@ import {InGameRoles} from '../../domain/dto/InGameRoles';
 import {CodeErrors} from '../../providers/CodeErrors';
 import {MatDialog} from '@angular/material/dialog';
 import {Platform} from '../../domain/Platform';
+import {cityList} from "../../providers/Cities";
 
 @Component({
   selector: 'app-user-profile',
@@ -28,6 +29,8 @@ export class UserProfileComponent implements OnInit {
   pictureFile = null;
   isPictureChanged = false;
   platformMap = new Map();
+  cities;
+  city;
 
   constructor(private userService: UserService,
               private formBuilder: FormBuilder,
@@ -36,6 +39,8 @@ export class UserProfileComponent implements OnInit {
               private activeRoute: ActivatedRoute,
               private alertService: AlertService,
               public dialog: MatDialog) {
+    this.cities = cityList;
+    this.city = cityList[0].name
   }
 
   ngOnInit(): void {
@@ -228,4 +233,11 @@ export class UserProfileComponent implements OnInit {
   }
 
 
+  public changeCity(e) {
+    const temp = this.cities.map(a =>{ if(a.name === e.target.value){return a}else return
+    }).filter((value)=>{return value !== undefined});
+    this.city = temp[0];
+    this.profileEditForm.get('editUserProfile').get('city').setValue(e.target.value,{onlySelf:true});
+    //this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers,{onlySelf:true})
+  }
 }
