@@ -9,4 +9,5 @@ export class UserPreviewOverlayRef {
   close(): void {
     this.overlayRef.dispose();
   }
+
 }

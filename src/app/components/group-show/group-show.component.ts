@@ -227,7 +227,7 @@ export class GroupShowComponent implements OnInit, OnDestroy {
       closeOnNavigation: true,
       disableClose: true,
       width: '50%',
-      height: '50%',
+      height: '60%',
       data: {
         groupRoom: {
           id: this.currentGroup.id,
@@ -257,12 +257,18 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   showPreview(evt: MouseEvent, user: User){
     const target = new ElementRef(evt.currentTarget);
     //console.log(user);
-    this.dialogRef = this.previewDialog.open(target, user);
+    setTimeout(()=>{
+      this.dialogRef = this.previewDialog.open(target, user);
+    },200)
+    //this.dialogRef = this.previewDialog.open(target, user);
     /*setTimeout(()=>{
       this.dialogRef.close()
     },2000);*/
   }
   closePreview(){
-    this.dialogRef.close()
+    setTimeout(()=>{
+      this.dialogRef.close()
+    },100);
+
   }
 }
