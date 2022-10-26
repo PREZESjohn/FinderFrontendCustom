@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {GroupRoom} from '../../domain/GroupRoom';
 import {User} from '../../domain/User';
 import {GroupRoomService} from '../../services/group-room.service';
@@ -18,6 +18,7 @@ import {InGameRoles} from '../../domain/dto/InGameRoles';
 import {Overlay, OverlayRef} from "@angular/cdk/overlay";
 import {MiniProfilOverlayService} from "../../services/mini-profil-overlay.service";
 import {UserPreviewOverlayRef} from "../other-user-profile/mini-profilev2/user-preview-overlay-ref";
+import {debounceTime, fromEvent} from "rxjs";
 
 
 @Component({
@@ -42,7 +43,10 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   isOpen: boolean;
   private overlayRef: OverlayRef;
   public dialogRef: UserPreviewOverlayRef;
-
+  overlayOpen:boolean;
+  @ViewChild('img-responsive img-thumbnail mt-1') private overlayElem: ElementRef;
+  miniProfileUser: User;
+  timeoutId: any;
   constructor(private groupRoomService: GroupRoomService,
               private alertService: AlertService,
               private userService: UserService,
@@ -55,6 +59,7 @@ export class GroupShowComponent implements OnInit, OnDestroy {
               private previewDialog: MiniProfilOverlayService) {
 
     this.isInGroupRoomView = true;
+    this.overlayOpen=false;
     this.id = +this.route.snapshot.paramMap.get('id');
     this.source = this.alertService.getSource()
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -94,7 +99,9 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   }
 
   navigateToProfile(profile) {
-    this.dialogRef.close();
+
+      this.dialogRef.close();
+
     this.router.navigate(['/profile/', profile.id])
   }
 
@@ -248,27 +255,21 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     });
   }
 
-  /*open(){
-    this.overlayRef=this.overlay.create();
-    const componentPortal=new ComponentPortal(TestComponent);
-    this.overlayRef.addPanelClass("example-overlay");
-    this.overlayRef.attach(componentPortal)
-  }*/
   showPreview(evt: MouseEvent, user: User){
     const target = new ElementRef(evt.currentTarget);
-    //console.log(user);
-    setTimeout(()=>{
-      this.dialogRef = this.previewDialog.open(target, user);
-    },200)
-    //this.dialogRef = this.previewDialog.open(target, user);
-    /*setTimeout(()=>{
-      this.dialogRef.close()
-    },2000);*/
+    this.dialogRef = this.previewDialog.open(target, user);
   }
   closePreview(){
-    setTimeout(()=>{
-      this.dialogRef.close()
-    },100);
+
+    if(this.dialogRef!=null){
+      const overlayElems = document.querySelectorAll('.cdk-overlay-connected-position-bounding-box');
+      if(overlayElems !=null){
+        overlayElems.forEach(box => {
+          box.remove();
+        });
+      }
+    }
 
   }
+
 }

@@ -1,4 +1,4 @@
-<nav class=" navbar navbar-expand-md  navbar-transparent float-right" style="width: 75%">
+<nav class=" navbar navbar-expand-sm  navbar-transparent float-right" style="width: 75%">
   <div class=" container-fluid">
   </div>
   <div class=" navbar-collapse " id="navigation">
@@ -15,9 +15,9 @@
         </button>
       </mat-menu>
     </div>
-    <div class=" navbar-nav ml-5 pr-2 ">
+    <div class=" navbar-nav ml-md-5 ml-3 pr-md-2 ">
 
-      <button mat-button [matMenuTriggerFor]="beforeMenu">
+      <button mat-button [matMenuTriggerFor]="beforeMenu" class="px-1 ">
         <mat-icon *ngIf="notificationsNumber!==0" matBadge="{{notificationsNumber}}" matBadgeColor="warn"
                   aria-hidden="false">
           <span class="material-symbols-outlined">notifications</span>
@@ -44,9 +44,9 @@
 
     </div>
 
-    <div class=" navbar-nav pr-2 ">
+    <div class=" navbar-nav pr-md-2 ">
 
-      <button mat-button [matMenuTriggerFor]="friendList">
+      <button mat-button [matMenuTriggerFor]="friendList" class="px-1">
         <mat-icon *ngIf="friendRequestsNumber!==0" matBadge="{{friendRequestsNumber}}" matBadgeColor="warn"
                   aria-hidden="false">
           <span class="material-symbols-outlined">group</span>
@@ -68,7 +68,7 @@
 
     </div>
 
-    <ul class=" navbar-nav ml-2 ">
+    <ul class=" navbar-nav ml-md-2 ">
       <li class=" nav-item justify-content-center" routerLinkActive="true">
         <div class=" photo justify-content-center">
           <a [routerLink]="'/user-profile'"><img alt="Profile Photo" [src]="profilePicture"/></a>

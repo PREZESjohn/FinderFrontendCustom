@@ -12,3 +12,7 @@
 ::ng-deep .friendRequest .mat-menu-item{
   line-height: 10px !important;
 }
+/*.mat-icon{
+  height: 32px !important;
+  width: 32px !important;
+}*/

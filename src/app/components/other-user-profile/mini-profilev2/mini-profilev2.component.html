@@ -2,7 +2,7 @@
   <div class="container ">
 
       <div class="row ">
-        <div class="col my-2 ml-2">
+        <div class="col-5  ml-2">
           <div class="row">
             <img class="img-responive img-thumbnail "alt="icon" [src]="usersProfilePictures.get(user.id)" style="height: 75px;width:75px;">
           </div>
@@ -10,7 +10,7 @@
             <h4>{{user.username}}</h4>
           </div>
         </div>
-        <div class="col-md-auto  justify-content-center">
+        <div class="col-6  pl-1 justify-content-end">
           <div class="d-block  justify-content-center pt-3 " *ngFor="let game of games">
             <div *ngIf="game.assignRolesActive">
               <img class="" src="assets/img/{{game?.name}}.jpg" alt="" style="width: 20px;height: 20px">

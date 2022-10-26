@@ -55,12 +55,6 @@ export class MiniProfilOverlayService {
     return containerRef.instance;
   }
   private createInjector(config: UserPreviewDialogConfig, dialogRef: UserPreviewOverlayRef): PortalInjector {
-    /*const injectionTokens = new WeakMap();
-
-    injectionTokens.set(UserPreviewOverlayRef, dialogRef);
-    injectionTokens.set(USER_PREVIEW_DIALOG_DATA, config.user);
-
-    return new PortalInjector(this.injector, injectionTokens);*/
     const inj= Injector.create({
       parent: this.injector,
       providers:[
