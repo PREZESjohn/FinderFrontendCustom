@@ -39,6 +39,7 @@ import { ConfirmRegisterComponent } from './verification/confirm-register/confir
 import { EmailChangeComponent } from './sidebar/email-change/email-change.component';
 import { DiscordAddComponent } from './verification/plugins/discord-add/discord-add.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { TermComponent } from './term/term.component';
 
 
 
@@ -51,7 +52,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     OtherUserProfileComponent,
     ChatComponent,
     ChangePasswordComponent,
-    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmEmailChangeComponent, ConfirmRegisterComponent, EmailChangeComponent, DiscordAddComponent],
+    EditGroupComponent, MiniProfilev2Component, DeleteUserComponent, FriendlistComponent, ConfirmEmailChangeComponent, ConfirmRegisterComponent, EmailChangeComponent, DiscordAddComponent, TermComponent],
     exports: [FooterComponent, NavbarComponent, SidebarComponent, AlertComponent, OtherUserProfileComponent, FriendlistComponent]
 })
 export class ComponentsModule {

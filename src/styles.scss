@@ -79,6 +79,17 @@
 .titleText h1 {
   color: #24eaea;
 }
+/* #################### FOOTER ####################### */
+.main-panel .footer{
+ padding-left: 78px;
+  padding-bottom: 0px;
+  background: linear-gradient(to bottom right,#0d1f30fa, #1e1e24);
+
+}
+.white-content .footer{
+  background: linear-gradient(to bottom right,#f5f6fa, #cbb5c7);
+}
+
 /* ################# CHANGING SIZE OF CONTENT/CONTAINER #################*/
 @media (min-width: 805px) and (max-width: 830px){
   .container {

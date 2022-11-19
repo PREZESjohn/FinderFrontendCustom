@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TermComponent} from "../term/term.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-footer',
@@ -10,4 +12,6 @@ export class FooterComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+
 }
