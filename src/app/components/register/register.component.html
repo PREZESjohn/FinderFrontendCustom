@@ -58,8 +58,16 @@
                                [type]="fieldTextType ? 'text' : 'password'" formControlName="repeatPassword"/>
 
                       </div>
-                      <label> Do you accept terms ?</label>
-                      <input type="checkbox" class="checkTerms" formControlName="checkTerm"/>
+                      <div class="d-flex">
+                        <input type="checkbox" class="checkTerms" formControlName="checkTerm"/>
+                        <label class=""> Do you accept
+                          <a style="cursor: pointer; color: #ba54f5;" (click)="openTerm()">  terms</a>?
+                        </label>
+
+
+
+                      </div>
+
                     </div>
                   </div>
                 </div>

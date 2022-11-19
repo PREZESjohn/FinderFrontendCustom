@@ -10,6 +10,8 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {CustomValidators} from "../../providers/CustomValidators";
 import {CodeErrors} from '../../providers/CodeErrors';
+import {TermComponent} from "../term/term.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-register',
@@ -27,7 +29,8 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -79,5 +82,14 @@ export class RegisterComponent implements OnInit {
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
+  }
+
+  openTerm() {
+    const dialogRef = this.dialog.open(TermComponent, {
+      closeOnNavigation: true,
+      disableClose: false,
+      width: '60%',
+      height: '90%'
+    })
   }
 }

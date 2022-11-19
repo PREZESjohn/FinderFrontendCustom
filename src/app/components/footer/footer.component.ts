@@ -9,9 +9,16 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class FooterComponent implements OnInit {
 
-  constructor() {}
+  constructor( private dialog: MatDialog) {}
 
   ngOnInit() {}
 
-
+  openTerm() {
+    const dialogRef = this.dialog.open(TermComponent, {
+      closeOnNavigation: true,
+      disableClose: false,
+      width: '60%',
+      height: '90%'
+    })
+  }
 }
