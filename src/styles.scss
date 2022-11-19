@@ -313,7 +313,7 @@ input[type="text"][disabled] {
   width: 250px;
   padding: 10px 14px;
   background: #cbb5c7 !important;
-  transition: var(--tran-05);
+  /*transition: var(--tran-05);*/
   z-index: 100;
 }
 
@@ -799,4 +799,28 @@ button, input, optgroup, select, textarea {
 
 .white-content .friend-card:hover{
   background-color: #cbb5c7!important;
+}
+.FontLarge {
+  font-size: 120% !important;
+
+
+}
+.FontXLarge {
+  font-size: 140% !important;
+
+}
+
+
+span.mat-button-toggle-label-content{
+  padding: 0px 6px !important;
+  line-height: 21px !important;
+  font-size: 17px;
+}
+
+.white-content .mat-button-toggle-appearance-standard{
+  background: #f5f6fa !important;
+
+}
+.white-content .mat-button-toggle-group-appearance-standard{
+  border: solid 1px #180b20 !important;
 }

@@ -15,3 +15,12 @@ function dropdown(){
   }
 
 }
+var cont = document.getElementById("FontChange");
+
+function changeSizeByBtn(size) {
+
+  // Set value of the parameter as fontSize
+  cont.style.fontSize = size;
+}
+
+

@@ -17,7 +17,6 @@
   padding: 10px 14px;
   background: linear-gradient(to left bottom,#0d1f30fa, #1e1e24);
 
-  /*transition:  0.5s ease;*/
   z-index: 100;
 }
 .sidebar.close{
@@ -167,20 +166,14 @@ a .arrow{
  .sidebar .arrow{
    border:none;
  }
-/*.sidebar .menu-bar .menu li {
-  position: relative;
-  list-style: none;
-  transition: all 0.4s ease;
-}*/
+
 .sidebar .menu-bar .menu  li .iocn-link{
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
 }
-/*.sidebar.close .menu-bar .menu  li .iocn-link{
-  display: block
-}*/
+
 .sidebar .menu-bar .menu  li i{
   height: 50px;
 
@@ -200,12 +193,7 @@ a .arrow{
   align-items: center;
   text-decoration: none;
 }
-/*.sidebar .menu-bar .menu  li a .link_name{
-  font-size: 18px;
-  font-weight: 400;
-  color: #fff;
-  transition: all 0.4s ease;
-}*/
+
 .sidebar.close .menu-bar .menu  li a .link_name{
   opacity: 0;
   pointer-events: none;
@@ -224,7 +212,7 @@ a .arrow{
   padding: 5px 0;
   white-space: nowrap;
   opacity: 0.6;
-  /*transition: all 0.3s ease;*/
+
 }
 .sidebar .menu-bar .menu   li .sub-menu a:hover{
   opacity: 1;
@@ -239,16 +227,28 @@ a .arrow{
   opacity: 0;
   display: block;
   pointer-events: none;
-  transition: 0s;
+  ććtion: 0s;
 }
 .sidebar.close .menu-bar .menu  li:hover .sub-menu{
   top: 0;
   opacity: 1;
   pointer-events: auto;
-  /*transition: all 0.4s ease;*/
 }
 
 /*nowe*/
+
+mat-button-toggle-group {
+  margin-left: 8px;
+
+}
+.mat-button-toggle-appearance-standard{
+  background: #ba54f5;
+  border-left: solid 1px #180b20 !important;
+  border-right: solid 1px #180b20 !important;
+}
+.mat-button-toggle-group-appearance-standard{
+  border: none;
+}
 
 
 

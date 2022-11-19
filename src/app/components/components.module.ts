@@ -38,11 +38,12 @@ import { ConfirmEmailChangeComponent } from './verification/confirm-email-change
 import { ConfirmRegisterComponent } from './verification/confirm-register/confirm-register.component';
 import { EmailChangeComponent } from './sidebar/email-change/email-change.component';
 import { DiscordAddComponent } from './verification/plugins/discord-add/discord-add.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, OverlayModule, MatTooltipModule, MatProgressSpinnerModule],
+  imports: [CommonModule, RouterModule, NgbModule, ReactiveFormsModule, MatGridListModule, MatSlideToggleModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatBadgeModule, OverlayModule, MatTooltipModule, MatProgressSpinnerModule, MatButtonToggleModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent, LoginComponent, RegisterComponent,
     AlertComponent, UserProfileComponent, GroupAddComponent,
     MyGroupsComponent,

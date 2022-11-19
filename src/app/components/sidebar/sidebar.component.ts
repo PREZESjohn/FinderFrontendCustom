@@ -11,6 +11,7 @@ import {DeleteUserComponent} from "./delete-user/delete-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AlertService} from '../../services/alert.service';
 import {EmailChangeComponent} from './email-change/email-change.component';
+import {Subject}  from 'rxjs';
 
 declare interface RouteInfo {
   path: string;
@@ -62,7 +63,9 @@ export class SidebarComponent implements OnInit,OnDestroy {
   public isDarkModeOn;
   profilePicture=null;
   private subscriptionName: Subscription;
-
+  fsSubject = new Subject();
+  fsValue = 'fs-11';
+  public fontSizeChange:string;
 
   constructor( private authService: AuthService,private alertService:AlertService, location: Location,
                private userService: UserService, private router: Router, private categoryService:CategoryService,
@@ -70,8 +73,10 @@ export class SidebarComponent implements OnInit,OnDestroy {
     this.location = location;
     this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data:any)=>{
       this.profilePicture = data;
+
     }
   )
+
     const body = document.getElementsByTagName('body')[0];
     this.isDarkModeOn = !body.classList.contains('white-content');
   }
@@ -205,6 +210,21 @@ export class SidebarComponent implements OnInit,OnDestroy {
 
   showSubMenu() {
   console.log("test")
+
+  }
+
+  fsChanged(event) {
+  const html = document.getElementsByTagName('html')[0];
+    if(this.fontSizeChange=='150'){
+      html.classList.add('FontLarge');
+      html.classList.remove('FontXLarge');
+    }else if(this.fontSizeChange=='200'){
+      html.classList.add('FontXLarge');
+      html.classList.remove('FontLarge');
+    }else if(this.fontSizeChange=='100'){
+      html.classList.remove('FontXLarge');
+      html.classList.remove('FontLarge');
+    }
 
   }
 }

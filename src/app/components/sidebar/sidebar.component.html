@@ -78,12 +78,18 @@
 
       </ul>
     </div>
+
+
     <div class="bottom-content ">
-      <li style="cursor: pointer">
-        <a (click)="logOut()">
-          <i class='bx bx-log-out icon' ></i>
-          <span class="text ">Logout</span>
-        </a>
+
+      <li class="mode">
+        <i class='bx bx-alfa icon colorMode' > A</i>
+        <span class="text colorMode">Text size: </span>
+        <mat-button-toggle-group class="fontToogle " [hidden]="!isOpen" name="fontStyle" aria-label="Font Style" [(ngModel)]="fontSizeChange" (change)="fsChanged($event)">
+          <mat-button-toggle value="100">N</mat-button-toggle>
+          <mat-button-toggle checked value="150">L</mat-button-toggle>
+          <mat-button-toggle value="200">XL</mat-button-toggle>
+        </mat-button-toggle-group>
       </li>
       <li class="mode">
         <div class="sun-moon">
@@ -95,6 +101,12 @@
         <div class="toggle-switch" [hidden]="!isOpen">
           <mat-slide-toggle [checked]="isDarkModeOn" (toggleChange)="toggleMode()"></mat-slide-toggle>
         </div>
+      </li>
+      <li style="cursor: pointer">
+        <a (click)="logOut()">
+          <i class='bx bx-log-out icon' ></i>
+          <span class="text ">Logout</span>
+        </a>
       </li>
     </div>
   </div>
