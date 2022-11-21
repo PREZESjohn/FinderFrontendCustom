@@ -835,3 +835,17 @@ span.mat-button-toggle-label-content{
 .white-content .mat-button-toggle-group-appearance-standard{
   border: solid 1px #180b20 !important;
 }
+
+.auth-background{
+  background-image: linear-gradient(rgba(16,45,72,0.8), rgba(0,0,0,0.8)), url("../src/assets/img/imageLoginPage.png");
+  background-size: cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  border-radius: 10px;
+}
+
+.center{
+  text-align: center;
+  padding-top: 25%;
+}
+
