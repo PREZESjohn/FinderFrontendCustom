@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {GroupRoom} from '../domain/GroupRoom';
 import {Message} from '../domain/Message';
 import {GameDTO} from '../domain/dto/GameDTO';
+import {Page} from '../domain/dto/Page';
 
 @Injectable({
   providedIn: 'root'
@@ -36,27 +37,28 @@ export class GroupRoomService {
   showGroupContent(groupId:number):Observable<GroupRoom>{
     return this.httpClient.get<GroupRoom>(this.baseUrl+'/groups/' + groupId)
   }
-  getGroupsByGame(game: string) {
-    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/all/'+game);
+
+  getGroupsByGame(game: string,page: number,size:number) :Observable<Page> {
+    return this.httpClient.get<any>(this.baseUrl+'/groups/all/'+game+"?page="+page+"&size="+size);
   }
 
-  getGroupsByGameAndCategory(gameId:number,categoryId:number){
-    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&C/'+gameId+'/'+categoryId)
+  getGroupsByGameAndCategory(gameId:number,categoryId:number,page: number,size:number):Observable<Page>{
+    return this.httpClient.get<any>(this.baseUrl+'/groups/G&C/'+gameId+'/'+categoryId+"?page="+page+"&size="+size)
   }
 
-  getGroupsByGameAndRole(gameId:number,roleId:number){
-    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&R/'+gameId+'/'+roleId)
+  getGroupsByGameAndRole(gameId:number,roleId:number,page: number,size:number):Observable<Page>{
+    return this.httpClient.get<any>(this.baseUrl+'/groups/G&R/'+gameId+'/'+roleId+"?page="+page+"&size="+size)
   }
 
-  getGroupsByGameCategoryRole(gameId:number,categoryId:number,roleId:number){
-    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/G&C&R/'+gameId+'/'+categoryId+'/'+roleId)
+  getGroupsByGameCategoryRole(gameId:number,categoryId:number,roleId:number,page: number,size:number):Observable<Page>{
+    return this.httpClient.get<any>(this.baseUrl+'/groups/G&C&R/'+gameId+'/'+categoryId+'/'+roleId+"?page="+page+"&size="+size)
   }
 
-  getGroupsByGameAndCity(gameId:number,city){
-    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/g&cit/'+gameId+'/'+city)
+  getGroupsByGameAndCity(gameId:number,city,page: number,size:number):Observable<Page>{
+    return this.httpClient.get<any>(this.baseUrl+'/groups/g&cit/'+gameId+'/'+city+"?page="+page+"&size="+size)
   }
-  getGroupsByGameCategoryCity(gameId:number,categoryId:number,city){
-    return this.httpClient.get<GroupRoom[]>(this.baseUrl+'/groups/C&C/'+gameId+'/'+categoryId+'/'+city)
+  getGroupsByGameCategoryCity(gameId:number,categoryId:number,city,page: number,size:number):Observable<Page>{
+    return this.httpClient.get<any>(this.baseUrl+'/groups/C&C/'+gameId+'/'+categoryId+'/'+city+"?page="+page+"&size="+size)
   }
 
   setIsPrivateValue(groupId:number,value:boolean){

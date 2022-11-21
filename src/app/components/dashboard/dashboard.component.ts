@@ -39,6 +39,9 @@ export class DashboardComponent implements OnInit,OnDestroy {
   public codeInputValue = '';
   public profilePictures;
   public cities = cityList;
+  public pageSize = 3;
+  public currentPage = 0;
+  public numberOfPages = 0;
   public cityName;
   private subscriptionName: Subscription;
 
@@ -104,10 +107,11 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   reloadGame() {
     this.chosenGame = this.categoryService.getGame();
-    this.groupRoomService.getGroupsByGame(this.chosenGame?.name).subscribe(
-      (data: any) =>{ this.groupRooms = data;
-        console.log(data)
-    this.profilePictureService.setUsersProfilePictures(data);
+    this.groupRoomService.getGroupsByGame(this.chosenGame?.name,this.currentPage,this.pageSize).subscribe(
+      (data: any) =>{
+        this.groupRooms = data.content;
+        this.numberOfPages = data.totalPages;
+    this.profilePictureService.setUsersProfilePictures(this.groupRooms);
     this.profilePictures = this.profilePictureService.getUsersProfilePictures();
   },
       (e)=>{
@@ -117,31 +121,46 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
 
   public reloadByFilters() {
+    this.currentPage = 0;
     if (this.chosenRole == null && this.chosenCategory != null && this.cityName == undefined) {
-      this.groupRoomService.getGroupsByGameAndCategory(this.chosenGame.id, this.chosenCategory.id).subscribe(
-        (data: any) => this.groupRooms = data,
+      this.groupRoomService.getGroupsByGameAndCategory(this.chosenGame.id, this.chosenCategory.id,this.currentPage,this.pageSize).subscribe(
+        (data: any) => {
+          this.groupRooms = data.content
+          this.numberOfPages = data.totalPages;
+        },
         () => this.alertService.error('Error while getting groups')
       );
     } else if (this.chosenCategory == null && this.chosenRole != null ) {
-      this.groupRoomService.getGroupsByGameAndRole(this.chosenGame.id, this.chosenRole.id).subscribe(
-        (data: any) => this.groupRooms = data,
+      this.groupRoomService.getGroupsByGameAndRole(this.chosenGame.id, this.chosenRole.id,this.currentPage,this.pageSize).subscribe(
+        (data: any) => {
+          this.groupRooms = data.content
+          this.numberOfPages = data.totalPages;
+        },
         () => this.alertService.error('Error while getting groups')
       );
     } else if (this.chosenRole != null && this.chosenCategory != null) {
-      this.groupRoomService.getGroupsByGameCategoryRole(this.chosenGame.id, this.chosenCategory.id, this.chosenRole.id).subscribe(
-        (data: any) => this.groupRooms = data,
+      this.groupRoomService.getGroupsByGameCategoryRole(this.chosenGame.id, this.chosenCategory.id, this.chosenRole.id,this.currentPage,this.pageSize).subscribe(
+        (data: any) => {
+          this.groupRooms = data.content
+          this.numberOfPages = data.totalPages;
+        },
         () => this.alertService.error('Error while getting groups')
       );
     }
     else if (this.chosenCategory == null && this.cityName !== undefined) {
-      this.groupRoomService.getGroupsByGameAndCity(this.chosenGame.id, this.cityName).subscribe(
-        (data: any) => this.groupRooms = data,
+      this.groupRoomService.getGroupsByGameAndCity(this.chosenGame.id, this.cityName,this.currentPage,this.pageSize).subscribe(
+        (data: any) => {
+          this.groupRooms = data.content
+          this.numberOfPages = data.totalPages;
+        },
         () => this.alertService.error('Error while getting groups')
       );
     }else if(this.chosenCategory !== null && this.cityName !== undefined){
-      console.log("WTRFSAFSFSA")
-      this.groupRoomService.getGroupsByGameCategoryCity(this.chosenGame.id, this.chosenCategory.id, this.cityName).subscribe(
-        (data: any) => this.groupRooms = data,
+      this.groupRoomService.getGroupsByGameCategoryCity(this.chosenGame.id, this.chosenCategory.id, this.cityName,this.currentPage,this.pageSize).subscribe(
+        (data: any) => {
+          this.groupRooms = data.content
+          this.numberOfPages = data.totalPages;
+        },
         () => this.alertService.error('Error while getting groups')
       );
     }
@@ -222,4 +241,22 @@ export class DashboardComponent implements OnInit,OnDestroy {
       this.miniView=false;
     }
   }
+
+  goToPreviousPage() {
+    if (this.currentPage != 0) {
+      this.currentPage = this.currentPage - 1;
+      this.reloadGame();
+    }
+  }
+  goToNextPage(){
+    if(this.currentPage!=this.numberOfPages) {
+      this.currentPage = this.currentPage + 1;
+      this.reloadGame();
+    }
+  }
+  goToPage(page:number){
+    this.currentPage = page;
+    this.reloadGame();
+  }
+
 }
