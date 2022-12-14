@@ -55,8 +55,8 @@ export class UserProfileComponent implements OnInit {
     this.activeRoute.paramMap.subscribe(params => {
       this.userService.getUser().subscribe(
         data => {
-          this.userToEdit = data
-
+          this.userToEdit = data;
+          this.profileEditForm.get('editUserProfile').get('city').setValue(this.userToEdit?.city);
           this.mapPlatforms(this.userToEdit.platforms);
           this.userService.getProfilePicture(data.id).subscribe((d: any) => {
             this.profilePicture = this.userService.setProfilePicture(d);
@@ -76,12 +76,12 @@ export class UserProfileComponent implements OnInit {
     this.profileEditForm = this.formBuilder.group({
       editUserProfile: this.formBuilder.group({
         name: new FormControl('',
-          [Validators.minLength(2)]),
-        email: new FormControl('', [Validators.minLength(2), Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]),//
+          [Validators.minLength(2),Validators.pattern('^[a-zA-Z]{2,20}$')]),
+        email: new FormControl('', [Validators.minLength(2), Validators.pattern('[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]),
         city: new FormControl('', [Validators.minLength(2)]),
-        age: new FormControl('', [Validators.minLength(2), Validators.pattern('^[0-9]*$'), Validators.maxLength(3)]),//
+        age: new FormControl('', [Validators.min(1),Validators.max(150)]),
         phone: new FormControl('', [Validators.minLength(9), Validators.pattern('^[0-9]*$'), Validators.maxLength(9)]),
-        info: new FormControl('', [Validators.minLength(5), Validators.maxLength(150)])
+        info: new FormControl('', [Validators.minLength(5), Validators.maxLength(150),Validators.pattern('^[a-zA-Z0-9.,\\s]{3,150}$')])
 
 
       })
@@ -148,7 +148,6 @@ export class UserProfileComponent implements OnInit {
   public enableInputs() {
     this.profileEditForm.get('editUserProfile').get('name').enable();
     this.profileEditForm.get('editUserProfile').get('age').enable();
-    this.profileEditForm.get('editUserProfile').get('email').enable();
     this.profileEditForm.get('editUserProfile').get('phone').enable();
     this.profileEditForm.get('editUserProfile').get('city').enable();
     this.profileEditForm.get('editUserProfile').get('info').enable();
@@ -156,7 +155,6 @@ export class UserProfileComponent implements OnInit {
 
   public turnEditMode() {
     console.log(this.userToEdit)
-
     this.alertService.clear();
     if (this.buttonFunction === 'Edit') {
       this.enableInputs();

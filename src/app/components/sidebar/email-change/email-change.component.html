@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Email change</h1>
 <app-alert></app-alert>
 <div *ngIf="inputMode">
-  <div mat-dialog-content style="width:100%" class="justify-content-center">
-    <div>
+  <div mat-dialog-content style="width:100%" [formGroup]="emailChangeFormGroup" class="justify-content-center">
+    <div formGroupName="emailChange">
       <h3>Please type your new e-mail</h3>
       <div class="col-sm-9 pl-0 textMode">
-        <input type="text" class="form-control" [(ngModel)]="email" >
+        <input type="text" class="form-control" formControlName="email" >
       </div>
     </div>
   </div>

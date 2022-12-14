@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
       this.loginFormGroup = this.formBuilder.group({
         user: this.formBuilder.group({
           login: new FormControl('',
-            [Validators.required, Validators.minLength(3)]),
+            [Validators.required, Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9]{3,30}$')]),
           password: new FormControl('',
-            [Validators.required, Validators.minLength(3)])
+            [Validators.required, Validators.minLength(8),Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$')])
         })
       });
     }

@@ -25,8 +25,8 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
     this.passwordEditForm = this.formBuilder.group({
       editUserPassword: this.formBuilder.group({
-        oldPswd: new FormControl('',[Validators.required, Validators.minLength(3)]),
-        newPswd: new FormControl('',[Validators.required, Validators.minLength(3)]),
+        oldPswd: new FormControl('',[Validators.required, Validators.minLength(8),Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$')]),
+        newPswd: new FormControl('',[Validators.required, Validators.minLength(8),Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$')]),
         new2Pswd: new FormControl('',[Validators.required]),
       },
         {validators:CustomValidators.mustMatch('newPswd','new2Pswd')})
@@ -41,9 +41,6 @@ export class ChangePasswordComponent implements OnInit {
       const data=new PasswordChangeDto();
       data.oldPassword=String(oldPswd);
       data.newPassword=String(newPswd);
-      console.log(oldPswd);
-      console.log(newPswd);
-      console.log(data);
       this.userService.changePassword(data).subscribe(
         ()=>{
           this.alertService.success("Password updated")

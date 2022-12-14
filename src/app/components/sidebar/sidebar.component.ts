@@ -203,8 +203,8 @@ export class SidebarComponent implements OnInit,OnDestroy {
   openEmailChange(){
     this.dialog.open(EmailChangeComponent,{
       closeOnNavigation: false,
-      width:"30%",
-      height:"30%"
+      width:"50%",
+      height:"50%"
     })
   }
 

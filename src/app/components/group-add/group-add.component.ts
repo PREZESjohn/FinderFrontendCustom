@@ -51,12 +51,12 @@ export class GroupAddComponent implements OnInit {
     this.groupAddFormGroup = this.formBuilder.group({
       newGroup: this.formBuilder.group({
         name: new FormControl('',
-          [Validators.required, Validators.minLength(2)]),
+          [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9.,\\s]{3,30}$')]),
         game:new FormControl(this.chosenGame?.name,),
         category:new FormControl(this.chosenCategory),
         city:new FormControl(this.city),
-        maxUsers:new FormControl(this.chosenCategory?.basicMaxUsers,Validators.maxLength(5)),
-        description: new FormControl('',[Validators.required, Validators.minLength(2)])
+        maxUsers:new FormControl(this.chosenCategory?.basicMaxUsers,[Validators.min(2),Validators.max(10)]),
+        description: new FormControl('',[Validators.required, Validators.maxLength(150),Validators.pattern('^[a-zA-Z0-9.,\\s]{3,150}$')])
       })
     });
     this.groupAddFormGroup.get('newGroup').get('game').disable();
@@ -76,7 +76,8 @@ export class GroupAddComponent implements OnInit {
       this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers, {onlySelf: true})
     }
     const newGroup = this.createGroupRoomObject();
-    this.groupRoomService.addGroup(newGroup)
+    if(this.groupAddFormGroup.valid){
+      this.groupRoomService.addGroup(newGroup)
         .subscribe(
           (data:any) => {
             console.log(data)
@@ -85,6 +86,10 @@ export class GroupAddComponent implements OnInit {
             this.alertService.error('Something went wrong! Try again');
           }
         );
+    }else{
+      this.alertService.error("Wrong group data");
+    }
+
   }
 
   private createGroupRoomObject(): GroupRoom {

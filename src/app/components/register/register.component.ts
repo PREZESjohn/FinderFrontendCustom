@@ -37,12 +37,12 @@ export class RegisterComponent implements OnInit {
     this.loginFormGroup = this.formBuilder.group({
       user: this.formBuilder.group({
         username: new FormControl('',
-          [Validators.required, Validators.minLength(3)]),
+          [Validators.required, Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9]{3,30}$')]),
         email: new FormControl('',
-          [Validators.required, Validators.minLength(3)]),
+          [Validators.required, Validators.minLength(3),Validators.pattern('^[a-z0-9._-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]),
         password: new FormControl('',
-          [Validators.required, Validators.minLength(3)]),
-        repeatPassword: new FormControl('',Validators.required),
+          [Validators.required, Validators.minLength(8),Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$')]),
+        repeatPassword: new FormControl('',[Validators.required, Validators.minLength(8),Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,20}$')]),
         checkTerm: new FormControl(false, Validators.requiredTrue)
       },
         {validators: CustomValidators.mustMatch('password', 'repeatPassword')})

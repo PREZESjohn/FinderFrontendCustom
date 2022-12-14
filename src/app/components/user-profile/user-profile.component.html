@@ -167,7 +167,7 @@
                   <!--<input type="text" class="form-control" value="{{userToEdit?.city}}"
                          [(ngModel)]="userToEdit && userToEdit.city" formControlName="city">-->
                   <select class="form-control filters" formControlName="city" value="{{userToEdit?.city}}" (change)="changeCity($event)" >
-                    <option class="form-control textMode" *ngFor="let city of cities">{{city?.name}}</option>
+                    <option  class="form-control textMode" *ngFor="let city of cities">{{city?.name}}</option>
                   </select>
                 </div>
               </div>

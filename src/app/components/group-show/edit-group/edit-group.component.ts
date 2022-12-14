@@ -33,10 +33,10 @@ export class EditGroupComponent implements OnInit {
 
     this.groupEditForm=this.formBuilder.group({
       editGroup: this.formBuilder.group({
-        name: new FormControl(this.data.groupRoom.name,[Validators.required,Validators.minLength(2)]),
-        maxUsers: new FormControl(this.data.groupRoom?.maxUsers,[Validators.maxLength(5)]),
+        name: new FormControl(this.data.groupRoom.name,[Validators.required,Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9.,\\s]{3,30}$')]),
+        maxUsers: new FormControl(this.data.groupRoom?.maxUsers,[Validators.min(2),Validators.max(10)]),
         desc: new FormControl(this.data.groupRoom.desc,
-          [Validators.required, Validators.minLength(2), Validators.maxLength(150)])
+          [Validators.required, Validators.minLength(3), Validators.maxLength(150),Validators.pattern('^[a-zA-Z0-9.,\\s]{3,150}$')])
       })
     })
     if(this.isGameRolesActive){
@@ -66,11 +66,11 @@ export class EditGroupComponent implements OnInit {
         );
     } else {
       if (this.groupEditForm.get('editGroup').get('name').errors !== null) {
-        this.alertService.error('Minimum 2 letters for name')
+        this.alertService.error('Minimum 3 Alfa-Numerical characters for name')
       } else if (this.groupEditForm.get('editGroup').get('maxUsers').errors !== null) {
-        this.alertService.error('Max users must be in range of 2 to 5')
+        this.alertService.error('Max users must be in range of 2 to 10')
       } else if (this.groupEditForm.get('editGroup').get('desc').errors !== null) {
-        this.alertService.error('Description must be in range of 5 to 150')
+        this.alertService.error('Description must be in range of 3 to 150 and characters must be Alfa-Numerical')
       }
     }
   }
