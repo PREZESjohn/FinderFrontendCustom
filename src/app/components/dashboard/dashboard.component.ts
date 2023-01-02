@@ -20,6 +20,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {GroupAddComponent} from '../group-add/group-add.component';
 import {cityList} from '../../providers/Cities';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
+import {SearchCriteria} from '../../domain/SearchCriteria';
 
 @Component({
   selector: 'app-dashboard',
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.subscriptionName = this.categoryService.lookForUpdate().subscribe((game:any)=>{
       this.chosenGame = game;
       this.cities = cityList;
+      this.removeFilters();
       this.reloadGame();
     })
   }
@@ -120,54 +122,51 @@ export class DashboardComponent implements OnInit,OnDestroy {
     );
   }
 
+  public removeFilters(){
+    this.chosenCategory = null
+    this.chosenRole = null
+    this.cityName = null;
+  }
+
+  public prepareCriteriaObject():SearchCriteria{
+    let criteria = new SearchCriteria();
+    if(this.chosenGame != null) {
+      criteria.gameId = this.chosenGame.id;
+    }else{
+      criteria.gameId = null;
+    }
+    if(this.chosenRole != null){
+      criteria.roleId = this.chosenRole.id;
+    }else{
+      criteria.roleId = null;
+    }
+    if(this.chosenCategory != null) {
+      criteria.categoryId = this.chosenCategory.id;
+    }else{
+      criteria.categoryId = null;
+    }
+    if(this.cityName != undefined) {
+      criteria.cityName = this.cityName;
+    }else{
+      criteria.cityName = null;
+    }
+    return criteria;
+  }
+
   public reloadByFilters() {
     this.currentPage = 0;
-    if (this.chosenRole == null && this.chosenCategory != null && this.cityName == undefined) {
-      this.groupRoomService.getGroupsByGameAndCategory(this.chosenGame.id, this.chosenCategory.id,this.currentPage,this.pageSize).subscribe(
+    let criteria = this.prepareCriteriaObject();
+
+    this.groupRoomService.getGroupsByCriteria(criteria,this.currentPage,this.pageSize).subscribe(
         (data: any) => {
           this.groupRooms = data.content
           this.numberOfPages = data.totalPages;
         },
         () => this.alertService.error('Error while getting groups')
       );
-    } else if (this.chosenCategory == null && this.chosenRole != null ) {
-      this.groupRoomService.getGroupsByGameAndRole(this.chosenGame.id, this.chosenRole.id,this.currentPage,this.pageSize).subscribe(
-        (data: any) => {
-          this.groupRooms = data.content
-          this.numberOfPages = data.totalPages;
-        },
-        () => this.alertService.error('Error while getting groups')
-      );
-    } else if (this.chosenRole != null && this.chosenCategory != null) {
-      this.groupRoomService.getGroupsByGameCategoryRole(this.chosenGame.id, this.chosenCategory.id, this.chosenRole.id,this.currentPage,this.pageSize).subscribe(
-        (data: any) => {
-          this.groupRooms = data.content
-          this.numberOfPages = data.totalPages;
-        },
-        () => this.alertService.error('Error while getting groups')
-      );
-    }
-    else if (this.chosenCategory == null && this.cityName !== undefined) {
-      this.groupRoomService.getGroupsByGameAndCity(this.chosenGame.id, this.cityName,this.currentPage,this.pageSize).subscribe(
-        (data: any) => {
-          this.groupRooms = data.content
-          this.numberOfPages = data.totalPages;
-        },
-        () => this.alertService.error('Error while getting groups')
-      );
-    }else if(this.chosenCategory !== null && this.cityName !== undefined){
-      this.groupRoomService.getGroupsByGameCategoryCity(this.chosenGame.id, this.chosenCategory.id, this.cityName,this.currentPage,this.pageSize).subscribe(
-        (data: any) => {
-          this.groupRooms = data.content
-          this.numberOfPages = data.totalPages;
-        },
-        () => this.alertService.error('Error while getting groups')
-      );
-    }
-    else {
-      this.reloadGame();
-    }
+
   }
+
   public changeCategory(e:any) {
     const temp = this.chosenGame.categories.map(a => {
       if (a.name === e.target.value) {

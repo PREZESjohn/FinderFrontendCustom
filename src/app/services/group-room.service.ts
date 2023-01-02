@@ -5,6 +5,7 @@ import {GroupRoom} from '../domain/GroupRoom';
 import {Message} from '../domain/Message';
 import {GameDTO} from '../domain/dto/GameDTO';
 import {Page} from '../domain/dto/Page';
+import {SearchCriteria} from '../domain/SearchCriteria';
 
 @Injectable({
   providedIn: 'root'
@@ -42,23 +43,10 @@ export class GroupRoomService {
     return this.httpClient.get<any>(this.baseUrl+'/groups/all/'+game+"?page="+page+"&size="+size);
   }
 
-  getGroupsByGameAndCategory(gameId:number,categoryId:number,page: number,size:number):Observable<Page>{
-    return this.httpClient.get<any>(this.baseUrl+'/groups/G&C/'+gameId+'/'+categoryId+"?page="+page+"&size="+size)
-  }
-
-  getGroupsByGameAndRole(gameId:number,roleId:number,page: number,size:number):Observable<Page>{
-    return this.httpClient.get<any>(this.baseUrl+'/groups/G&R/'+gameId+'/'+roleId+"?page="+page+"&size="+size)
-  }
-
-  getGroupsByGameCategoryRole(gameId:number,categoryId:number,roleId:number,page: number,size:number):Observable<Page>{
-    return this.httpClient.get<any>(this.baseUrl+'/groups/G&C&R/'+gameId+'/'+categoryId+'/'+roleId+"?page="+page+"&size="+size)
-  }
-
-  getGroupsByGameAndCity(gameId:number,city,page: number,size:number):Observable<Page>{
-    return this.httpClient.get<any>(this.baseUrl+'/groups/g&cit/'+gameId+'/'+city+"?page="+page+"&size="+size)
-  }
-  getGroupsByGameCategoryCity(gameId:number,categoryId:number,city,page: number,size:number):Observable<Page>{
-    return this.httpClient.get<any>(this.baseUrl+'/groups/C&C/'+gameId+'/'+categoryId+'/'+city+"?page="+page+"&size="+size)
+  getGroupsByCriteria(criteria:SearchCriteria,page:number,size:number){
+    const headers = {'content-type': 'application/json'}
+    const body = JSON.stringify(criteria);
+    return this.httpClient.post<any>(this.baseUrl+"/groups/all/filter?page="+page+"&size="+size,body,{headers});
   }
 
   setIsPrivateValue(groupId:number,value:boolean){
