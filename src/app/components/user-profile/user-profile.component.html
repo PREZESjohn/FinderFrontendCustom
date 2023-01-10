@@ -6,7 +6,7 @@
       <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+          <li class="breadcrumb-item active textMode" aria-current="page">My Profile</li>
         </ol>
       </nav>
       <!-- /Breadcrumb -->
@@ -164,9 +164,7 @@
                   <h6 class="mb-0 mt-2 pt-1">City</h6>
                 </div>
                 <div class="col-sm-9 textMode">
-                  <!--<input type="text" class="form-control" value="{{userToEdit?.city}}"
-                         [(ngModel)]="userToEdit && userToEdit.city" formControlName="city">-->
-                  <select class="form-control filters" formControlName="city" value="{{userToEdit?.city}}" (change)="changeCity($event)" >
+                  <select class="form-control filters textMode" formControlName="city" value="{{userToEdit?.city}}" (change)="changeCity($event)" >
                     <option  class="form-control textMode" *ngFor="let city of cities">{{city?.name}}</option>
                   </select>
                 </div>
@@ -191,9 +189,7 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>

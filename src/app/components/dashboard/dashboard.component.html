@@ -7,7 +7,7 @@
       <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/home-page">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Explore</li>
+          <li class="breadcrumb-item active textMode" aria-current="page">Explore</li>
         </ol>
       </nav>
       <app-alert></app-alert>
@@ -40,8 +40,6 @@
             <div class="col col-lg-3 col-md-4 col-sm-6 pr-1" >
               <label class=" mr-2 mt-2" for="joinCode">Join using code</label>
               <input type="text" class="form-control d-inline" id="joinCode" [(ngModel)]="codeInputValue" >
-<!--            </div>-->
-<!--            <div class="col mt-4 pt-1 pl-0">-->
               <button class=" mt-2 btn  btn-color float-right " (click)="joinByCode()" type="submit">Join</button>
             </div>
           <div class="col col-lg-3 mt-lg-4 mt-md-1 mt-sm-4 pt-1  pr-0 pl-xl-5 pl-lg-3 pl-md-1 text-md-right">

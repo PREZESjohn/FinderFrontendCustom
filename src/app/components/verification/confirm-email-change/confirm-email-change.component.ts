@@ -27,10 +27,10 @@ export class ConfirmEmailChangeComponent implements OnInit {
   confirmEmailChange(){
 
     this.authService.confirmEmailChange(this.token).subscribe(()=>{
-      this.redirectToDashboard();
+      setTimeout(this.redirectToDashboard,5000);
     })
   }
-  private redirectToDashboard() {
+  redirectToDashboard() {
     this.router.navigateByUrl('/dashboard').then(()=>{
       const temp =  this.alertService.getSource();
       this.alertService.success("Email changed succesfully")

@@ -43,7 +43,7 @@ export class GroupRoomService {
     return this.httpClient.get<any>(this.baseUrl+'/groups/all/'+game+"?page="+page+"&size="+size);
   }
 
-  getGroupsByCriteria(criteria:SearchCriteria,page:number,size:number){
+  getGroupsByCriteria(criteria:SearchCriteria,page:number,size:number):Observable<any>{
     const headers = {'content-type': 'application/json'}
     const body = JSON.stringify(criteria);
     return this.httpClient.post<any>(this.baseUrl+"/groups/all/filter?page="+page+"&size="+size,body,{headers});

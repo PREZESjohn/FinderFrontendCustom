@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
               private profilePictureService:ProfilePicturesService) {
     this.subscriptionName = this.categoryService.lookForUpdate().subscribe((game:any)=>{
       this.chosenGame = game;
+      this.currentPage = 0;
       this.cities = cityList;
       this.removeFilters();
       this.reloadGame();
@@ -161,8 +162,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
         (data: any) => {
           this.groupRooms = data.content
           this.numberOfPages = data.totalPages;
-        },
-        () => this.alertService.error('Error while getting groups')
+        }
       );
 
   }

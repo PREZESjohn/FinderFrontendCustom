@@ -49,7 +49,6 @@ import {APP_BASE_HREF, LocationStrategy, PathLocationStrategy} from '@angular/co
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        // NoopAnimationsModule,
         FormsModule,
         MatProgressSpinnerModule,
         HttpClientModule,

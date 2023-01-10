@@ -189,7 +189,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
     this.dialog.open(ChangePasswordComponent,{
       closeOnNavigation: true,
       width:"50%",
-      height:"50%"
+      height:"40%"
     })
   }
   openDeleteUser(){
@@ -204,14 +204,11 @@ export class SidebarComponent implements OnInit,OnDestroy {
     this.dialog.open(EmailChangeComponent,{
       closeOnNavigation: false,
       width:"50%",
-      height:"50%"
+      height:"35%"
     })
   }
 
-  showSubMenu() {
-  console.log("test")
 
-  }
 
   fsChanged(event) {
   const html = document.getElementsByTagName('html')[0];

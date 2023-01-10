@@ -21,7 +21,7 @@ export const UserLayoutRoutes: Routes = [
   {path: 'home-page', component: HomePageComponent, canActivate: [AuthGuard]},
   {path: 'group-add', component: GroupAddComponent, canActivate: [AuthGuard]},
   {path: 'confirmRegister', component: ConfirmRegisterComponent},
-  {path: 'emailChangeConfirm', component: ConfirmEmailChangeComponent,canActivate: [AuthGuard]},
+  {path: 'emailChangeConfirm', component: ConfirmEmailChangeComponent},
   {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile/:id', component: OtherUserProfileComponent, canActivate: [AuthGuard]},
   {path: 'discord-add', component: DiscordAddComponent, canActivate: [AuthGuard]},
