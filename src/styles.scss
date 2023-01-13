@@ -838,8 +838,8 @@ span.mat-button-toggle-label-content{
 
 .auth-background{
   background-image: linear-gradient(rgba(16,45,72,0.8), rgba(0,0,0,0.8)), url("../src/assets/img/imageLoginPage.png");
-  background-size: cover;
-  background-position:center;
+  background-size: auto;
+  background-position:top;
   background-repeat:no-repeat;
   border-radius: 10px;
 }

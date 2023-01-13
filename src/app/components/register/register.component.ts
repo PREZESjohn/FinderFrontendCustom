@@ -48,7 +48,11 @@ export class RegisterComponent implements OnInit {
         {validators: CustomValidators.mustMatch('password', 'repeatPassword')})
     });
   }
-
+  get usernameInput(){ return this.loginFormGroup.get("user").get("username");}
+  get emailInput(){ return this.loginFormGroup.get("user").get("email");}
+  get pswdInput(){ return this.loginFormGroup.get("user").get("password");}
+  get rpswdInput(){ return this.loginFormGroup.get("user").get("repeatPassword");}
+  get termInput(){ return this.loginFormGroup.get("user").get("checkTerm");}
   register() {
     if(this.loginFormGroup.valid){
       this.isLoading = true;

@@ -3,7 +3,7 @@
     <img alt ="" src="assets/img/Mid.jpg" style="width: 50px;height: 50px">
     <h1 class="d-inline-block pl-md-2">Grouper</h1>
   </div>
-  <div class="justify-content-center card-body row">
+  <div class="justify-content-center card-body row ">
     <div class=" col-md-7">
       <app-alert></app-alert>
         <form *ngIf="!isLoading" [formGroup]="loginFormGroup" (ngSubmit)="register()">
@@ -17,6 +17,14 @@
                     <div class="form-group">
                       <label> Login </label>
                       <input class=" form-control" required type="text" placeholder="Login" formControlName="username"/>
+                      <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)">
+                        <mat-error *ngIf="usernameInput.errors?.['required']">
+                          Login is required.
+                        </mat-error>
+                        <mat-error *ngIf="usernameInput.errors?.['pattern']">
+                          Login must contain only a-z, A-Z, 0-9 and be between 3 to 30 characters long
+                        </mat-error>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -26,6 +34,14 @@
                       <label> Email </label>
                       <input class=" form-control" required type="email" placeholder="Email" ngModel email
                              formControlName="email"/>
+                      <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+                        <mat-error *ngIf="emailInput.errors?.['required']">
+                          Email is required.
+                        </mat-error>
+                        <mat-error *ngIf="emailInput.errors?.['pattern']">
+                          Wrong email structure
+                        </mat-error>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -43,20 +59,38 @@
                                (click)="toggleFieldTextType()"></i>
                          </span>
                         </div>
+                        <div *ngIf="pswdInput.invalid && (pswdInput.dirty || pswdInput.touched)">
+                          <mat-error *ngIf="pswdInput.errors?.['required']">
+                            Password is required.
+                          </mat-error>
+                          <mat-error *ngIf="pswdInput.errors?.['pattern']">
+                            Password must be between 8 to 20 characters, contain minimum: one digit, small, large and special character
+                          </mat-error>
+                        </div>
                       </div>
                       <div class="input-group ">
                         <input class=" form-control" placeholder="Repeat password" required
                                [type]="fieldTextType ? 'text' : 'password'" formControlName="repeatPassword"/>
-
+                        <div *ngIf="rpswdInput.invalid && (rpswdInput.dirty || rpswdInput.touched)">
+                          <mat-error *ngIf="rpswdInput.errors?.['required']">
+                            Password is required.
+                          </mat-error>
+                          <mat-error *ngIf="rpswdInput.errors?.['pattern']">
+                            Password must be between 8 to 20 characters, contain minimum: one digit, small, large and special character
+                          </mat-error>
+                        </div>
                       </div>
                       <div class="d-flex">
                         <input type="checkbox" class="checkTerms" formControlName="checkTerm"/>
                         <label class=""> Do you accept
                           <a style="cursor: pointer; color: #ba54f5;" (click)="openTerm()">  terms</a>?
                         </label>
+                        <div *ngIf="pswdInput.invalid && (pswdInput.dirty || pswdInput.touched)">
+                          <mat-error *ngIf="pswdInput.errors?.['requiredTrue']">
+                            You need to accept terms.
+                          </mat-error>
 
-
-
+                        </div>
                       </div>
 
                     </div>
@@ -75,7 +109,7 @@
             </div>
           </div>
         </form>
-        <div class="d-flex justify-content-center card-body" *ngIf="isLoading && !isEmailSend">
+        <div class="d-flex justify-content-center card-body " style="padding-bottom: 12rem !important;padding-top: 7rem !important" *ngIf="isLoading && !isEmailSend">
           <div class=" card card-user col-10 ">
             <div class=" card-body">
               <p class=" card-text"></p>
@@ -94,7 +128,7 @@
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-center card-body" *ngIf="isEmailSend">
+        <div class="d-flex justify-content-center card-body " style="padding-bottom: 12rem !important;padding-top: 7rem !important"*ngIf="isEmailSend">
           <div class=" card card-user col-10 ">
             <div class=" card-body">
               <p class=" card-text"></p>

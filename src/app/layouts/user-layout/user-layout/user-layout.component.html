@@ -4,10 +4,13 @@
     <app-navbar *ngIf="checkToken()"></app-navbar>
     <router-outlet></router-outlet>
     <app-footer *ngIf="checkToken()"></app-footer>
-    <footer *ngIf="!checkToken()" class="text-center text-lg-start  text-muted footer pl-0 pb-2">
+    <footer *ngIf="!checkToken()" class="text-center text-lg-start
+    text-muted footer pl-0 pb-2">
       <div class="text-center" style=" font-size: 0.8rem">
         © 2022 Copyright:
-        <a class="text-reset fw-bold" href="http://localhost:4200/">NaszaStrona.pl</a>
+        <a class="text-reset fw-bold" href="http://localhost:4200/">
+          NaszaStrona.pl
+        </a>
       </div>
     </footer>
   </div>

@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
     }
     // this.connect();
   }
-
+  get loginInput(){ return this.loginFormGroup.get("user").get("login");}
+  get pswdInput(){ return this.loginFormGroup.get("user").get("password");}
   login() {
     if(this.loginFormGroup.valid) {
       this.authService.login(this.loginFormGroup.get('user').get('login').value, this.loginFormGroup.get('user').get('password').value)

@@ -27,7 +27,7 @@ import {SearchCriteria} from '../../domain/SearchCriteria';
   templateUrl: 'dashboard.component.html',
   styleUrls: ['/dashboard.css']
 })
-export class DashboardComponent implements OnInit,OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   public data: any;
   public isAdmin = false;
@@ -48,16 +48,16 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   constructor(private groupRoomService: GroupRoomService,
               private controlHelperService: ControlHelperService,
-              private dialog:MatDialog,
+              private dialog: MatDialog,
               private formBuilder: FormBuilder,
               private alertService: AlertService,
               private router: Router,
               private userService: UserService,
               private authService: AuthService,
-              private profilePicturesService:ProfilePicturesService,
+              private profilePicturesService: ProfilePicturesService,
               private categoryService: CategoryService,
-              private profilePictureService:ProfilePicturesService) {
-    this.subscriptionName = this.categoryService.lookForUpdate().subscribe((game:any)=>{
+              private profilePictureService: ProfilePicturesService) {
+    this.subscriptionName = this.categoryService.lookForUpdate().subscribe((game: any) => {
       this.chosenGame = game;
       this.currentPage = 0;
       this.cities = cityList;
@@ -67,21 +67,22 @@ export class DashboardComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
-      this.reloadGame();
+    this.reloadGame();
     if (this.checkIfLoggedIn()) {
       this.checkIfAdmin()
     }
   }
+
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
   }
 
   joinGroup(groupId: number) {
-    this.userService.joinGroup(groupId,new InGameRoles()).subscribe((data:any) => {
+    this.userService.joinGroup(groupId, new InGameRoles()).subscribe((data: any) => {
         this.alertService.success('You joined group');
         this.reloadGame()
       },
-      (e)=>{
+      (e) => {
         this.alertService.error(CodeErrors.get(e.error.code))
       })
   }
@@ -89,6 +90,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
   joinGroupMethod(groupId: number) {
     this.joinGroup(groupId);
   }
+
   checkIfAdmin() {
     this.userService.getUser().subscribe(
       data => {
@@ -110,45 +112,47 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
   reloadGame() {
     this.chosenGame = this.categoryService.getGame();
-    this.groupRoomService.getGroupsByGame(this.chosenGame?.name,this.currentPage,this.pageSize).subscribe(
-      (data: any) =>{
+    this.groupRoomService.getGroupsByGame(this.chosenGame?.name,
+      this.currentPage, this.pageSize).subscribe(
+      (data: any) => {
         this.groupRooms = data.content;
         this.numberOfPages = data.totalPages;
-    this.profilePictureService.setUsersProfilePictures(this.groupRooms);
-    this.profilePictures = this.profilePictureService.getUsersProfilePictures();
-  },
-      (e)=>{
+        this.profilePictureService.setUsersProfilePictures(this.groupRooms);
+        this.profilePictures = this.profilePictureService
+          .getUsersProfilePictures();
+      },
+      (e) => {
         this.alertService.error(CodeErrors.get(e.error.code))
       }
     );
   }
 
-  public removeFilters(){
+  public removeFilters() {
     this.chosenCategory = null
     this.chosenRole = null
     this.cityName = null;
   }
 
-  public prepareCriteriaObject():SearchCriteria{
+  public prepareCriteriaObject(): SearchCriteria {
     let criteria = new SearchCriteria();
-    if(this.chosenGame != null) {
+    if (this.chosenGame != null) {
       criteria.gameId = this.chosenGame.id;
-    }else{
+    } else {
       criteria.gameId = null;
     }
-    if(this.chosenRole != null){
+    if (this.chosenRole != null) {
       criteria.roleId = this.chosenRole.id;
-    }else{
+    } else {
       criteria.roleId = null;
     }
-    if(this.chosenCategory != null) {
+    if (this.chosenCategory != null) {
       criteria.categoryId = this.chosenCategory.id;
-    }else{
+    } else {
       criteria.categoryId = null;
     }
-    if(this.cityName != undefined) {
+    if (this.cityName != undefined) {
       criteria.cityName = this.cityName;
-    }else{
+    } else {
       criteria.cityName = null;
     }
     return criteria;
@@ -158,16 +162,16 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.currentPage = 0;
     let criteria = this.prepareCriteriaObject();
 
-    this.groupRoomService.getGroupsByCriteria(criteria,this.currentPage,this.pageSize).subscribe(
-        (data: any) => {
-          this.groupRooms = data.content
-          this.numberOfPages = data.totalPages;
-        }
-      );
-
+    this.groupRoomService.getGroupsByCriteria(criteria,
+      this.currentPage, this.pageSize).subscribe(
+      (data: any) => {
+        this.groupRooms = data.content
+        this.numberOfPages = data.totalPages;
+      }
+    );
   }
 
-  public changeCategory(e:any) {
+  public changeCategory(e: any) {
     const temp = this.chosenGame.categories.map(a => {
       if (a.name === e.target.value) {
         return a
@@ -180,7 +184,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.reloadByFilters()
   }
 
-  public changeRole(e:any) {
+  public changeRole(e: any) {
     const temp = this.chosenGame.inGameRoles.map(a => {
       if (a.name === e.target.value) {
         return a
@@ -193,7 +197,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
     this.reloadByFilters();
   }
 
-  public changeCity(e:any){
+  public changeCity(e: any) {
     const temp = this.cities.map(a => {
       if (a.name === e.target.value) {
         return a
@@ -202,42 +206,44 @@ export class DashboardComponent implements OnInit,OnDestroy {
       return value !== undefined
     });
     // @ts-ignore
-    this.cityName=temp[0]?.name;
+    this.cityName = temp[0]?.name;
     this.reloadByFilters();
   }
 
-  public joinByCode(){
-    const code:string = this.codeInputValue;
-    if(code!=="") {
+  public joinByCode() {
+    const code: string = this.codeInputValue;
+    if (code !== "") {
       this.groupRoomService.joinByCode(code).subscribe((data: any) => {
-         this.navigateToGroup(data);
+          this.navigateToGroup(data);
         }, (e) => {
           this.alertService.error(CodeErrors.get(e.error.code))
         }
       )
-    }else{
+    } else {
       this.alertService.error("Wrong code");
     }
   }
 
-  createNewGroup(){
-    this.dialog.open(GroupAddComponent,{
+  createNewGroup() {
+    this.dialog.open(GroupAddComponent, {
       closeOnNavigation: true,
-      width:"50%",
-      height:'90%'
+      width: "50%",
+      height: '90%'
     })
   }
 
-  navigateToGroup(groupRoom){
-    this.router.navigate(['/group-show/',groupRoom.id])
+  navigateToGroup(groupRoom) {
+    this.router.navigate(['/group-show/', groupRoom.id])
   }
-  public miniView=false
-  @HostListener('window:resize',['$event'])
-  onResize(event){
-    if(window.innerWidth<1000){
-      this.miniView=true;
-    }else{
-      this.miniView=false;
+
+  public miniView = false
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (window.innerWidth < 1000) {
+      this.miniView = true;
+    } else {
+      this.miniView = false;
     }
   }
 
@@ -247,13 +253,15 @@ export class DashboardComponent implements OnInit,OnDestroy {
       this.reloadGame();
     }
   }
-  goToNextPage(){
-    if(this.currentPage!=this.numberOfPages) {
+
+  goToNextPage() {
+    if (this.currentPage != this.numberOfPages) {
       this.currentPage = this.currentPage + 1;
       this.reloadGame();
     }
   }
-  goToPage(page:number){
+
+  goToPage(page: number) {
     this.currentPage = page;
     this.reloadGame();
   }

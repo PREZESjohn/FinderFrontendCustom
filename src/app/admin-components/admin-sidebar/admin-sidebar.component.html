@@ -27,7 +27,7 @@
             <span class="text nav-text">{{menuItems[1].title}}</span>
           </a>
         </li>
-        <li class="nav-link">
+        <li class="nav-link" [hidden]="true">
           <a [routerLink]="[menuItems[2].path]">
             <i class='bx bxs-user-account icon' ></i>
             <span class="text nav-text">{{menuItems[2].title}}</span>

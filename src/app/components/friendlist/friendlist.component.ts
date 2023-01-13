@@ -21,33 +21,33 @@ export class FriendlistComponent implements OnInit {
   @ViewChildren('messagesTracker1') messagesTracker1!: QueryList<any>;
   @ViewChildren('messagesTracker2') messagesTracker2!: QueryList<any>;
 
-  public stompClient:any
-  public friendList:Friend[];
-  public friendsNumber:number = 0;
+  public stompClient: any
+  public friendList: Friend[];
+  public friendsNumber: number = 0;
   public friendListClosed = true;
   public isConnectedToChat = false;
-  public messages:Message[]=[];
-  public message:Message=new Message();
-  public chosenFriend:Friend = null;
-  public chosenFriendMessages:Message[];
-  public currentChatId:number;
-  public unreadMessagesNumber=0;
+  public messages: Message[] = [];
+  public message: Message = new Message();
+  public chosenFriend: Friend = null;
+  public chosenFriendMessages: Message[];
+  public currentChatId: number;
+  public unreadMessagesNumber = 0;
   public eventSource;
   public unreadMessages = new Map();
   public profilePictures = new Map();
 
 
-  constructor(private userService: UserService,private authService:AuthService,private profilePictureService:ProfilePicturesService,private alertService:AlertService) {
+  constructor(private userService: UserService, private authService: AuthService, private profilePictureService: ProfilePicturesService, private alertService: AlertService) {
 
     this.eventSource = this.alertService.getSource();
 
     this.eventSource.addEventListener('message', message => {
       const msg: CustomNotification = JSON.parse(message.data);
-      console.log("MESSAGE TYPE - "+msg.type)
-      if(msg.type=='FRIENDREQUEST') {
+      console.log("MESSAGE TYPE - " + msg.type)
+      if (msg.type == 'FRIENDREQUEST') {
         this.ngOnInit()
-      }else if(msg.type=="PRIVATE_MESSAGE"){
-        this.userService.countUnreadMessages().subscribe((data:any)=>{
+      } else if (msg.type == "PRIVATE_MESSAGE") {
+        this.userService.countUnreadMessages().subscribe((data: any) => {
           this.mapUnreadMessages(data);
         })
       }
@@ -56,11 +56,11 @@ export class FriendlistComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userService.countUnreadMessages().subscribe((data:any)=>{
+    this.userService.countUnreadMessages().subscribe((data: any) => {
       this.mapUnreadMessages(data);
     })
 
-    this.userService.getFriends().subscribe((data:any)=>{
+    this.userService.getFriends().subscribe((data: any) => {
       this.friendList = data;
       this.friendsNumber = this.friendList.length;
       if (this.profilePictures.size === 0) {
@@ -73,12 +73,12 @@ export class FriendlistComponent implements OnInit {
     this.messagesTracker2?.changes.subscribe(this.scrollToBottom);
   }
 
-  mapUnreadMessages(unreadMessagesList:UnreadMessageCountDTO[]){
-    if(unreadMessagesList!=null) {
+  mapUnreadMessages(unreadMessagesList: UnreadMessageCountDTO[]) {
+    if (unreadMessagesList != null) {
       this.unreadMessagesNumber = 0;
       unreadMessagesList.forEach((msg) => {
         this.unreadMessages.set(msg.userId, msg.count);
-        this.unreadMessagesNumber+=msg.count;
+        this.unreadMessagesNumber += msg.count;
       })
     }
   }
@@ -90,84 +90,88 @@ export class FriendlistComponent implements OnInit {
     }
   }
 
-  toggleFriendList(){
-    if(this.isConnectedToChat){
+  toggleFriendList() {
+    if (this.isConnectedToChat) {
       this.disconnectPrivateChat();
     }
     this.friendListClosed = !this.friendListClosed;
   }
 
-  connectPrivateChat(friend:Friend){
+  connectPrivateChat(friend: Friend) {
     const chatId = friend.chatId;
-    const headers={
+    const headers = {
       'Authorization': 'Bearer ' + this.authService.getToken(),
       'chatId': chatId
     }
-    if(this.isConnectedToChat){
+    if (this.isConnectedToChat) {
       this.disconnectPrivateChat();
-    }
-    else if(this.isConnectedToChat===false) {
-      this.stompClient = Stomp.over(()=>{
-        return new SockJS('http://localhost:8080/ws',headers)
+    } else if (this.isConnectedToChat === false) {
+      this.stompClient = Stomp.over(() => {
+        return new SockJS('http://localhost:8080/ws', headers)
       });
       this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);
         this.isConnectedToChat = true;
-        this.currentChatId=chatId;
+        this.currentChatId = chatId;
         this.userService.setMessagesAsRead(chatId).subscribe();
-        this.userService.getChatMessages(chatId).subscribe((msgs:any)=>{
-          this.chosenFriendMessages = msgs;
-          this.splitDateInMessages()
-        });
+        this.userService.getChatMessages(chatId)
+          .subscribe((msgs: any) => {
+            this.chosenFriendMessages = msgs;
+            this.splitDateInMessages()
+          });
         this.chosenFriend = friend;
         this.ngOnInit();
-        this.stompClient.subscribe('/topic/privateMessages/'+chatId, (chatMessage) => {
-          this.userService.setMessagesAsRead(this.currentChatId).subscribe();
-          let data = JSON.parse(chatMessage.body)
-          data = this.splitDate(data)
-          this.messages.push(data);
-        });
+        this.stompClient.subscribe('/topic/privateMessages/' + chatId,
+          (chatMessage) => {
+            this.userService.setMessagesAsRead(this.currentChatId)
+              .subscribe();
+            let data = JSON.parse(chatMessage.body)
+            data = this.splitDate(data)
+            this.messages.push(data);
+          });
       });
     }
   }
 
-  splitDateInMessages(){
-    this.chosenFriendMessages.forEach(message=>{
+  splitDateInMessages() {
+    this.chosenFriendMessages.forEach(message => {
       this.splitDate(message);
     })
   }
 
-  splitDate(data:Message){
-    if(data.date!==null) {
+  splitDate(data: Message) {
+    if (data.date !== null) {
       const x = data.date?.split(" ")
       data.date = x[0];
       data.time = x[1];
       return data
     }
   }
-  disconnectPrivateChat(){
+
+  disconnectPrivateChat() {
     if (this.stompClient !== null && this.stompClient !== undefined) {
       this.stompClient?.disconnect();
       console.log('Disconnected');
-      this.isConnectedToChat=false;
-      this.stompClient=null;
+      this.isConnectedToChat = false;
+      this.stompClient = null;
       this.chosenFriend = null;
       this.messages = [];
-    }else{
+    } else {
       console.log('Not in group')
     }
   }
-  readMsg(text){
+
+  readMsg(text) {
     this.message.text = text;
   }
 
-  refreshList(){
+  refreshList() {
     this.ngOnInit();
   }
 
-  sendMsg(chatId:number){
+  sendMsg(chatId: number) {
     // tslint:disable-next-line:max-line-length
-    this.stompClient.send('/app/privateChat/'+chatId,{}, JSON.stringify(this.message));
+    this.stompClient.send('/app/privateChat/' + chatId, {}, JSON.stringify(this.message));
     this.message.text = '';
   }
 
