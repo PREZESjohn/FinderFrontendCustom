@@ -112,14 +112,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   reloadGame() {
     this.chosenGame = this.categoryService.getGame();
-    this.groupRoomService.getGroupsByGame(this.chosenGame?.name,
-      this.currentPage, this.pageSize).subscribe(
+    this.groupRoomService.getGroupsByGame(this.chosenGame?.name,this.currentPage, this.pageSize).subscribe(
       (data: any) => {
         this.groupRooms = data.content;
         this.numberOfPages = data.totalPages;
         this.profilePictureService.setUsersProfilePictures(this.groupRooms);
-        this.profilePictures = this.profilePictureService
-          .getUsersProfilePictures();
+        this.profilePictures = this.profilePictureService.getUsersProfilePictures();
       },
       (e) => {
         this.alertService.error(CodeErrors.get(e.error.code))
@@ -162,8 +160,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.currentPage = 0;
     let criteria = this.prepareCriteriaObject();
 
-    this.groupRoomService.getGroupsByCriteria(criteria,
-      this.currentPage, this.pageSize).subscribe(
+    this.groupRoomService.getGroupsByCriteria(criteria,this.currentPage, this.pageSize).subscribe(
       (data: any) => {
         this.groupRooms = data.content
         this.numberOfPages = data.totalPages;

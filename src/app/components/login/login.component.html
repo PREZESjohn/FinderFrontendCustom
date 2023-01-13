@@ -7,8 +7,7 @@
     <div class=" col-md-7">
       <app-alert></app-alert>
       <form [formGroup]="loginFormGroup" (ngSubmit)="login()">
-        <div formGroupName="user" class="d-flex justify-content-center
-        card-body">
+        <div formGroupName="user" class="d-flex justify-content-center card-body">
           <div class=" card card-user col-md-10 col-12 "
                style="border-radius: 20px">
             <div class=" card-body mt-md-5 mb-md-5">
@@ -18,16 +17,13 @@
                 <div class=" col-md-5 pr-md-1 mb-1">
                   <div class="form-group">
                     <label> Login </label>
-                    <input class=" form-control" placeholder="Login"
-                           id="login" type="text" formControlName="login"/>
-                    <div *ngIf="loginInput.invalid && (loginInput.dirty ||
-                     loginInput.touched)">
+                    <input class=" form-control" placeholder="Login" id="login" type="text" formControlName="login"/>
+                    <div *ngIf="loginInput.invalid && (loginInput.dirty || loginInput.touched)">
                       <mat-error *ngIf="loginInput.errors?.['required']">
                         Login is required.
                       </mat-error>
                       <mat-error *ngIf="loginInput.errors?.['pattern']">
-                        Login must contain only a-z, A-Z, 0-9
-                        and be between 3 to 30 characters long
+                        Login must contain only a-z, A-Z, 0-9 and be between 3 to 30 characters long
                       </mat-error>
                     </div>
                   </div>
@@ -38,29 +34,23 @@
                   <div class=" form-group">
                     <label> Password </label>
                     <div class="input-group ">
-                      <input class=" form-control" placeholder="Password"
-                             required
-                             [type]="fieldTextType ? 'text' : 'password'"
-                             formControlName="password"/>
+                      <input class=" form-control" placeholder="Password" required
+                             [type]="fieldTextType ? 'text' : 'password'" formControlName="password"/>
                       <div class="input-group-append ">
                                <span class="input-group-text"
                                      style="background-color: transparent;">
-                                  <i class="fa" style="padding-left: 8px"
-                                     [ngClass]="{'fa-eye-slash':
-                                     !fieldTextType,
-                                     'fa-eye': fieldTextType}"
+                                  <i class="fa" style="padding-left: 8px" [ngClass]="{'fa-eye-slash':
+                                     !fieldTextType, 'fa-eye': fieldTextType}"
                                      (click)="toggleFieldTextType()"></i>
                                </span>
                       </div>
                     </div>
-                    <div *ngIf="pswdInput.invalid && (pswdInput.dirty ||
-                     pswdInput.touched)">
+                    <div *ngIf="pswdInput.invalid && (pswdInput.dirty || pswdInput.touched)">
                       <mat-error *ngIf="pswdInput.errors?.['required']">
                         Password is required.
                       </mat-error>
                       <mat-error *ngIf="pswdInput.errors?.['pattern']">
-                        Password must be between 8 to 20 characters, contain
-                        minimum: one digit, small, large and special character
+                        Password must be between 8 to 20 characters, contain minimum: one digit, small, large and special character
                       </mat-error>
                     </div>
                   </div>
