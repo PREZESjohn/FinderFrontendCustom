@@ -62,7 +62,7 @@ export class GroupRoomDetailsComponent implements OnInit, OnDestroy {
         this.alertService.error("Cant load group room");
       })
   }
-//TODO ZOPTYMALIZWAC TO NA DOLE BO BEKA
+
   public tableContains(table,objectToFind):boolean{
     let found = false;
     // tslint:disable-next-line:prefer-for-of

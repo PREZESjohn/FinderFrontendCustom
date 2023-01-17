@@ -29,7 +29,7 @@ export class GroupAddComponent implements OnInit {
   isActivated = false;
   partnerRole;
   games:any;
-  // TODO zrobic cos z tym zeby nie pobierac w kazdym komponencie tego bo wstyd
+
 
   constructor(private groupRoomService: GroupRoomService,
               private formBuilder: FormBuilder,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserDTO} from '../../../../domain/dto/UserDTO';
@@ -17,24 +17,24 @@ export class DiscordAddComponent implements OnInit {
 
   public tokenType;
   public accessToken;
-  public platform:Platform;
-  constructor(private platformService:PlatformServiceService,private activatedRoute:ActivatedRoute,private router:Router, private alertService:AlertService) {
+  public platform: Platform;
+
+  constructor(private platformService: PlatformServiceService, private activatedRoute: ActivatedRoute, private router: Router, private alertService: AlertService) {
 
     this.activatedRoute.fragment.subscribe(fragment => {
       const response = new URLSearchParams(fragment).get('access_token')
       this.accessToken = response;
-      this.tokenType = new URLSearchParams(fragment).get("token_type");
-      if(!this.accessToken){
-        this.router.navigateByUrl("/login")
-      }else{
-        this.platformService.getUserDCData(this.accessToken,this.tokenType).subscribe((data:any)=>{
-         this.platform = data;
-         this.router.navigateByUrl("/user-profile").then(()=>
-           this.alertService.success("Discord account connected")
-         )
+      this.tokenType = new URLSearchParams(fragment).get('token_type');
+      if (!this.accessToken) {
+        this.router.navigateByUrl('/login')
+      } else {
+        this.platformService.getUserDCData(this.accessToken, this.tokenType).subscribe((data: any) => {
+          this.platform = data;
+          this.router.navigateByUrl('/user-profile').then(() =>
+            this.alertService.success('Discord account connected')
+          )
         })
       }
-
     })
   }
 

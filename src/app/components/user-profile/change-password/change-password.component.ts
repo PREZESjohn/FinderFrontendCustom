@@ -37,7 +37,6 @@ export class ChangePasswordComponent implements OnInit {
     if(this.passwordEditForm.valid){
       const oldPswd=this.passwordEditForm.get('editUserPassword').get('oldPswd').value;
       const newPswd=this.passwordEditForm.get('editUserPassword').get('newPswd').value;
-      //TODO wykozystac metode changePassword z userSerwis ale na poczatku ogarnac PasswordChangeDTO
       const data=new PasswordChangeDto();
       data.oldPassword=String(oldPswd);
       data.newPassword=String(newPswd);
