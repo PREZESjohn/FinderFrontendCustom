@@ -53,7 +53,7 @@
                    *ngFor=" let user of currentGroup?.users | slice:0:currentGroup?.maxUsers; let i = index">
                 <a class="button" style="cursor:pointer">
                   <img class="img-responsive img-thumbnail mt-1" (click)="navigateToProfile(user)" (mouseenter)="showPreview($event, user)"
-                      (mouseleave)="closePreview()"
+
                        [style.border-color]="isConnected.get(user.id) ? 'green' : 'grey'" alt="icon"
                        [src]="profilePictures.get(user.id)" style="height: 150px;width:150px;border-width:thick">
                   <p class="justify-content-center">{{user?.username}}</p>

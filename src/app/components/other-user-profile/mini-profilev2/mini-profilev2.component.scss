@@ -1,6 +1,7 @@
 
 .container{
   background-color: #1d253b;
+  min-width: 10em;
 }
 ::ng-deep .white-content .cdk-overlay-container .container{
   background: linear-gradient(to bottom right, #cbb5c7, white);
