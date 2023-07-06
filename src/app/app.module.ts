@@ -43,6 +43,7 @@ import { GroupChatLogsDialogComponent } from './admin-components/admin-main-page
 import {USER_PREVIEW_DIALOG_DATA} from "./components/other-user-profile/mini-profilev2/user-preview-overlay.tokens";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {APP_BASE_HREF, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { ManageGamesComponent } from './admin-components/manage-games/manage-games.component';
 
 
 @NgModule({
@@ -73,7 +74,7 @@ import {APP_BASE_HREF, LocationStrategy, PathLocationStrategy} from '@angular/co
         MatSortModule,
 
     ],
-  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent, ManageGamesComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

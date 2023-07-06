@@ -18,21 +18,21 @@ export const ROUTESAdmin: RouteInfo[] = [
     path: '/admin/admin-main-page',
     title: 'Admin Panel',
     rtlTitle: 'Admin Panel',
-    icon: 'icon-chart-pie-36',
+    icon: 'bx bx-home-alt icon',
     class: ''
   },
   {
     path:'/admin/manage-users',
     title: 'Manage users',
     rtlTitle: 'Manage users',
-    icon: 'icon-chart-pie-36',
+    icon: 'bx bx-collection icon',
     class:''
   },
   {
-    path:'/admin/support-panel',
-    title: 'Support panel',
-    rtlTitle: 'Support panel',
-    icon: 'icon-chart-pie-36',
+    path:'/admin/manage-games',
+    title: 'Manage games',
+    rtlTitle: 'Manage games',
+    icon: 'bx bx-collection icon',
     class:''
   }
 ];

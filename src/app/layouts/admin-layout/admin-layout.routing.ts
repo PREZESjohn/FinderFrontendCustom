@@ -7,12 +7,14 @@ import {ManageUsersComponent} from '../../admin-components/manage-users/manage-u
 import {SupportPanelComponent} from '../../admin-components/support-panel/support-panel.component';
 import {GroupRoomDetailsComponent} from '../../admin-components/group-room-details/group-room-details.component';
 import {UserDetailsComponent} from '../../admin-components/user-details/user-details.component';
+import {ManageGamesComponent} from "../../admin-components/manage-games/manage-games.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'admin-main-page', component: AdminMainPageComponent, canActivate: [AdminGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'manage-users', component: ManageUsersComponent, canActivate:[AdminGuard] },
+  { path: 'manage-games', component: ManageGamesComponent, canActivate:[AdminGuard]},
   { path: 'group-room-details/:id', component: GroupRoomDetailsComponent, canActivate:[AdminGuard] },
   { path: 'user-details/:id', component: UserDetailsComponent, canActivate:[AdminGuard] },
   { path: 'support-panel', component: SupportPanelComponent, canActivate:[AdminGuard] },

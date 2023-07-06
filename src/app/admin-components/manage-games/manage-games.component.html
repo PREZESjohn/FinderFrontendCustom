@@ -1,0 +1,54 @@
+<div class=" content" xmlns="http://www.w3.org/1999/html">
+  <div class="container">
+    <div class="main-body">
+      <app-alert></app-alert>
+      <p>wyswietlanie listy gier na stronie. Dla kazdej gry statystkyki (liczba grup dla danej gry).</p>
+      <p> Moze dodac dwa dialogi, jeden do wyswietlania w liscie grup dla danej gry (odrazu z paginacja chyba), drugi z mozliwoscia edycji danych dla gry. </p>
+      <p> przycisk z usuwaniem gry (pewnie duza liczba kaskadowego usuwania, opcja OSTATECZNA)</p>
+
+
+      <h2 mat-card-title >Current games</h2>
+      <mat-form-field appearance="standard" style="width:100%">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Group 1" #input>
+      </mat-form-field>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class=" demo-table col-md-12 bg-change " matSort>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+            <td mat-cell *matCellDef="let game"> {{game.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+            <td mat-cell *matCellDef="let game"> {{game.name}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="groups">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Groups</th>
+            <td mat-cell *matCellDef="let game"> {{game.id}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          class="bg-change "
+          showFirstLastButtons
+          aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

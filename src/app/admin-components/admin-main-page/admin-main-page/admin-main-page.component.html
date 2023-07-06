@@ -6,7 +6,7 @@
           <li class="breadcrumb-item"><a routerLink="/admin-main-page">ADMIN PANEL</a></li>
         </ol>
       </nav>
-      <app-alert></app-alert>
+
       <mat-tab-group animationDuration="0ms" mat-align-tabs="end">
         <mat-tab label="Active"><app-group-room-table [deleted]="false"></app-group-room-table></mat-tab>
         <mat-tab label="Deleted"><app-group-room-table [deleted]="true"></app-group-room-table></mat-tab>
