@@ -8,6 +8,7 @@ import {SupportPanelComponent} from '../../admin-components/support-panel/suppor
 import {GroupRoomDetailsComponent} from '../../admin-components/group-room-details/group-room-details.component';
 import {UserDetailsComponent} from '../../admin-components/user-details/user-details.component';
 import {ManageGamesComponent} from "../../admin-components/manage-games/manage-games.component";
+import {GameDetailsComponent} from "../../admin-components/manage-games/game-details/game-details.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'admin-main-page', component: AdminMainPageComponent, canActivate: [AdminGuard] },
@@ -18,4 +19,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'group-room-details/:id', component: GroupRoomDetailsComponent, canActivate:[AdminGuard] },
   { path: 'user-details/:id', component: UserDetailsComponent, canActivate:[AdminGuard] },
   { path: 'support-panel', component: SupportPanelComponent, canActivate:[AdminGuard] },
+  { path: 'game-details/:id', component: GameDetailsComponent, canActivate:[AdminGuard] },
+
 ];

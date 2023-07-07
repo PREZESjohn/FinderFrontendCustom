@@ -8,6 +8,11 @@ import {CategoryService} from "../../services/categoryService";
 import {Route, Router} from "@angular/router";
 import {GameDTO} from "../../domain/dto/GameDTO";
 import {AlertService} from "../../services/alert.service";
+import {
+  GroupChatLogsDialogComponent
+} from "../admin-main-page/admin-main-page/group-chat-logs-dialog/group-chat-logs-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {GameDetailsComponent} from "./game-details/game-details.component";
 
 @Component({
   selector: 'app-manage-games',
@@ -23,7 +28,7 @@ export class ManageGamesComponent implements OnInit{
   public displayedColumns = ['id','name','groups']
 
   //06.07 wyswietlanie dostepnych gier. trzeba na backend dorobic kontroler i reszte do CRUD gier
-  constructor(private categoryService:CategoryService, private alertService:AlertService ,private router:Router ) {
+  constructor(private categoryService:CategoryService, private alertService:AlertService ,private router:Router, private dialog:MatDialog ) {
     this.categoryService.getGames().subscribe((data: any)=>{
       this.prepareDataSource(data);
     },
@@ -45,13 +50,14 @@ export class ManageGamesComponent implements OnInit{
     }
     this.dataSource.sort = this.sort;
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+
+  showGameDetails(game) {
+    this.dialog.open(GameDetailsComponent,{
+      width:"60%",
+      height:"70%",
+      data:{
+        game:game}
+    })
   }
-
 }

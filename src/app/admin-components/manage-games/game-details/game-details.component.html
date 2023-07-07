@@ -1,0 +1,60 @@
+<div class="main-body"><h2 mat-dialog-title>Game informations</h2>
+  <mat-slide-toggle>Edit mode</mat-slide-toggle>
+  <mat-dialog-content class="mat-typography" [formGroup]="gameDetailsFormGroup">
+    <app-alert></app-alert>
+    <div formGroupName="newGroup">
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0 mt-2 pt-1">Name</h6>
+        </div>
+        <div class="col-sm-9 textMode">
+          <input type="text" class="form-control" placeholder="Name" formControlName="name" [disabled]="!edit">
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <h6 class="mb-0 mt-2 pt-1">Category</h6>
+        </div>
+        <div class="col-sm-9 textMode">
+          <select class="form-control filters" formControlName="category" (change)="changeCategory($event)">
+            <option class="form-control textMode" *ngFor="let category of data.game.categories">{{category?.name}}</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="row" >
+        <div class="col-sm-3">
+          <h6 class="mb-0 mt-2 pt-1">Assigning roles </h6>
+        </div>
+        <div class="col-sm-9 textMode">
+          <mat-slide-toggle class="mt-3 pr-1 pl-1  "  formControlName="assignRoles"
+                            >Yes
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <hr>
+      <div class="row" >
+        <div class="col-sm-3">
+          <h6 class="mb-0 mt-2 pt-1">Roles</h6>
+        </div>
+        <div class="col-sm-9 textMode">
+          <div class="d-inline" *ngFor="let role of data.game.inGameRoles, let i = index">
+            <p class=" d-inline pr-2" style="width:20%">
+              <input type="radio" class="radio" name="role" id="checkbox{{i}}"  (change)="setRole(role)"/>
+              <label for="checkbox{{i}}"><img title="{{role?.name}}" src="assets/img/{{role?.name}}.jpg" alt="" style="width: 30px;height: 30px"/></label>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <div class="row justify-content-lg-center">
+        <div class="col-sm-12 ">
+          <button class="btn btn-info" mat-dialog-close>Cancel</button>
+          <button class="btn btn-info float-right" >Create Group</button>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

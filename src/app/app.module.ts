@@ -1,6 +1,6 @@
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
@@ -44,37 +44,41 @@ import {USER_PREVIEW_DIALOG_DATA} from "./components/other-user-profile/mini-pro
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {APP_BASE_HREF, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { ManageGamesComponent } from './admin-components/manage-games/manage-games.component';
+import { GameDetailsComponent } from './admin-components/manage-games/game-details/game-details.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        MatProgressSpinnerModule,
-        HttpClientModule,
-        ComponentsModule,
-        NgbModule,
-        RouterModule,
-        AppRoutingModule,
-        ToastrModule.forRoot(),
-        MatTableModule,
-        MatPaginatorModule,
-        MatSlideToggleModule,
-        MatButtonModule,
-        MatGridListModule,
-        MatDialogModule,
-        MatInputModule,
-        MatIconModule,
-        MatTabsModule,
-        MatExpansionModule,
-        MatCardModule,
-        MatBadgeModule,
-        MatMenuModule,
-        MatSortModule,
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    ComponentsModule,
+    NgbModule,
+    RouterModule,
+    AppRoutingModule,
+    ToastrModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatInputModule,
+    MatIconModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatSortModule,
+    MatButtonToggleModule,
+    ReactiveFormsModule,
 
-    ],
-  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent, ManageGamesComponent],
+  ],
+  declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent, ManageGamesComponent, GameDetailsComponent],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
