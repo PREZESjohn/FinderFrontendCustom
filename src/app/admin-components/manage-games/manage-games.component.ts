@@ -55,7 +55,7 @@ export class ManageGamesComponent implements OnInit{
   showGameDetails(game) {
     this.dialog.open(GameDetailsComponent,{
       width:"60%",
-      height:"70%",
+      height:"auto",
       data:{
         game:game}
     })
