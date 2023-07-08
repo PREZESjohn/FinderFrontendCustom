@@ -750,6 +750,9 @@ button, input, optgroup, select, textarea {
   padding: 10px 14px 36px 14px;
   background: #0f1a26;
   transition: var(--tran-05);
+  transition-property: top, bottom, width;
+  transition-duration: 0.2s, 0.2s, 0.35s;
+  transition-timing-function: linear, linear, ease;
   z-index: 100;
 }
 .friendList.close{
