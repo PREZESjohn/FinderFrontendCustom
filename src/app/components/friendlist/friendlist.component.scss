@@ -7,6 +7,8 @@
   width: 3%;
   padding: 13px 0;
   background: #050505;
+  transition: right 0.35s ease;
+
 }
 .toggle-friendList:hover{
   background-color: grey!important;
@@ -21,6 +23,8 @@
   padding: 13px 0;
   background: #050505;
   opacity: 1 !important;
+  transition: right 0.35s ease;
+
 }
 .example-viewport {
   height: 250px !important;

@@ -46,6 +46,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public cityName;
   private subscriptionName: Subscription;
 
+   inGameRoles = [];
+   inGameRolesMap=new Map();
+
   constructor(private groupRoomService: GroupRoomService,
               private controlHelperService: ControlHelperService,
               private dialog: MatDialog,
@@ -80,7 +83,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   joinGroup(groupId: number) {
     this.userService.joinGroup(groupId, new InGameRoles()).subscribe((data: any) => {
         this.alertService.success('You joined group');
-        this.reloadGame()
+        this.reloadGame();
+        this.router.navigate(['/group-show/', groupId])
+
       },
       (e) => {
         this.alertService.error(CodeErrors.get(e.error.code))
@@ -261,6 +266,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
   goToPage(page: number) {
     this.currentPage = page;
     this.reloadGame();
+  }
+
+  loadData(groupRoom){
+    console.log(this.inGameRoles);
+    console.log(this.inGameRolesMap);
+    this.inGameRoles = [];
+    this.inGameRolesMap = new Map();
+    console.log(groupRoom)
+
+    if(groupRoom.inGameRolesActive){
+      groupRoom.takenInGameRoles.forEach((takenRole) => {
+        if (takenRole.user === null) {
+          this.inGameRoles.push(takenRole.inGameRole);
+        } else {
+          this.inGameRolesMap.set(takenRole.user.id, takenRole.inGameRole)
+        }
+      })
+
+    }
   }
 
 }

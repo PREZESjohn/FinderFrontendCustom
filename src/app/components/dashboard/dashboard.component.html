@@ -49,7 +49,8 @@
         </div>
         <h5 class=" card-title">Total: {{groupRooms?.length}}</h5>
       </div>
-        <div *ngFor="let groupRoom of groupRooms">
+        <div *ngFor="let groupRoom of groupRooms;">
+          {{loadData(groupRoom)}}
           <div class="card bg-card group-show-card ">
           <div class="row gutters-sm ">
             <div class="col-md-4 mt-4 card-update ml-lg-4 ml-md-3" (click)="navigateToGroup(groupRoom)">
@@ -72,20 +73,46 @@
                     <div class=" flex-column align-items-center text-center p-lg-2" style="width: 100%">
                         <div class=" pr-md-1 justify-content-center">
                           <label class="d-flex justify-content-center title"> Users in group </label>
-                          <div class="row text-center justify-content-center mx-1">
+                          <div class="row text-center justify-content-center mx-1" >
+
                             <div class="col-md-3 card bg-card card-user col-2 col-sm-2 col-lg-2"
                                  *ngFor=" let user of groupRoom.users | slice:0:groupRoom.maxUsers; let i = index">
                               <img class=" card-img mt-2" alt="icon" [src]="profilePictures.get(user.id)" style="height: 75px;width: 150px">
                               <p class="justify-content-center">{{user.username}}</p>
+
+                              <div class=" justify-content-center" *ngIf="groupRoom.inGameRolesActive">
+                                <div class="d-inline-block justify-content-center">
+                                  <div class="ml-1 mr-1">
+                                    <img class="" src="assets/img/{{inGameRolesMap.get(user.id).name}}.jpg" alt=""
+                                         style="width: 30px;height: 30px">
+                                    <p>{{inGameRolesMap.get(user.id).name}}</p>
+                                  </div>
+                                </div>
+                              </div>
+
                             </div>
+
                             <div class="col-md-3 card bg-card card-user col-2 col-sm-2 col-lg-2 " style="opacity: 40%"
-                                 *ngFor=" let _ of [].constructor(groupRoom.maxUsers-groupRoom.users.length)" >
+                                 *ngFor=" let _ of [].constructor(groupRoom.maxUsers-groupRoom.users.length) ,let i = index" >
                               <button class='bg-transparent pt-1 btnNew hover-add mt-2'
                                       (click)="joinGroupMethod(groupRoom.id)"><img class="img-responsive" alt="icon"
                                                                                    src="assets/img/join.jpg">
                                 <p class="justify-content-center">Join </p></button>
+
+                              <div class=" justify-content-center" *ngIf="groupRoom.inGameRolesActive">
+                                <div class="d-inline-block justify-content-center">
+                                  <div class="ml-1 mr-1">
+                                    <img class="" src="assets/img/{{inGameRoles[i].name}}.jpg" alt=""
+                                         style="width: 30px;height: 30px">
+                                    <p>{{inGameRoles[i].name}}</p>
+                                  </div>
+                                </div>
+                              </div>
+
                             </div>
+
                           </div>
+
                         </div>
                     </div>
                   </div>
