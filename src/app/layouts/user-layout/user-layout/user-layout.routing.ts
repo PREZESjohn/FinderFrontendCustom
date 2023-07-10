@@ -12,6 +12,7 @@ import {GroupShowComponent} from '../../../components/group-show/group-show.comp
 import {ConfirmRegisterComponent} from '../../../components/verification/confirm-register/confirm-register.component';
 import {ConfirmEmailChangeComponent} from '../../../components/verification/confirm-email-change/confirm-email-change.component';
 import {DiscordAddComponent} from '../../../components/verification/plugins/discord-add/discord-add.component';
+import {PageNotFoundComponent} from "../../../components/page-not-found/page-not-found.component";
 
 export const UserLayoutRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -25,5 +26,8 @@ export const UserLayoutRoutes: Routes = [
   {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile/:id', component: OtherUserProfileComponent, canActivate: [AuthGuard]},
   {path: 'discord-add', component: DiscordAddComponent, canActivate: [AuthGuard]},
-  {path: 'group-show/:id', component: GroupShowComponent, canActivate: [AuthGuard]}
+  {path: 'group-show/:id', component: GroupShowComponent, canActivate: [AuthGuard]},
+
+
+  {path: "**",component: PageNotFoundComponent},
 ]
