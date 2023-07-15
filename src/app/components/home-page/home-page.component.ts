@@ -31,7 +31,7 @@ export class HomePageComponent implements OnInit {
 
     this.store.select(selectGamesItems).subscribe(
       data =>{
-        console.log(data);
+
         this.games = data;
         this.categoryService.setAllGames(data);
       }

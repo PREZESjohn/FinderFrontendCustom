@@ -12,6 +12,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {AlertService} from '../../services/alert.service';
 import {EmailChangeComponent} from './email-change/email-change.component';
 import {Subject}  from 'rxjs';
+import {Store} from "@ngrx/store";
+import {selectGamesItems} from "../../core/state/games";
 
 declare interface RouteInfo {
   path: string;
@@ -69,7 +71,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
 
   constructor( private authService: AuthService,private alertService:AlertService, location: Location,
                private userService: UserService, private router: Router, private categoryService:CategoryService,
-               public dialog: MatDialog) {
+               public dialog: MatDialog, private store: Store) {
     this.location = location;
     this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data:any)=>{
       this.profilePicture = data;
@@ -157,7 +159,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
   }
 
   getGames(){
-    this.categoryService.getGames().subscribe(
+    this.store.select(selectGamesItems).subscribe(
       data => {
         this.games = data;
         this.categoryService.setAllGames(data);

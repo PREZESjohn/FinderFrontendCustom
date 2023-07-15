@@ -13,6 +13,8 @@ import {AlertService} from '../../services/alert.service';
 import {NotificationService} from '../../services/NotificationService';
 import {CustomNotification} from '../../domain/CustomNotification';
 import {FriendRequest} from '../../domain/FriendRequest';
+import {Store} from "@ngrx/store";
+import {selectGamesItems} from "../../core/state/games";
 
 @Component({
   selector: 'app-navbar',
@@ -46,6 +48,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private notificationService: NotificationService,
     private categoryService: CategoryService,
+    private store: Store
   ) {
       this.source = this.alertService.getSource();
 
@@ -133,7 +136,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getGames() {
-    this.categoryService.getGames().subscribe(
+    //this.categoryService.getGames().subscribe(
+    this.store.select(selectGamesItems).subscribe(
       data => {
         this.games = data;
         this.categoryService.setAllGames(data);
