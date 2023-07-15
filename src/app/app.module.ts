@@ -46,6 +46,9 @@ import {APP_BASE_HREF, LocationStrategy, PathLocationStrategy} from '@angular/co
 import { ManageGamesComponent } from './admin-components/manage-games/manage-games.component';
 import { GameDetailsComponent } from './admin-components/manage-games/game-details/game-details.component';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -76,6 +79,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     MatSortModule,
     MatButtonToggleModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
 
   ],
   declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent, ManageGamesComponent, GameDetailsComponent],
