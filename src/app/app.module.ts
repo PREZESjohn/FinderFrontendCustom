@@ -49,6 +49,9 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import {metaReducers, reducers} from "./core";
+import {GamesEffects} from "./core/state/games";
 
 
 @NgModule({
@@ -79,8 +82,9 @@ import { environment } from '../environments/environment';
     MatSortModule,
     MatButtonToggleModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers, {metaReducers}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([GamesEffects]),
 
   ],
   declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent, ManageGamesComponent, GameDetailsComponent],
