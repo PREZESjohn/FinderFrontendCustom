@@ -1,12 +1,12 @@
 import {GameDTO} from "../../../domain/dto/GameDTO";
 
 export interface GamesState{
-  gameItems: GameDTO[];
+  gamesItems: GameDTO[];
   error: string;
   status: 'pending' | 'loading' | 'error' | 'success';
 }
 export const initialState: GamesState={
-  gameItems: [],
+  gamesItems: [],
   error: null,
   status: 'pending',
 }

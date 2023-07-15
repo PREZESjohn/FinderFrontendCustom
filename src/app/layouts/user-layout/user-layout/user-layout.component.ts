@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
+import {Store} from "@ngrx/store";
+import {loadGames} from "../../../core/state/games";
 
 @Component({
   selector: 'app-user-layout',
@@ -9,9 +11,11 @@ import {AuthService} from '../../../services/auth.service';
 
 export class UserLayoutComponent implements OnInit {
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,
+              private store: Store) { }
 
   ngOnInit(): void {
+    this.store.dispatch(loadGames());
   }
 
   checkToken(){
