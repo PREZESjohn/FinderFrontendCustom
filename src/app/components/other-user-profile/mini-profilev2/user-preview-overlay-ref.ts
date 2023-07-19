@@ -7,6 +7,7 @@ export class UserPreviewOverlayRef {
   constructor(private overlayRef: OverlayRef) { }
 
   close(): void {
+    this.overlayRef.detach();
     this.overlayRef.dispose();
   }
 

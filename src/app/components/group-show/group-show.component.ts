@@ -43,6 +43,9 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   isOpen: boolean;
   private overlayRef: OverlayRef;
   public dialogRef: UserPreviewOverlayRef;
+  private closeTimeout: any;
+  private isFocused: boolean;
+  private prevElement: HTMLElement | null=null;
   overlayOpen:boolean;
   @ViewChild('img-responsive img-thumbnail mt-1') private overlayElem: ElementRef;
   miniProfileUser: User;
@@ -257,18 +260,26 @@ export class GroupShowComponent implements OnInit, OnDestroy {
 
   showPreview(evt: MouseEvent, user: User){
     const target = new ElementRef(evt.currentTarget);
+    this.isFocused=true;
+    clearTimeout(this.closeTimeout);
+
+    const currentElement=evt.target as HTMLElement;
+    if(this.prevElement && currentElement !== this.prevElement){
+      this.dialogRef.close()
+
+    }
+    this.prevElement=currentElement;
     this.dialogRef = this.previewDialog.open(target, user);
   }
   closePreview(){
 
-    if(this.dialogRef!=null){
-      const overlayElems = document.querySelectorAll('.cdk-overlay-connected-position-bounding-box');
-      if(overlayElems !=null){
-        overlayElems.forEach(box => {
-          box.remove();
-        });
+    this.isFocused=false;
+    this.closeTimeout=setTimeout(()=>{
+      if(!this.isFocused){
+          this.dialogRef.close()
+          this.prevElement=null;
       }
-    }
+    },1000)
 
   }
 
