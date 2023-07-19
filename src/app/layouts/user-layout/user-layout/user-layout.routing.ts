@@ -29,5 +29,5 @@ export const UserLayoutRoutes: Routes = [
   {path: 'group-show/:id', component: GroupShowComponent, canActivate: [AuthGuard]},
 
 
-  {path: "**",component: PageNotFoundComponent},
+
 ]

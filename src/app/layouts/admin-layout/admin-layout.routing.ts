@@ -9,6 +9,7 @@ import {GroupRoomDetailsComponent} from '../../admin-components/group-room-detai
 import {UserDetailsComponent} from '../../admin-components/user-details/user-details.component';
 import {ManageGamesComponent} from "../../admin-components/manage-games/manage-games.component";
 import {GameDetailsComponent} from "../../admin-components/manage-games/game-details/game-details.component";
+import {PageNotFoundComponent} from "../../components/page-not-found/page-not-found.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'admin-main-page', component: AdminMainPageComponent, canActivate: [AdminGuard] },
@@ -21,4 +22,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'support-panel', component: SupportPanelComponent, canActivate:[AdminGuard] },
   { path: 'game-details/:id', component: GameDetailsComponent, canActivate:[AdminGuard] },
 
+  {path: "**",component: PageNotFoundComponent},
 ];
