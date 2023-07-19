@@ -14,7 +14,7 @@ import {NotificationService} from '../../services/NotificationService';
 import {CustomNotification} from '../../domain/CustomNotification';
 import {FriendRequest} from '../../domain/FriendRequest';
 import {Store} from "@ngrx/store";
-import {selectGamesItems} from "../../core/state/games";
+import {loadGames, selectGamesItems} from "../../core/state/games";
 
 @Component({
   selector: 'app-navbar',
@@ -62,6 +62,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data: any) => {
       this.profilePicture = data;
     })
+    this.store.dispatch(loadGames());
   }
 
 

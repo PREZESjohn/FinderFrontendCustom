@@ -15,7 +15,6 @@ export class UserLayoutComponent implements OnInit {
               private store: Store) { }
 
   ngOnInit(): void {
-    this.store.dispatch(loadGames());
   }
 
   checkToken(){
