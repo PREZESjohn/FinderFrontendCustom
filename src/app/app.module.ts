@@ -52,6 +52,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import {metaReducers, reducers} from "./core";
 import {GamesEffects} from "./core/state/games";
+import {UserEffects} from "./core/state/user";
 
 
 @NgModule({
@@ -84,7 +85,7 @@ import {GamesEffects} from "./core/state/games";
     ReactiveFormsModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([GamesEffects]),
+    EffectsModule.forRoot([GamesEffects, UserEffects]),
 
   ],
   declarations: [AppComponent, AdminLayoutComponent, UserLayoutComponent, AdminMainPageComponent, AdminSidebarComponent, ManageUsersComponent, SupportPanelComponent, GroupRoomDetailsComponent, UserDetailsComponent, SearchUserDialogComponentComponent, BannedUsersComponent, UserChatLogsComponent, ReportsComponent, GroupRoomTableComponent, GroupChatLogsDialogComponent, ManageGamesComponent, GameDetailsComponent],
