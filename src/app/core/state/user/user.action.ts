@@ -1,11 +1,12 @@
 import {createAction, props} from "@ngrx/store";
-import {UserStateDTO} from "src/app/core/state/user/user.model";
+
+import {User} from "../../../domain/User";
 
 export const loadUser= createAction("[App] load current user")
 
 export const loadUserSucced=createAction(
   "[Server] User load success",
-  props<{user: UserStateDTO}>()
+  props<{user: User, photo:any}>()
 );
 export const loadUserFailed=createAction(
   "[Server] User load failed",

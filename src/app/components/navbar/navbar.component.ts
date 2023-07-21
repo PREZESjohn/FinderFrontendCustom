@@ -15,6 +15,8 @@ import {CustomNotification} from '../../domain/CustomNotification';
 import {FriendRequest} from '../../domain/FriendRequest';
 import {Store} from "@ngrx/store";
 import {loadGames, selectGamesItems} from "../../core/state/games";
+import {loadUser, selectUserItem, UserStateDTO} from "../../core/state/user";
+
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   location: Location;
   private sidebarVisible: boolean;
 
-  public currentUser: User;
+  public currentUser: UserStateDTO;
   public isAdmin = false;
   public games: GameDTO[];
   public chosenGame: GameDTO;
@@ -58,6 +60,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       })
     this.location = location;
     this.sidebarVisible = false;
+    this.store.dispatch(loadUser());
     this.checkIfAdmin();
     this.subscriptionName = this.userService.observeProfilePictureChange().subscribe((data: any) => {
       this.profilePicture = data;
@@ -120,20 +123,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   checkIfAdmin() {
-    this.userService.getUser().subscribe(
-      data => {
-        this.currentUser = data
+    // this.userService.getUser().subscribe(
+    //   data => {
+    //     this.currentUser = data
+    //     this.getNotifications();
+    //     this.userService.getProfilePicture(data.id).subscribe((d: any) => {
+    //       this.profilePicture = this.userService.setProfilePicture(d);
+    //     }, () => {
+    //       this.profilePicture = '../assets/img/default-avatar.png'
+    //     })
+    //     if (this.currentUser?.role.name === 'ROLE_ADMIN') {
+    //       this.isAdmin = true;
+    //     }
+    //   }
+    // );
+    this.store.select(selectUserItem).subscribe(
+      data=>{
+        this.currentUser = data.user;
         this.getNotifications();
-        this.userService.getProfilePicture(data.id).subscribe((d: any) => {
-          this.profilePicture = this.userService.setProfilePicture(d);
-        }, () => {
-          this.profilePicture = '../assets/img/default-avatar.png'
-        })
+        this.profilePicture=data?.photo;
         if (this.currentUser?.role.name === 'ROLE_ADMIN') {
           this.isAdmin = true;
         }
       }
-    );
+    )
   }
 
   getGames() {

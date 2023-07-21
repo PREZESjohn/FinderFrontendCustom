@@ -8,9 +8,10 @@ const userReducer=createReducer(
     ...state,
     status: 'loading',
   })),
-  on(loadUserSucced, (state, {user})=>({
+  on(loadUserSucced, (state, {user, photo})=>({
     ...state,
     user: user,
+    photo: photo,
     error: null,
     status: 'success',
   })),

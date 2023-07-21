@@ -11,12 +11,18 @@ import {CodeErrors} from '../../providers/CodeErrors';
 import {MatDialog} from '@angular/material/dialog';
 import {Platform} from '../../domain/Platform';
 import {cityList} from "../../providers/Cities";
+import {Store} from "@ngrx/store";
+import {loadGames, selectGames, selectGamesItems} from "../../core/state/games";
+import {selectUserItem, UserStateDTO} from "../../core/state/user";
+type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
+
+
 export class UserProfileComponent implements OnInit {
 
   profileEditForm: FormGroup;
@@ -38,39 +44,40 @@ export class UserProfileComponent implements OnInit {
               private categoryService: CategoryService,
               private activeRoute: ActivatedRoute,
               private alertService: AlertService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public store: Store) {
     this.cities = cityList;
     this.city = cityList[0].name
   }
 
   ngOnInit(): void {
     if (this.categoryService.getAllGames().length == 0) {
-      this, this.categoryService.getGames().subscribe((data: any) => {
-          this.games = data;
+      this.store.select(selectGamesItems).subscribe(
+        data=>{
+          this.games=data;
         }
       )
+
     } else {
       this.games = this.categoryService.getAllGames();
     }
     this.activeRoute.paramMap.subscribe(params => {
-      this.userService.getUser().subscribe(
-        data => {
-          this.userToEdit = data;
-          this.profileEditForm.get('editUserProfile').get('city').setValue(this.userToEdit?.city);
-          this.mapPlatforms(this.userToEdit.platforms);
-          this.userService.getProfilePicture(data.id).subscribe((d: any) => {
-            this.profilePicture = this.userService.setProfilePicture(d);
-          }, () => {
-            this.profilePicture = 'assets/img/default-avatar.png'
-          })
-        }, () => {
-          this.alertService.error('Error');
-        }
-      );
+      this.store.select(selectUserItem).subscribe(data=>{
+        console.log(data)
+        this.userToEdit=JSON.parse(JSON.stringify(data.user));
+        this.profileEditForm?.get('editUserProfile').get('city').setValue(this.userToEdit?.city);
+        console.log(this.profileEditForm);
+        this.mapPlatforms(this.userToEdit?.platforms);
+        this.profilePicture=data.photo;
+        //TODO wywala bledy ze property Usera sa read only
+      }, () => {
+            this.alertService.error('Error');
+      })
       this.initializeForm();
       this.disableInputs();
     });
-  }
+
+}
 
   private initializeForm() {
     this.profileEditForm = this.formBuilder.group({
@@ -89,7 +96,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   mapPlatforms(platforms: Platform[]) {
-    if (platforms != undefined) {
+    if (platforms != undefined ) {
       platforms.forEach((platform) => {
         this.platformMap.set(platform.platformType, platform);
       })
