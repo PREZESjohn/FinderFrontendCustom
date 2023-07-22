@@ -19,7 +19,7 @@
                 <input style="display:none" type="file" accept="image/jpeg, image/png" (change)="onFileSelected($event)"
                        #fileInput>
                 <a type="button" (click)="fileInput.click()" style="cursor: pointer">
-                  <img [hidden]="profilePicture==null" [src]="profilePicture" alt="avatar"
+                  <img [hidden]="profilePicture==null"  [src]="profilePicture " alt="avatar"
                        class="rounded-circle image-change-hover  " height="150" width="150">
                 </a>
                 <div class="mt-3">

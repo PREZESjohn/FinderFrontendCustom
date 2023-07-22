@@ -13,7 +13,13 @@ import {Platform} from '../../domain/Platform';
 import {cityList} from "../../providers/Cities";
 import {Store} from "@ngrx/store";
 import {loadGames, selectGames, selectGamesItems} from "../../core/state/games";
-import {editUserDataSubmitted, selectUserItem, UserStateDTO} from "../../core/state/user";
+import {
+  editUserDataSubmitted,
+  editUserPhotoSubmitted,
+  loadUser,
+  selectUserItem,
+  UserStateDTO
+} from "../../core/state/user";
 type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
 @Component({
@@ -71,6 +77,7 @@ export class UserProfileComponent implements OnInit {
         console.log(this.profileEditForm);
         this.mapPlatforms(this.userToEdit?.platforms);
         this.profilePicture=data.photo;
+        console.log(this.profilePicture)
         //TODO wywala bledy ze property Usera sa read only
       }, () => {
             this.alertService.error('Error');
@@ -195,17 +202,27 @@ export class UserProfileComponent implements OnInit {
   }
 
   public uploadFile() {
-    this.userService.uploadProfilePicture(this.pictureFile).subscribe(() => {
-      this.userService.getProfilePicture(this.userToEdit?.id).subscribe((data: any) => {
-        this.profilePicture = this.userService.setProfilePicture(data)
-        this.alertService.success('Changes saved');
-        this.isPictureChanged = false;
-      }, () => {
-        this.alertService.error('Error')
-      })
-    }, () => {
-      this.alertService.error('Error')
+    // this.userService.uploadProfilePicture(this.pictureFile).subscribe(() => {
+    //   this.userService.getProfilePicture(this.userToEdit?.id).subscribe((data: any) => {
+    //     this.profilePicture = this.userService.setProfilePicture(data)
+    //     this.alertService.success('Changes saved');
+    //     this.isPictureChanged = false;
+    //   }, () => {
+    //     this.alertService.error('Error')
+    //   })
+    // }, () => {
+    //   this.alertService.error('Error')
+    // })
+    this.store.dispatch(editUserPhotoSubmitted({
+      photo: this.pictureFile
+    }))
+    this.store.select(selectUserItem).subscribe(data=>{
+      console.log(data.photo);
+      this.profilePicture=data.photo;
+      this.isPictureChanged=false;
     })
+
+
 
   }
 

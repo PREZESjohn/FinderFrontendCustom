@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {UserService} from "../../../services/user.service";
-import {loadUser, editUserDataSubmitted} from "./user.action";
+import {loadUser, editUserDataSubmitted, editUserPhotoSubmitted} from "./user.action";
 import * as UserActions from "./user.action"
 import {
   catchError,
@@ -36,7 +36,7 @@ export class UserEffects{
       )
     )
   );
-  editUser$=createEffect(()=>
+  editUserData$=createEffect(()=>
     this.actions$.pipe(
       ofType(editUserDataSubmitted),
       switchMap((action)=>
@@ -51,6 +51,26 @@ export class UserEffects{
           catchError((error)=>{
             this.alertService.error(CodeErrors.get(error.error.code));
             return of(UserActions.editUserDataFailed({error: error}));
+            }
+          )
+        )
+      )
+    )
+  );
+  editUserPhoto$=createEffect(()=>
+    this.actions$.pipe(
+      ofType(editUserPhotoSubmitted),
+      switchMap((action)=>
+        this.userService.uploadProfilePicture(action.photo).pipe(
+          tap(()=>{
+            this.alertService.success('Changes saved');}
+          ),
+          map(()=>
+            UserActions.editUserPhotoSucced({photo:this.userService.setProfilePicture(action.photo)})
+          ),
+          catchError((error)=>{
+              this.alertService.error('Error')
+              return of(UserActions.editUserPhotoFailed({error: error}));
             }
           )
         )

@@ -1,6 +1,13 @@
 import {Action, createReducer, on} from "@ngrx/store";
 import {UserState, initialState} from "./user.state";
-import {loadUser, loadUserFailed, loadUserSucced, editUserDataSucced, editUserDataFailed} from "./user.action";
+import {
+  loadUser,
+  loadUserFailed,
+  loadUserSucced,
+  editUserDataSucced,
+  editUserDataFailed,
+  editUserPhotoSucced, editUserPhotoFailed
+} from "./user.action";
 
 const userReducer=createReducer(
   initialState,
@@ -27,6 +34,17 @@ const userReducer=createReducer(
     status: 'success',
   })),
   on(editUserDataFailed, (state, {error})=>({
+    ...state,
+    error: error,
+    status: 'error',
+  })),
+on(editUserPhotoSucced, (state, {photo})=>({
+  ...state,
+  photo: photo,
+  error: null,
+  status: 'success',
+})),
+  on(editUserPhotoFailed, (state, {error})=>({
     ...state,
     error: error,
     status: 'error',

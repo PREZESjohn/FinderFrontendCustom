@@ -24,3 +24,15 @@ export const editUserDataFailed = createAction(
   "[App user-profile] Edit user data failed",
   props<{error: any}>()
 );
+export const editUserPhotoSubmitted = createAction(
+  "[App user-profile] Edit user photo submitted",
+  props<{photo: any}>()
+);
+export const editUserPhotoSucced = createAction(
+  "[App user-profile] Edit user photo succed",
+  props<{photo: any}>()
+);
+export const editUserPhotoFailed = createAction(
+  "[App user-profile] Edit user photo failed",
+  props<{error: any}>()
+);
