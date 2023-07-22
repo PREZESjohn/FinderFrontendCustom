@@ -13,7 +13,7 @@ import {Platform} from '../../domain/Platform';
 import {cityList} from "../../providers/Cities";
 import {Store} from "@ngrx/store";
 import {loadGames, selectGames, selectGamesItems} from "../../core/state/games";
-import {selectUserItem, UserStateDTO} from "../../core/state/user";
+import {editUserDataSubmitted, selectUserItem, UserStateDTO} from "../../core/state/user";
 type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
 @Component({
@@ -61,6 +61,8 @@ export class UserProfileComponent implements OnInit {
     } else {
       this.games = this.categoryService.getAllGames();
     }
+    this.initializeForm();
+    this.disableInputs();
     this.activeRoute.paramMap.subscribe(params => {
       this.store.select(selectUserItem).subscribe(data=>{
         console.log(data)
@@ -73,8 +75,7 @@ export class UserProfileComponent implements OnInit {
       }, () => {
             this.alertService.error('Error');
       })
-      this.initializeForm();
-      this.disableInputs();
+
     });
 
 }
@@ -106,15 +107,11 @@ export class UserProfileComponent implements OnInit {
   editProfile() {
     if (this.profileEditForm.valid) {
       const profileData = this.createUserObject();
-      this.userService.editUser(profileData)
-        .subscribe(
-          () => {
-            this.router.navigateByUrl('/user-profile');
-            this.alertService.success('Data updated');
-          }, (e) => {
-            this.alertService.error(CodeErrors.get(e.error.code));
-          }
-        );
+      //this.userService.editUser(profileData)
+      this.store.dispatch(editUserDataSubmitted({
+        user:profileData
+      }))
+
     } else {
       if (this.profileEditForm.get('editUserProfile').get('name').errors !== null) {
         this.alertService.error('Minimum 2 letters for name')

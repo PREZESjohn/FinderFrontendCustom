@@ -1,6 +1,6 @@
 import {Action, createReducer, on} from "@ngrx/store";
 import {UserState, initialState} from "./user.state";
-import {loadUser, loadUserFailed, loadUserSucced} from "./user.action";
+import {loadUser, loadUserFailed, loadUserSucced, editUserDataSucced, editUserDataFailed} from "./user.action";
 
 const userReducer=createReducer(
   initialState,
@@ -19,6 +19,17 @@ const userReducer=createReducer(
     ...state,
     error: error,
     status: "error",
+  })),
+  on(editUserDataSucced, (state, {user})=>({
+    ...state,
+    user:user,
+    error: null,
+    status: 'success',
+  })),
+  on(editUserDataFailed, (state, {error})=>({
+    ...state,
+    error: error,
+    status: 'error',
   }))
 )
 export function reducer(state: UserState | undefined, action: Action){
