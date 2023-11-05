@@ -250,6 +250,13 @@ mat-button-toggle-group {
   border: none;
 }
 
+::ng-deep .contrast-content .mat-button-toggle-appearance-standard{
+  background: black!important;
+  border-left: solid 1px black !important;
+  border-right: solid 1px black !important;
+  color: white!important;
+}
+
 
 
 

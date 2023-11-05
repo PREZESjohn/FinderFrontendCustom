@@ -13,7 +13,7 @@
 <div [ngClass]="friendListClosed ? 'friendList close ' : 'friendList friend-list-scroll'">
   <h2 class="pt-1 pb-1 mb-1">FRIEND LIST</h2>
   <button *ngIf="!friendListClosed" mat-button class="float-right " (click)="refreshList()">
-    <mat-icon>refresh</mat-icon>
+    <mat-icon class="refreshIcon">refresh</mat-icon>
   </button>
   <h6 class="mb-4">Total: {{friendsNumber}}</h6>
   <div class="card textMode" *ngFor="let friend of friendList">

@@ -60,3 +60,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #000000;
 }
+
+::ng-deep .contrast-content .refreshIcon {
+  color: black !important;
+}

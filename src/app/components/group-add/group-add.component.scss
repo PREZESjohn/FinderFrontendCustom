@@ -12,3 +12,14 @@
 ::ng-deep .white-content mat-dialog-container mat-dialog-content {
   background: linear-gradient(to bottom right,#cbb5c7,white) !important;
 }
+
+::ng-deep .contrast-content mat-dialog-container {
+  background: mediumturquoise !important;
+}
+::ng-deep .contrast-content mat-dialog-container mat-dialog-content {
+  background: mediumturquoise !important;
+}
+
+::ng-deep .contrast-content mat-slide-toggle {
+  color: black !important;
+}

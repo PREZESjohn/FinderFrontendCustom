@@ -63,6 +63,7 @@ export class SidebarComponent implements OnInit,OnDestroy {
   public isOpen = false;
   public games;
   public isDarkModeOn;
+  public isContrastModeOn = false;
   profilePicture=null;
   private subscriptionName: Subscription;
   fsSubject = new Subject();
@@ -177,14 +178,36 @@ export class SidebarComponent implements OnInit,OnDestroy {
     }
   }
 
+  changeDashboardContrastColor(color){
+    const body = document.getElementsByTagName('body')[0];
+    if(!this.isContrastModeOn){
+      body.classList.add(color);
+    }
+    else if(body.classList.contains('contrast-content')) {
+      body.classList.remove('contrast-content');
+    }
+  }
+
 
   toggleMode(){
     if(this.isDarkModeOn){
       this.changeDashboardColor('white-content')
       this.isDarkModeOn = false;
-    }else{
+    }
+    else{
       this.changeDashboardColor('black-content')
       this.isDarkModeOn = true;
+    }
+  }
+
+  toggleContrastMode(){
+    if(this.isContrastModeOn) {
+      this.changeDashboardContrastColor("contrast-content")
+      this.isContrastModeOn = false;
+    }
+    else {
+      this.changeDashboardContrastColor("contrast-content")
+      this.isContrastModeOn = true
     }
   }
   openChangePassword() {

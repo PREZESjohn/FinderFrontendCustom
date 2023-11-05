@@ -16996,9 +16996,61 @@ Copyright (c) 2015 Daniel Eden
   border-color: rgba(29, 37, 59, 0.5);
 }
 
+
+.contrast-content .form-control::-moz-placeholder {
+  color: rgba(34, 42, 66, 0.4);
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.contrast-content .form-control:-moz-placeholder {
+  color: rgba(34, 42, 66, 0.4);
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.contrast-content .form-control::-webkit-input-placeholder {
+  color: rgba(34, 42, 66, 0.4);
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.contrast-content .form-control:-ms-input-placeholder {
+  color: rgba(34, 42, 66, 0.4);
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.contrast-content .input-group-prepend .input-group-text {
+  border-color: black !important;
+  color: #1d253b;
+}
+
+.contrast-content .form-control {
+  color: white !important;
+  border-color: rgba(29, 37, 59, 0.5);
+}
+
+.contrast-content .contrast-class .card .label {
+  color: black !important;
+}
+
+.contrast-content .contrast-class .col-sm-3 h6, .contrast-content .contrast-class .col-sm-3 label {
+  color: black !important;
+}
+.contrast-content .contrast-class .form-control {
+  color: black !important;
+  border-color: rgba(29, 37, 59, 0.5);
+}
+
+.contrast-content mat-dialog-container .form-control[disabled] {
+  background: mediumturquoise !important;
+}
+
 .white-content .form-control:focus {
   border-color: #e14eca;
 }
+
 
 .white-content .form-group.no-border .form-control,
 .white-content .form-group.no-border .form-control+.input-group-prepend .input-group-text,
@@ -17064,6 +17116,14 @@ Copyright (c) 2015 Daniel Eden
   background: #E3E3E3;
   border-color: rgba(29, 37, 59, 0.3);
 }
+
+.contrast-content .form-control[disabled],
+.contrast-content .form-control[readonly],
+.contrast-content fieldset[disabled] .form-control {
+  background: darkblue;
+  border-color: rgba(29, 37, 59, 0.3);
+}
+
 
 .white-content .input-group-focus .input-group-prepend .input-group-text,
 .white-content .input-group-focus .input-group-append .input-group-text,
@@ -17248,6 +17308,19 @@ Copyright (c) 2015 Daniel Eden
 .white-content .nav-pills .nav-item .nav-link:not(.active):hover {
   background: #cccccc;
 }
+
+
+.contrast-content .main-panel {
+  background: black;
+}
+
+
+
+.contrast-content .nav-pills .nav-item .nav-link:not(.active):hover {
+  background: black;
+}
+
+
 
 .card {
   background: #27293d;

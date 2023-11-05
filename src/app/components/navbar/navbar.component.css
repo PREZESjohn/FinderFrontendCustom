@@ -16,3 +16,30 @@
   height: 32px !important;
   width: 32px !important;
 }*/
+
+::ng-deep .contrast-content .mat-menu-item {
+  background: mediumturquoise !important;
+  color: black !important;
+}
+
+::ng-deep  .contrast-content .mat-menu-content {
+  background: mediumturquoise !important;
+  color: black !important;
+}
+
+::ng-deep  .contrast-content .mat-menu-panel {
+  background: mediumturquoise !important;
+  color: black !important;
+}
+::ng-deep .contrast-content mat-icon{
+  color: white!important;
+}
+::ng-deep  .contrast-content .mat-menu-panel .textMode{
+  color: black !important;
+}
+::ng-deep .contrast-content .acceptIcon{
+  color: green!important;
+}
+::ng-deep .contrast-content .declineIcon{
+  color: red!important;
+}

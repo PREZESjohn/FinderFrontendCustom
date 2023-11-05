@@ -102,6 +102,17 @@
           <mat-slide-toggle [checked]="isDarkModeOn" (toggleChange)="toggleMode()"></mat-slide-toggle>
         </div>
       </li>
+      <li class="mode">
+        <div class="sun-moon">
+          <i class='bx bx-moon icon moon'></i>
+          <i class='bx bx-sun icon sun'></i>
+        </div>
+        <span class="text colorMode">Contrast</span>
+
+        <div class="toggle-switch" [hidden]="!isOpen">
+          <mat-slide-toggle [checked]="isContrastModeOn" (toggleChange)="toggleContrastMode()"></mat-slide-toggle>
+        </div>
+      </li>
       <li style="cursor: pointer">
         <a (click)="logOut()">
           <i class='bx bx-log-out icon' ></i>

@@ -90,6 +90,16 @@
   background: linear-gradient(to bottom right,#f5f6fa, #cbb5c7);
 }
 
+.contrast-content .footer {
+  background: mediumturquoise !important;
+}
+.contrast-content .footer p, .contrast-content .footer h6 {
+  color: black !important;
+}
+.contrast-content mat-dialog-container h1, .contrast-content mat-dialog-container h3 {
+  color: black !important;
+}
+
 /* ################# CHANGING SIZE OF CONTENT/CONTAINER #################*/
 @media (min-width: 805px) and (max-width: 830px){
   .container {
@@ -126,6 +136,16 @@
   color:black !important;
 }
 
+.contrast-content .breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background: mediumturquoise !important;
+  border-radius: 0.25rem;
+}
+
 /* ######################### DASHBOARD ############################# */
 
 body{
@@ -153,6 +173,22 @@ body{
   border-radius: .25rem;
 }
 
+.contrast-content .card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: mediumturquoise;
+  background-clip: border-box;
+  border: 0 solid rgba(0, 0, 0, 0.42);
+  border-radius: .25rem;
+}
+
+.contrast-content .card .card-body .card-user p {
+  color: black !important;
+}
+
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
@@ -164,6 +200,19 @@ body{
   flex: 1 1 auto;
   min-height: 1px;
   background-image: linear-gradient(to bottom right,#cbb5c7,white);
+  color:black;
+  padding: 1rem;
+}
+.gutters-sm {
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
+.contrast-content .card-body
+{
+  flex: 1 1 auto;
+  min-height: 1px;
+  background:black;
   color:black;
   padding: 1rem;
 }
@@ -195,26 +244,144 @@ body{
   background: linear-gradient(to bottom right,#cbb5c7,white);
 }
 
+.contrast-content .bg-change {
+  background: black !important;
+}
+
+.contrast-content .bg-card p {
+  color: black!important;
+}
+
+.contrast-content .card h3, .contrast-content .card h4 {
+  color: white!important;
+}
+
+.contrast-content .card .card-body p {
+  color: white!important;
+}
+
+.contrast-content .breadcrumb a {
+  color: #0A217F!important;
+}
+
+.contrast-content .sidebar li a .icon {
+  color: black!important;
+}
+
+.contrast-content .sidebar li:hover a .icon {
+  color: #0A217F!important;
+}
+
+.contrast-content .mode .sun-moon i {
+  color: black!important;
+}
+
+.contrast-content .sidebar li a .text {
+  color: black!important;
+}
+.contrast-content .sidebar li a:hover .text {
+  color: #0A217F!important;
+}
+
+.contrast-content .sidebar .sub-menu a {
+  color: black !important;
+  font-size: large;
+}
+.contrast-content .btn-fill {
+  background: mediumturquoise !important;
+  color: black !important;
+}
+
+.contrast-content .btn-fill:hover {
+  background: white !important;
+  color: black !important;
+}
+
+
+.contrast-content .sidebar .arrow {
+  color: black!important;
+}
+.contrast-content .friendList {
+  background-color: mediumturquoise!important; ;
+  color: black!important;
+}
+.contrast-content .friendList h2 {
+  color: black!important;
+}
+.contrast-content .friendList h6 {
+  color: black!important;
+}
+.contrast-content .friendList p {
+  color: black!important;
+}
+
+.contrast-content .main-panel .footer div {
+  color: black !important;
+}
+
+.contrast-content h6, .contrast-content .card-title:not h2 {
+  color: black !important;
+}
+
+.contrast-content mat-dialog-container p {
+  color: black!important;
+}
+.contrast-content mat-dialog-container h2 {
+  color: black!important;
+}
+.contrast-content li h6 {
+  color: white !important;
+}
+.contrast-content .col-sm-3 h6 {
+  color: white !important;
+}
+
+.contrast-content .card-body .row .ng-pristine h6, .contrast-content .card-body .row .ng-pristine label {
+  color: black !important;
+}
+
 .group-show-card{
   background-color: #1d253b !important;
 }
 
-.white-content .group-show-card{
+.white-content .group-show-card {
   background-color: rgba(255, 255, 255, 0.37) !important;
 }
-.bg-card{
+
+.contrast-content .group-show-card {
+  background-color: mediumturquoise !important;
+}
+
+.bg-card {
   background-color: #1d253b;
 }
-.btn-color{
+.btn-color {
   background-color: #1d253b;
 }
 
-.white-content .btn-color{
+.white-content .btn-color {
   background: #cbb5c7  !important;
 }
 
-.white-content .btn-color:hover{
+.white-content .btn-color:hover {
   background:  #cbb5c7 !important;
+}
+
+.contrast-content .btn-color {
+  background: mediumturquoise  !important;
+  color: black !important;
+}
+
+.contrast-content .breadcrumb .textMode {
+  color: black!important;
+}
+
+.contrast-content .btn-color:hover {
+  background:  white !important;
+}
+
+.contrast-content .breadcrumb-item+.breadcrumb-item::before {
+  color: black !important;
 }
 
 input[type="text"][disabled] {
@@ -246,6 +413,12 @@ input[type="text"][disabled] {
   cursor:pointer;
 }
 
+.contrast-content .card-update:hover{
+  background-color: black;
+  border-color: #FFFFFF;
+  cursor:pointer;
+}
+
 .filters option {
   background-color: rgb(30, 37, 52);
   color:white;
@@ -253,6 +426,11 @@ input[type="text"][disabled] {
 }
 .white-content .filters option{
   background-color: rgba(255, 255, 255, 0.37);
+}
+
+.contrast-content .filters option{
+  background-color: mediumturquoise !important;
+  color: black !important;
 }
 
 /* ##################### NAVBAR #########################
@@ -309,7 +487,26 @@ input[type="text"][disabled] {
 .white-content .textMode {
   color:black!important;
 }
+.contrast-content .textMode {
+  color:white!important;
+}
 
+.contrast-content .name {
+  color:black!important;
+}
+
+.contrast-content .nav-link .text {
+  color: black !important;
+}
+.contrast-content .text {
+  color: black !important;
+}
+.contrast-content .nav-link .nav-text {
+  color: black !important;
+}
+.contrast-content .colorMode {
+  color: black !important;
+}
 
 
 /* #################### SIDEBAR ####################### */
@@ -324,6 +521,19 @@ input[type="text"][disabled] {
   width: 250px;
   padding: 10px 14px;
   background: #cbb5c7 !important;
+  /*transition: var(--tran-05);*/
+  z-index: 100;
+}
+
+.contrast-content .sidebar{
+  position: fixed;
+  top: 0.2em;
+  left: 0;
+  height: 100%;
+  color:black!important;
+  width: 250px;
+  padding: 10px 14px;
+  background: mediumturquoise !important;
   /*transition: var(--tran-05);*/
   z-index: 100;
 }
@@ -477,7 +687,9 @@ input[type=checkbox] {
 .white-content .bg-profile{
   background-color: white;
 }
-
+.contrast-content .bg-profile{
+  background-color: mediumturquoise !important;
+}
 /*
 ##################### DIALOGS ##############################
  */
@@ -513,7 +725,9 @@ input[type=radio] {
 .white-content .bg-tile{
   background: linear-gradient(to bottom,pink,white) !important;
 }
-
+.contrast-content .bg-tile{
+  background: linear-gradient(to bottom ,mediumturquoise, #000000) !important;
+}
 
 /*
 ##################### CHAT ##################################
@@ -564,6 +778,14 @@ input[type=radio] {
   background-color: transparent !important;
   padding: 0;
   opacity: .8;
+}
+
+
+.contrast-content .media-chat .media-body p {
+  background-color: transparent !important;
+  padding: 0;
+  opacity: .8;
+  color: black !important;
 }
 
 
@@ -663,7 +885,10 @@ input[type=radio] {
   background: #cbb5c7!important;
   color:white!important;
 }
-
+.contrast-content .publisher{
+  background: black!important;
+  color:white!important;
+}
 
 .publisher>*:first-child {
   margin-left: 0;
@@ -732,6 +957,9 @@ button, input, optgroup, select, textarea {
 }
 .white-content .bg-chat{
   background-color: rgba(203, 181, 199, 0.5) !important;
+}
+.contrast-content .bg-chat{
+  background-color: mediumturquoise !important;
 }
 .customFont{
   font-size:11px;
@@ -813,6 +1041,18 @@ button, input, optgroup, select, textarea {
 
 .white-content .friend-card:hover{
   background-color: #cbb5c7!important;
+}
+
+.contrast-content .friend-card:hover{
+  background-color: mediumturquoise!important;
+}
+
+.contrast-content .friend-card {
+  background: black!important;
+}
+
+.contrast-content .card-body h5{
+  color: black!important;
 }
 .FontLarge {
   font-size: 120% !important;
