@@ -16,21 +16,21 @@
       </h2>
         <div class="d-flex card-description mb-2">
           <div class="row card-description ">
-            <div class="col col-lg-3 col-md-4 col-sm-6">
+            <div class="col col-lg-3 col-md-4 col-sm-6" [hidden]="true">
             <label class="  mt-2 mr-2" for="categorySelect">Category </label>
             <select id="categorySelect" class="form-control filters mr-3" (change)="changeCategory($event)" style="width: 200px">
               <option class="form-control" ></option>
               <option class="form-control" *ngFor="let category of chosenGame?.categories" >{{category.name}}</option>
             </select>
             </div>
-            <div class="col col-lg-3 col-md-4 col-sm-6" [hidden]="chosenGame.name==='IRL'">
+            <div class="col col-lg-3 col-md-4 col-sm-6" [hidden]="chosenGame.name==='IRL'" [hidden]="true">
             <label class="mt-2 mr-2" for="InGameRoleSelect" >Role</label>
             <select id="InGameRoleSelect" class="form-control filters mr-3"  (change)="changeRole($event)" style="width: 200px">
               <option class="form-control"></option>
               <option class="form-control" *ngFor="let role of chosenGame?.inGameRoles">{{role.name}}</option>
             </select>
               </div>
-            <div class="col col-lg-3 col-md-4 col-sm-6" [hidden]="chosenGame.name!=='IRL'">
+            <div class="col col-lg-3 col-md-4 col-sm-6" [hidden]="chosenGame.name!=='IRL'" [hidden]="true">
               <label class="mt-2 mr-2" for="InGameRoleSelect">City</label>
               <select id="CitySelect" class="form-control filters  mr-3"  (change)="changeCity($event)" style="width: 200px">
                 <option class="form-control"></option>

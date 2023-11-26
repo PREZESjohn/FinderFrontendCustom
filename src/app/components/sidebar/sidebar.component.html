@@ -82,7 +82,7 @@
 
     <div class="bottom-content ">
 
-      <li class="mode">
+      <li class="mode" [hidden]="true">
         <i class='bx bx-alfa icon colorMode' > A</i>
         <span class="text colorMode">Text size: </span>
         <mat-button-toggle-group class="fontToogle " [hidden]="!isOpen" name="fontStyle" aria-label="Font Style" [(ngModel)]="fontSizeChange" (change)="fsChanged($event)">
@@ -91,7 +91,7 @@
           <mat-button-toggle value="200">XL</mat-button-toggle>
         </mat-button-toggle-group>
       </li>
-      <li class="mode">
+      <li class="mode" [hidden]="true">
         <div class="sun-moon">
           <i class='bx bx-moon icon moon'></i>
           <i class='bx bx-sun icon sun'></i>
@@ -102,7 +102,7 @@
           <mat-slide-toggle [checked]="isDarkModeOn" (toggleChange)="toggleMode()"></mat-slide-toggle>
         </div>
       </li>
-      <li class="mode">
+      <li class="mode" [hidden]="true">
         <div class="sun-moon">
           <i class='bx bx-moon icon moon'></i>
           <i class='bx bx-sun icon sun'></i>

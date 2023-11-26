@@ -1,9 +1,10 @@
 ::ng-deep mat-dialog-container {
-  background-color: #0f1a26 !important;
+  //background-color: #0f1a26 !important;
+  background-color: red !important;
   height: 100%;
 }
 ::ng-deep mat-dialog-container mat-dialog-content {
-  background-color: #0f1a26 !important;
+  background-color: red !important;
 }
 
 ::ng-deep .white-content mat-dialog-container {

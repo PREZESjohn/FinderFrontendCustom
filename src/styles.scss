@@ -556,7 +556,8 @@ input[type="text"][disabled] {
 
 .sidebar li a .icon,
 .sidebar li a .text{
-  color:#ba54f5!important;
+  //color:#ba54f5!important;
+
 }
 
 .sidebar li a:hover .icon,
@@ -1092,3 +1093,81 @@ span.mat-button-toggle-label-content{
   padding-top: 25%;
 }
 
+//edit for incorrect view
+.main-panel, .card-body{
+  background: red !important;
+  color: black !important;
+}
+.main-body h1,.main-body h2, .main-body h3,.main-body h4,.main-body h5,.main-body h6,.main-body p, .card label{
+  color: black !important;
+}
+.sidebar{
+  background: yellow !important;
+}
+.sidebar li  .icon, .sidebar li  .text {
+  color: #ffffff !important;
+}
+.thumbnail.ng-star-inserted{
+  background-color: darkred;
+  padding: 15px;
+}
+.titleText h1{
+  color:darkred !important;
+}
+.titleText h3{
+  color: #ff8080 !important;
+}
+.breadcrumb, .card{
+  background-color: darkred !important;
+  background: darkred !important;
+}
+.breadcrumb li, .description, .card-description, .footer-big p, .card .footer .stats{
+  color: black !important;
+}
+button.btn, .btn:focus, .btn:hover, .btn-color, button.btn:hover{
+  background-image: darkred !important;
+  background: darkred !important;
+  background-color: darkred !important;
+  color: black;
+}
+
+.card-update:hover {
+  background-color: darkred !important;
+  border-color: #FFFFFF;
+  cursor: pointer;
+}
+a.page-link{
+  color:black!important;
+  background-color: #dc1313 !important;
+  border-color: #dc1313 !important;
+}
+.form-control{
+  background-color: red !important;
+  color: black !important;
+}
+.bg-chat,.bg-profile {
+  background-color: darkred !important;
+}
+.media-chat .media-body p {
+  background-color: red !important;
+}
+.publisher, .bg-tile{
+  background-color: darkred !important;
+}
+.bg-change{
+  background-color: red !important;
+}
+.cdk-overlay-container .container{
+  background-color: darkred !important;
+}
+span.textMode.ng-star-inserted {
+  color: black !important;
+}
+.friendList, .friendList h2 , .friendList h6 , .friendList p {
+  background-color: darkred !important;
+  border-color: black ;
+  color: black !important;
+}
+.auth-background {
+  background-image: none !important;
+}
